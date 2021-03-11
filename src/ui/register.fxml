@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="registerPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="608.0" prefWidth="662.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="87.0" layoutY="120.0" prefHeight="478.0" prefWidth="488.0" style="-fx-background-color: white; -fx-border-color: black;">
+         <children>
+            <TextField fx:id="txtRegLastName" layoutX="107.0" layoutY="104.0" prefHeight="39.0" prefWidth="277.0" promptText="Last Name(s)" style="-fx-border-color: black;">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></TextField>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="98.0" layoutY="386.0" prefHeight="27.0" prefWidth="296.0" text="Already have an account?">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtRegUsername" editable="false" layoutX="107.0" layoutY="156.0" prefHeight="39.0" prefWidth="277.0" promptText="Username" style="-fx-border-color: black;">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></TextField>
+            <PasswordField fx:id="txtRegPassword" layoutX="107.0" layoutY="208.0" prefHeight="39.0" prefWidth="277.0" promptText="Password" style="-fx-border-color: black;">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></PasswordField>
+            <Button layoutX="124.0" layoutY="317.0" mnemonicParsing="false" onAction="#CreateAnAccount" prefHeight="39.0" prefWidth="240.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create an account">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="125.0" layoutY="429.0" mnemonicParsing="false" onAction="#RegSignIn" prefHeight="35.0" prefWidth="240.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Sign In">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="155.0" layoutY="14.0" prefHeight="27.0" prefWidth="181.0" text="Register">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtRegName" layoutX="107.0" layoutY="55.0" prefHeight="39.0" prefWidth="277.0" promptText="Name" style="-fx-border-color: black;">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></TextField>
+            <Separator layoutX="2.0" layoutY="368.0" prefHeight="11.0" prefWidth="487.0" />
+            <TextField fx:id="txtRegIdentification" layoutX="107.0" layoutY="260.0" prefHeight="39.0" prefWidth="277.0" promptText="Identification (ID)" style="-fx-border-color: black;">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></TextField>
+         </children>
+      </Pane>
+      <ImageView fx:id="registerImage" fitHeight="99.0" fitWidth="626.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Downloads/WhatsApp%20Image%202021-03-08%20at%204.39.19%20PM.jpeg" />
+         </image></ImageView>
+   </children>
+</Pane>
