@@ -3,24 +3,39 @@ package model;
 import java.util.ArrayList;
 
 public class Product{
-	/*
-	 * El sistema debe estar en la capacidad de gestionar (crear, actualizar, eliminar y deshabilitar) todos los productos que ofrece. 
-	 * Todo producto tiene un nombre, un tipo (plato principal, adicional o bebida -pero estos pueden variar-), un conjunto de ingredientes,
-	 *  y tamaños con sus respectivos precios.
-	 */
+	
 	private String name;
 	private ProductType type;
 	private ArrayList<Ingredients> ingredients;
 	private boolean available;
 	private double price;
 	private String productSize;
+	private User creator;
+	private User lastEditor;
 	
-	public Product (String name, ProductType type, Ingredients ingredients, double price) {
-		this.name=name;
-		this.type=type;
-		this.ingredients= new ArrayList<>();
-		this.available=true;
-		this.price=price;
+	
+	public Product(String name, ProductType type, ArrayList<Ingredients> ingredients, boolean available, double price,
+			String productSize, User creator, User lastEditor) {
+		this.name = name;
+		this.type = type;
+		this.ingredients = new ArrayList<>();
+		this.available = available;
+		this.price = price;
+		this.productSize = productSize;
+		this.creator = creator;
+		this.lastEditor = creator;
+	}
+	public User getCreator() {
+		return creator;
+	}
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+	public User getLastEditor() {
+		return lastEditor;
+	}
+	public void setLastEditor(User lastEditor) {
+		this.lastEditor = lastEditor;
 	}
 	public String getName() {
 		return name;
@@ -56,14 +71,10 @@ public class Product{
 		return productSize;
 	}
 	public void setProductSize(String productSize) {
-		if (productSize.equalsIgnoreCase("")) {
-			this.productSize = ProductSize.valueOf("").toString();
-		} else if (productSize.equalsIgnoreCase("")) {
-			this.productSize = ProductSize.valueOf("").toString();
-		} else if (productSize.equalsIgnoreCase("")) {
-			this.productSize = ProductSize.valueOf("").toString();
-		} else if (productSize.equalsIgnoreCase("")) {
-			this.productSize = ProductSize.valueOf("").toString();
+		if (productSize.equalsIgnoreCase("Personal")) {
+			this.productSize = ProductSize.valueOf("PERSONAL").toString();
+		} else if (productSize.equalsIgnoreCase("Para dos")) {
+			this.productSize = ProductSize.valueOf("DUAL").toString();
 		}
 	}
 

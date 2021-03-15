@@ -12,17 +12,20 @@ public class Order {
 	private Employee employee;
 	private Date date;
 	private String observation;
+	private User creator;
+	private User lastEditor;
 	
-	
-	public Order(Custome custome,Employee employee, Date date, String observation) {
+	public Order(String code, Custome custome, Employee employee, Date date, String observation, User creator, User lastEditor) {		
 		this.state = State.valueOf("REQUESTED").toString();
 		this.code = String.format("P%04d", 100);
 		this.products = new ArrayList<Product>();
-		this.amount = new ArrayList<Integer>();
+		this.amount = new ArrayList<Integer>();		
 		this.custome = custome;
 		this.employee = employee;
 		this.date = date;
 		this.observation = observation;
+		this.creator = creator;
+		this.lastEditor = creator;
 	}
 
 	public String getCode() {
@@ -86,15 +89,31 @@ public class Order {
 	}
 
 	public void setState(String state) {
-		if (state.equalsIgnoreCase("")) {
+		if (state.equalsIgnoreCase("Solicitado")) {
 			this.state = State.valueOf("REQUESTED").toString();
-		} else if (state.equalsIgnoreCase("")) {
+		} else if (state.equalsIgnoreCase("En proceso") && this.state.equals(State.valueOf("REQUESTED").toString())) {
 			this.state = State.valueOf("IN_PROCESS").toString();
-		} else if (state.equalsIgnoreCase("")) {
+		} else if (state.equalsIgnoreCase("Enviado")&& this.state.equals(State.valueOf("IN_PROCESS").toString())) {
 			this.state = State.valueOf("SENT").toString();
-		} else if (state.equalsIgnoreCase("")) {
+		} else if (state.equalsIgnoreCase("Entregado")&& this.state.equals(State.valueOf("SENT").toString())) {
 			this.state = State.valueOf("DELIVERED").toString();
 		}
+	}
+
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+
+	public User getLastEditor() {
+		return lastEditor;
+	}
+
+	public void setLastEditor(User lastEditor) {
+		this.lastEditor = lastEditor;
 	}
 
 	

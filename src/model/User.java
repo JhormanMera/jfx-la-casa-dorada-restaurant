@@ -1,62 +1,29 @@
 package model;
 
-public class User {
+public class User extends Employee {
+	String userName;
+	String password;
 	
-	private String name;
-	private String lastName;
-	private String ID;
-	private String address;
-	private String phone;
-	private String observations;
-	
-	public User(String name, String lastName, String ID, String address, String phone, String observations) {
-		this.name = name;
-		this.lastName = lastName;
-		this.ID=ID;
-		this.address = address;
-		this.setPhone(phone);
-		this.setObservations(observations);
+	public User(String name, String lastName, String ID, String userName, String password) {
+		super(name, lastName, ID);
+		this.userName = userName;
+		this.password = password;
 	}
 	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getID() {
-		return ID;
-	}
-	public void setID(String iD) {
-		ID = iD;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public String getUserName() {
+		return userName;
 	}
 
-	public String getObservations() {
-		return observations;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public void setObservations(String observations) {
-		this.observations = observations;
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
-	
-
 }
