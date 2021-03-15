@@ -106,4 +106,46 @@ public class Restaurant {
         ois.close();
     }
     
-}
+    
+    public void sortByIngredients() {
+		for(int i=0; i<ingredients.size(); i++) {
+			int posMin=i;
+			for(int j=i+1; j<ingredients.size(); j++) {
+				if(ingredients.get(j).getName().compareTo(ingredients.get(posMin).getName())>0) {
+					posMin=j;
+				}
+
+			}
+			Ingredients aux=ingredients.get(i);
+			ingredients.set(i,ingredients.get(posMin));
+			ingredients.set(posMin,aux);
+
+		}
+
+    }
+    
+    public static void SortProductsByPrice() {
+    	for(int i=0;i<products.size();i++) {
+    		for(int j=i;j>0&&products.get(j-1).getPrice()>products.get(j).getPrice();j--) {
+    			Product temp=products.get(j);
+    			products.set(j,products.get(j-1));
+    			products.set(j-1,temp);
+    		}
+    	}
+    }
+    
+    public static void addCustomesListSorted(String name, String lastname, String ID, String address, String phone, String observations) {
+    	Custome newCustome=new Custome(name, lastname, ID, address, phone, observations);
+    	if(customes.isEmpty()) {
+    		customes.add(newCustome);
+    	}else{
+    		int i=0;
+    		while(i<customes.size() && newCustome.getLastname().compareTo(customes.get(i).getLastname())<0) {
+    			i++;
+    		}
+    		customes.add(i, newCustome);
+    	}
+    }
+
+  }
+
