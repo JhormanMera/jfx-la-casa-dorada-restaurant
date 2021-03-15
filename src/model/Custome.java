@@ -1,36 +1,21 @@
 package model;
 
 
-public class Custome   {
+public class Custome  extends Person {
 	
-	private String name;
-	private String lastName;
+	private static final long serialVersionUID = 1L;
 	private String ID;
 	private String address;
 	private String phone;
 	private String observations;
 	
-
-	public Custome(String name, String lastName, String ID, String address, String phone, String observations) {
-		this.name = name;
-		this.lastName = lastName;
-		this.ID=ID;
+	
+	public Custome(String name, String lastname, String ID, String address, String phone, String observations) {
+		super(name, lastname);
+		this.ID = ID;
 		this.address = address;
-		this.phone=phone;
-		this.observations=observations;
-	}
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.phone = phone;
+		this.observations = observations;
 	}
 	public String getID() {
 		return ID;
@@ -50,14 +35,16 @@ public class Custome   {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
 	public String getObservations() {
 		return observations;
 	}
-
 	public void setObservations(String observations) {
 		this.observations = observations;
 	}
+	
+
+
+
 
 }
 

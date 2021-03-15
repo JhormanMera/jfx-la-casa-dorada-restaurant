@@ -1,6 +1,7 @@
 package model;
 
 public class User extends Employee {
+	private static final long serialVersionUID = 1L;
 	String userName;
 	String password;
 	
