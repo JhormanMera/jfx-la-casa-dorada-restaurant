@@ -22,6 +22,14 @@ public class RestaurantGUI {
 	private static final String LOGIN_IMAGE_PATH = "images/Lacasadorada.jpg";
 
 	private static final String REGISTER_IMAGE_PATH = "images/Lacasadoradalogo.jpeg";
+	
+	private static final String REGISTER_PRODUCT_IMAGE_PATH = "images/Lacasadoradalogo.jpeg";
+	
+	private static final String REGISTER_CUSTOME_IMAGE_PATH = "images/Lacasadoradalogo.jpeg";
+	
+	private static final String REGISTER_EMPLOYEE_IMAGE_PATH = "images/Lacasadoradalogo.jpeg";
+	
+	private static final String REGISTER_USER_IMAGE_PATH = "images/Lacasadoradalogo.jpeg";
 
 	@FXML
 	private Pane mainPane;

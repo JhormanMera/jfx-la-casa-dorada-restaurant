@@ -146,6 +146,31 @@ public class Restaurant {
     		customes.add(i, newCustome);
     	}
     }
+    
+    /*
+    public static String binarySearch(String name, String lastName) {
+		Custome a=null;
+		Custome b=null;
+		int start =0;
+		int finish=customes.size()-1;
+		boolean end=true;
+		for (int i=0;i<customes.size() && end;i++) {
+			a=customes.get(i);
+			while (start<= finish&&end) {
+				int mid=(start+finish)/2;
+				if(a) {
+					finish=mid-1;
+				}else if(a>array[mid]) {
+					start=mid+1;
+				}else {
+					b=array[i];
+					end=false;
+				}
+			}
+		}
+		return c;
+	}*/
+
 
   }
 
