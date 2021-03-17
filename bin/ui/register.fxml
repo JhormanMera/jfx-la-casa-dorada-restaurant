@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="registerPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="663.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="registerPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="608.0" prefWidth="662.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane layoutX="87.0" layoutY="120.0" prefHeight="478.0" prefWidth="488.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
@@ -57,7 +57,7 @@
                </font></TextField>
          </children>
       </Pane>
-      <ImageView fx:id="registerImage" fitHeight="98.0" fitWidth="82.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="registerImage" fitHeight="99.0" fitWidth="626.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Downloads/WhatsApp%20Image%202021-03-08%20at%204.39.19%20PM.jpeg" />
          </image></ImageView>

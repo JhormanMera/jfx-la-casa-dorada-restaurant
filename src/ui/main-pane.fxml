@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<Pane fx:id="mainPane" prefHeight="395.0" prefWidth="862.0" style="-fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" />
+<VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar prefHeight="34.0" prefWidth="809.0" style="-fx-background-color: white;">
+        <menus>
+          <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant Forms">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Import Customes" />
+              <MenuItem mnemonicParsing="false" text="Import Products" />
+                  <MenuItem mnemonicParsing="false" text="Import Orders" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Export Orders" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant People">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Gestionate User" />
+                  <MenuItem mnemonicParsing="false" text="Gestionate Custome" />
+                  <MenuItem mnemonicParsing="false" text="Gestionate Employee" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant Products">
+              <items>
+                  <MenuItem mnemonicParsing="false" text="Gestionate Products" />
+                <MenuItem mnemonicParsing="false" text="Gestionate Ingredients" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <Pane fx:id="mainPane" prefHeight="519.0" prefWidth="809.0" style="-fx-background-color: white; -fx-border-color: black;" />
+      <Label text="Label">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+   </children>
+</VBox>

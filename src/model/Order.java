@@ -18,17 +18,19 @@ public class Order implements Serializable{
 	private User creator;
 	private User lastEditor;
 	
-	public Order(String code, Custome custome, Employee employee, Date date, String observation, User creator, User lastEditor) {		
-		this.state = State.valueOf("REQUESTED").toString();
-		this.code = String.format("P%04d", 100);
-		this.products = new ArrayList<Product>();
-		this.amount = new ArrayList<Integer>();		
+	
+
+	public Order(String state, String code, Custome custome, Employee employee, Date date, String observation, User creator, User lastEditor) {
+		setState(state);
+		this.code = code;
+		this.products = new ArrayList<>();
+		this.amount = new ArrayList<>();
 		this.custome = custome;
 		this.employee = employee;
 		this.date = date;
 		this.observation = observation;
 		this.creator = creator;
-		this.lastEditor = creator;
+		this.lastEditor = lastEditor;
 	}
 
 	public String getCode() {
@@ -88,7 +90,17 @@ public class Order implements Serializable{
 	}
 
 	public String getState() {
-		return state;
+		String a="";
+		if (state.equalsIgnoreCase("REQUESTED")) {
+			a="Solicitado";
+		} else if (state.equalsIgnoreCase("IN_PROCESS")) {
+			a="En Proceso";
+		} else if (state.equalsIgnoreCase("SENT")){
+			a= "Enviado";
+		} else if (state.equalsIgnoreCase("DELIVERED")){
+			a= "Entregado";
+		}
+		return a;
 	}
 
 	public void setState(String state) {

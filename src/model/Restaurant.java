@@ -1,11 +1,14 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +19,8 @@ public class Restaurant {
 	private static final String PRODUCTS_SAVE_PATH_FILE="";
 	private static final String ORDERS_SAVE_PATH_FILE="";
 	private static final String PRODUCT_TYPE_SAVE_PATH_FILE="";
+	private static final String ORDER_CODE= String.format("P%04d", 100);
+	private static final String FILE_SEPARATOR=";";
 	private static List<Custome> customes;
 	private static List<Person> people;
 	private static List<Ingredients> ingredients;
@@ -146,7 +151,55 @@ public class Restaurant {
     		customes.add(i, newCustome);
     	}
     }
+    public static void addOrder (String state, String code, Custome custome, Employee employee, Date date, String observation, User creator, User lastEditor) {
+    	Order newOrder = new Order( state,  code,  custome,  employee,  date,  observation,  creator,  lastEditor);
+    }
     
+  /*  public void importCustomes (String fileName) throws IOException{
+		BufferedReader br = new BufferedReader (new FileReader(fileName));
+		String line = br.readLine();
+		while (line!=null) {
+			String [] parts = line.split(";");
+			addContact(parts[0],parts[1]);
+			line = br.readLine();
+		}
+		br.close();
+
+	}
+    public void importProducts (String fileName) throws IOException{
+		BufferedReader br = new BufferedReader (new FileReader(fileName));
+		String line = br.readLine();
+		while (line!=null) {
+			String [] parts = line.split(";");
+			addContact(parts[0],parts[1]);
+			line = br.readLine();
+		}
+		br.close();
+
+	}
+	*/
+    public void importOrders (String fileName) throws IOException{
+		BufferedReader br = new BufferedReader (new FileReader(fileName));
+		String line = br.readLine();
+		while (line!=null) {
+			String [] parts = line.split(";");
+			
+			//addOrder(parts[0],parts[1],parts[2],parts[3],parts[4],parts[5],parts[6],parts[7],parts[8]);
+			line = br.readLine();
+		}
+		br.close();
+
+	}
+	public void exportOrders(String fileName) throws FileNotFoundException {
+		PrintWriter writer = new PrintWriter (fileName);
+		for (int i=0;i<orders.size();i++) {
+			Order myOrder = orders.get(i);
+			writer.println(myOrder.getState()+FILE_SEPARATOR+myOrder.getCode()+FILE_SEPARATOR+myOrder.getCustome().getLastname()
+					+FILE_SEPARATOR+myOrder.getCustome().getName()+FILE_SEPARATOR+myOrder.getEmployee().getID()+FILE_SEPARATOR+myOrder.getDate()
+					+FILE_SEPARATOR+myOrder.getObservation()+FILE_SEPARATOR+myOrder.getCreator().getUserName()+FILE_SEPARATOR+myOrder.getLastEditor().getUserName());
+		}
+		writer.close();
+	}
     /*
     public static String binarySearch(String name, String lastName) {
 		Custome a=null;

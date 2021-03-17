@@ -8,7 +8,7 @@ public class Custome  extends Person {
 	private String address;
 	private String phone;
 	private String observations;
-	
+	private boolean state;
 	
 	public Custome(String name, String lastname, String ID, String address, String phone, String observations) {
 		super(name, lastname);
@@ -16,6 +16,7 @@ public class Custome  extends Person {
 		this.address = address;
 		this.phone = phone;
 		this.observations = observations;
+		this.state=true;
 	}
 	public String getID() {
 		return ID;
@@ -40,6 +41,12 @@ public class Custome  extends Person {
 	}
 	public void setObservations(String observations) {
 		this.observations = observations;
+	}
+	public boolean isState() {
+		return state;
+	}
+	public void setState(boolean state) {
+		this.state = state;
 	}
 	
 
