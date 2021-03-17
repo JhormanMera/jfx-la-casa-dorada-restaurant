@@ -19,7 +19,7 @@ public class Restaurant {
 	private static final String PRODUCTS_SAVE_PATH_FILE="";
 	private static final String ORDERS_SAVE_PATH_FILE="";
 	private static final String PRODUCT_TYPE_SAVE_PATH_FILE="";
-	private static final String ORDER_CODE= String.format("P%04d", 100);
+	//private static final String ORDER_CODE= String.format("P%04d", 100);
 	private static final String FILE_SEPARATOR=";";
 	private static List<Custome> customes;
 	private static List<Person> people;
@@ -152,7 +152,7 @@ public class Restaurant {
     	}
     }
     public static void addOrder (String state, String code, Custome custome, Employee employee, Date date, String observation, User creator, User lastEditor) {
-    	Order newOrder = new Order( state,  code,  custome,  employee,  date,  observation,  creator,  lastEditor);
+    	//Order newOrder = new Order( state,  code,  custome,  employee,  date,  observation,  creator,  lastEditor);
     }
     
   /*  public void importCustomes (String fileName) throws IOException{
@@ -182,7 +182,7 @@ public class Restaurant {
 		BufferedReader br = new BufferedReader (new FileReader(fileName));
 		String line = br.readLine();
 		while (line!=null) {
-			String [] parts = line.split(";");
+			//String [] parts = line.split(";");
 			
 			//addOrder(parts[0],parts[1],parts[2],parts[3],parts[4],parts[5],parts[6],parts[7],parts[8]);
 			line = br.readLine();

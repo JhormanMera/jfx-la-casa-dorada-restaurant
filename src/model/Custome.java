@@ -48,11 +48,6 @@ public class Custome  extends Person {
 	public void setState(boolean state) {
 		this.state = state;
 	}
-	
-
-
-
-
 }
 
 
