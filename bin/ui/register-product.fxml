@@ -4,50 +4,50 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="696.0" style="-fx-background-color: black; -fx-background-color: gold;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="183.0" layoutY="175.0" prefHeight="467.0" prefWidth="361.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <ImageView fitHeight="141.0" fitWidth="885.0" layoutX="15.0" pickOnBounds="true" preserveRatio="true" />
+      <AnchorPane layoutX="229.0" layoutY="172.0" prefHeight="411.0" prefWidth="485.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="228.0" AnchorPane.rightAnchor="202.0" AnchorPane.topAnchor="172.0">
          <children>
-            <TextField fx:id="txtRegProductName" layoutX="74.0" layoutY="84.0" promptText="Product Name">
+            <TextField fx:id="txtRegProductName" layoutX="144.0" layoutY="84.0" promptText="Product Name" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="84.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <Label alignment="CENTER" layoutX="81.0" layoutY="32.0" prefHeight="31.0" prefWidth="186.0" text="Create A Product">
+            <Label alignment="CENTER" layoutX="150.0" layoutY="29.0" prefHeight="31.0" prefWidth="186.0" text="Create A Product" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="147.0" AnchorPane.topAnchor="29.0">
                <font>
                   <Font name="System Bold Italic" size="19.0" />
                </font>
             </Label>
-            <TextField fx:id="txtRegProductType" layoutX="74.0" layoutY="134.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Type">
+            <TextField fx:id="txtRegProductType" layoutX="146.0" layoutY="133.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Type" AnchorPane.leftAnchor="146.0" AnchorPane.rightAnchor="142.0" AnchorPane.topAnchor="133.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegProductIngredients" layoutX="74.0" layoutY="193.0" prefHeight="31.0" prefWidth="199.0" promptText="Ingredients Set">
+            <TextField fx:id="txtRegProductIngredients" layoutX="147.0" layoutY="183.0" prefHeight="31.0" prefWidth="199.0" promptText="Ingredients Set" AnchorPane.leftAnchor="147.0" AnchorPane.rightAnchor="143.0" AnchorPane.topAnchor="183.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegProductSize" layoutX="74.0" layoutY="246.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Size">
+            <TextField fx:id="txtRegProductSize" layoutX="148.0" layoutY="229.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Size" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="144.0" AnchorPane.topAnchor="229.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegProductPrice" layoutX="74.0" layoutY="299.0" prefHeight="31.0" prefWidth="199.0" promptText="Price">
+            <TextField fx:id="txtRegProductPrice" layoutX="146.0" layoutY="280.0" prefHeight="31.0" prefWidth="199.0" promptText="Price" AnchorPane.leftAnchor="146.0" AnchorPane.rightAnchor="142.0" AnchorPane.topAnchor="280.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <Button layoutX="110.0" layoutY="364.0" mnemonicParsing="false" onAction="#CreateAProduct" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Product">
+            <Button layoutX="180.0" layoutY="338.0" mnemonicParsing="false" onAction="#CreateAProduct" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Product" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="338.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
          </children>
-      </Pane>
-      <ImageView fitHeight="130.0" fitWidth="671.0" layoutX="12.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      </AnchorPane>
    </children>
-</Pane>
+</AnchorPane>

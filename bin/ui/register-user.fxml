@@ -4,41 +4,40 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="721.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="191.0" layoutY="158.0" prefHeight="385.0" prefWidth="340.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <ImageView fitHeight="129.0" fitWidth="888.0" layoutX="16.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="1.0" />
+      <AnchorPane layoutX="315.0" layoutY="184.0" prefHeight="404.0" prefWidth="340.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="269.0" AnchorPane.topAnchor="184.0">
          <children>
-            <Label layoutX="109.0" layoutY="30.0" text="Create an User">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtRegisterUserName" layoutX="77.0" layoutY="102.0" promptText="Name">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtRegisterUserLastnames" layoutX="77.0" layoutY="168.0" promptText="Lastnames">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtRegisterUserID" layoutX="77.0" layoutY="231.0" promptText="ID">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </TextField>
-            <Button layoutX="102.0" layoutY="293.0" mnemonicParsing="false" onAction="#CreateAnUser" style="-fx-background-color: gold; -fx-border-color: black;" text="Create an User">
+            <Button layoutX="84.0" layoutY="293.0" mnemonicParsing="false" onAction="#CreateAnUser" prefHeight="41.0" prefWidth="162.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create an User" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="293.0">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
+            <TextField fx:id="txtRegisterUserID" layoutX="71.0" layoutY="208.0" promptText="ID" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="208.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Label alignment="CENTER" layoutX="34.0" layoutY="35.0" prefHeight="34.0" prefWidth="273.0" text="Create an User" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="34.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtRegisterUserName" layoutX="67.0" layoutY="90.0" promptText="Name" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="90.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtRegisterUserLastnames" layoutX="69.0" layoutY="147.0" promptText="Lastnames" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="147.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </TextField>
          </children>
-      </Pane>
-      <ImageView fitHeight="129.0" fitWidth="703.0" layoutX="10.0" pickOnBounds="true" preserveRatio="true" />
+      </AnchorPane>
    </children>
-</Pane>
+</AnchorPane>

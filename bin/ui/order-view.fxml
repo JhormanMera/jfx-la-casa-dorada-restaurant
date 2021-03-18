@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="907.0" maxWidth="1511.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="907.0" prefWidth="1511.0" style="-fx-border-color: black; -fx-background-color: gold;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="907.0" maxWidth="1511.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="916.0" style="-fx-border-color: black; -fx-background-color: gold;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView layoutX="12.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="729.0" minWidth="1118.0" prefHeight="729.0" prefWidth="1118.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="92.0">
+      <TableView layoutX="13.0" layoutY="94.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="487.0" minWidth="890.0" prefHeight="487.0" prefWidth="890.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="93.0">
          <columns>
             <TableColumn minWidth="33.0" prefWidth="33.0" style="-fx-border-color: black; -fx-background-color: white;" text="Code" />
             <TableColumn minWidth="90.0" prefWidth="90.0" style="-fx-border-color: black; -fx-background-color: white;" text="Date" />
@@ -25,7 +25,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="460.0" layoutY="20.0" minHeight="67.0" minWidth="224.0" prefHeight="67.0" prefWidth="224.0" text="Orders" textAlignment="CENTER" AnchorPane.leftAnchor="460.0" AnchorPane.rightAnchor="451.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="412.0" layoutY="14.0" minHeight="67.0" minWidth="139.0" prefHeight="67.0" prefWidth="139.0" text="Orders" textAlignment="CENTER" AnchorPane.leftAnchor="412.0" AnchorPane.rightAnchor="369.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font name="System Bold" size="35.0" />
          </font>
