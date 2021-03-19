@@ -22,7 +22,7 @@ public class Restaurant {
 	private static final String PRODUCTS_SAVE_PATH_FILE="";
 	private static final String ORDERS_SAVE_PATH_FILE="";
 	private static final String PRODUCT_TYPE_SAVE_PATH_FILE="";
-	//private static final String ORDER_CODE= String.format("P%04d", 100);
+	private static final String ORDER_CODE= String.format("P%04d", 100);
 	private static final String FILE_SEPARATOR=";";
 	private static List<Custome> customes;
 	private static List<Person> people;
@@ -136,6 +136,31 @@ public class Restaurant {
 
     }
     
+    public static int binarySearchCustomes(String name, String lastName) {
+		Custome a=null;
+		int b=-1;
+		int start =0;
+		int finish=customes.size()-1;
+		boolean end=true;
+		for (int i=0;i<customes.size() && end;i++) {
+			a=customes.get(i);
+			while (start<= finish&&end) {
+				int mid=(start+finish)/2;
+				if(a.getLastname().compareTo(lastName)<0) {
+					finish=mid+1;
+				}else if(a.getLastname().compareTo(lastName)>0) {
+					start=mid-1;
+				}else {
+					if(a.getName().equalsIgnoreCase(name)) {
+					b=i;
+					end=false;
+					}
+				}
+			}
+		}
+		return b;
+  }
+    
     public static void SortProductsByPrice() {
     	for(int i=0;i<products.size();i++) {
     		for(int j=i;j>0&&products.get(j-1).getPrice()>products.get(j).getPrice();j--) {
@@ -159,8 +184,8 @@ public class Restaurant {
     		people.add(newCustome);
     	}
     }
-    public static void addOrder (String state, String code, Custome custome, Employee employee, Date date, String observation, User creator, User lastEditor) {
-    	Order newOrder =new Order( state,  code,  custome,  employee,  date,  observation,  creator,  lastEditor);
+    public static void addOrder (String state, Custome custome, Employee employee, Date date, String observation, User creator, User lastEditor) {
+    	Order newOrder =new Order( state,  ORDER_CODE,  custome,  employee,  date,  observation,  creator,  lastEditor);
     	//newOrder.setProducts(null);
     	//newOrder.setAmount();
     	orders.add(newOrder);
@@ -179,9 +204,11 @@ public class Restaurant {
     public static void addProduct(String name, ProductType type, boolean available, double price, String productSize, User creator, User lastEditor) {
     	products.add(new Product(name, type, available, price, productSize, creator, lastEditor));
     }
+    
     public static void addIngredients(String name, User creator, User lastEditor) {
     	ingredients.add(new Ingredients(name, creator, lastEditor));
     }
+    
     public static void employeesOrdersReport(String fileName) throws FileNotFoundException {
     	PrintWriter writer = new PrintWriter (fileName);
 		for (int i=0;i<employees.size();i++) {
@@ -193,11 +220,12 @@ public class Restaurant {
 		}
 		writer.close();
     }
+    
     public static double[] employeesOrders(Employee employee, Order order) {
     	double[] orders=new double[2];
     	double ordernum=0;
     	double orderprice=0.0;
-    	if(employee==order.getEmployee()) {
+    	if(employee==order.getEmployee()&&order.getState().equals("DELIVERED")) {
     		ordernum++;
     		for(int i=0;i<order.getProducts().size();i++) {
     			orderprice+=order.getAmount().get(i)*order.getProducts().get(i).getPrice();
@@ -207,17 +235,31 @@ public class Restaurant {
     	orders[1]=orderprice;
     	return orders;
     }
-    public static boolean searchProductsInOrders(Product product) {
+    
+    public static Product searchProductsInOrders(Product product) {
+    	Product numProduct=null;
     	boolean found=false;
     	for(int i=0;i<orders.size()&&!found;i++) {
     		for(int j=0;j<orders.get(i).getProducts().size()&&!found;j++) {
-    			if(product==orders.get(j).getProducts().get(j)&&(orders.get(i).getState()=="Solicitado"||orders.get(j).getState()=="En Proceso")) {
+    			if(product==orders.get(i).getProducts().get(j)&&(orders.get(i).getState()=="REQUESTED"||orders.get(i).getState()=="IN PROCESS")) {
+    				found=true;
+    				numProduct=orders.get(i).getProducts().get(j);
+    			}
+    		}
+    	} 
+    	return numProduct;
+    }
+    
+    public static boolean searchCustomeInOrders(Custome custome) {
+    	boolean found=false;
+    	for(int i=0;i<orders.size()&&!found;i++) {
+    		if(custome==orders.get(i).getCustome()&&(orders.get(i).getState()=="REQUESTED"||orders.get(i).getState()=="IN PROCESS")) {
     				found=true;
     			}
     		}
-    	}   
     	return found;
     }
+    
     public static int searchProduct(String name,String size) {
     	int index=-10;
     	boolean flag=false;
@@ -229,12 +271,40 @@ public class Restaurant {
     	}
     	return index;
     }
+    
+    public static double[] productsOrders(Product products, Product order) {
+    	double[] orders=new double[2];
+    	double productnum=0;
+    	double productprice=0.0;
+    	if(products==order) {
+    		productnum++;
+    		productprice+=products.getPrice();
+    	}
+    	orders[0]=productnum;
+    	orders[1]=productprice;
+    	return orders;
+    }
+    
+    public static void productsOrderReport(String fileName) throws FileNotFoundException {
+    	PrintWriter writer = new PrintWriter (fileName);
+		for (int i=0;i<products.size();i++) {
+			for(int j=0;j<orders.size();j++) {
+				for(int k=0;k<orders.get(j).getProducts().size();k++) {
+			Product myProduct =products.get(i);
+			double[] productOrders= productsOrders(myProduct,orders.get(j).getProducts().get(k));
+			writer.println("The product "+myProduct.getName()+ " has been sold "+productOrders[0]+" times, with a total price of: "+productOrders[1]);
+			}
+		}
+	}
+		writer.close();
+    }
+    
     public static void eraseProduct(String name,String size) {    	
     	boolean erased=false;
     	int i=searchProduct(name,size);
     	if (i>=0) {
-    		boolean found=searchProductsInOrders(products.get(i));
-    		if(found==false) {
+    		Product found=searchProductsInOrders(products.get(i));
+    		if(found==null) {
     			products.remove(i);
     			erased=true;
     		}
@@ -293,6 +363,7 @@ public class Restaurant {
     		}
     	return found;
     }
+    
     public static void eraseProductType(String name) {
     	boolean erased=false;    	
     	for(int i=0;i<productType.size()&&!erased;i++) {
@@ -314,6 +385,30 @@ public class Restaurant {
 			alert.showAndWait();
     	}
     }
+    
+    public static void eraseCustome(String name, String lastName) {
+    	boolean erased=false;    	
+    	int index= binarySearchCustomes(name,lastName);
+    	if(index>=0) {
+    		boolean found=searchCustomeInOrders(customes.get(index));
+    		if(found==false) {
+    			customes.remove(index);
+    			erased=true;
+    		}    			
+    	}    			
+    	if(erased==true) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Erase Custome");
+			alert.setContentText("Custome Erased Successfully");
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erase Custome");
+			alert.setContentText("An error has occurred when removing the Custome, the Custome doesn't exist or is part of a order requested/in process");
+			alert.showAndWait();
+    	}
+    }
+    
     public static void stateProduct(String name,String size,boolean state) {
     	int index=searchProduct(name,size);
     	boolean found=false;
@@ -353,6 +448,7 @@ public class Restaurant {
 			alert.showAndWait();
     	}
     }
+    
     public static void stateIngredient(String name, boolean state) {
     	boolean found=false;
     	for(int i=0;i<ingredients.size()&&!found;i++) {
@@ -370,6 +466,26 @@ public class Restaurant {
     		Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("State Ingredient");
 			alert.setContentText("An error has occurred changing the Ingredient's state, the Ingredient does not exist");
+			alert.showAndWait();
+    	}
+    }
+    
+    public static void stateCustome(String name, String lastName, boolean state) {
+    	boolean found=false;
+    	int index= binarySearchCustomes(name,lastName);
+    		if(index>=0) {
+    			customes.get(index).setState(state);
+    			found=true;
+    			}    			
+    		if(found==true) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("State Custome");
+			alert.setContentText("Custome state has changed Successfully");
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("State Custome");
+			alert.setContentText("An error has occurred changing the Custome's state, the Custome doesn't exist");
 			alert.showAndWait();
     	}
     }
@@ -418,30 +534,7 @@ public class Restaurant {
 		}
 		writer.close();
 	}
-    /*
-    public static String binarySearch(String name, String lastName) {
-		Custome a=null;
-		Custome b=null;
-		int start =0;
-		int finish=customes.size()-1;
-		boolean end=true;
-		for (int i=0;i<customes.size() && end;i++) {
-			a=customes.get(i);
-			while (start<= finish&&end) {
-				int mid=(start+finish)/2;
-				if(a) {
-					finish=mid-1;
-				}else if(a>array[mid]) {
-					start=mid+1;
-				}else {
-					b=array[i];
-					end=false;
-				}
-			}
-		}
-		return c;
-	}*/
-
-
-  }
+    
+    
+}
 

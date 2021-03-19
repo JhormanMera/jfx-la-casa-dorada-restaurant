@@ -92,25 +92,25 @@ public class Order implements Serializable{
 	public String getState() {
 		String a="";
 		if (state.equalsIgnoreCase("REQUESTED")) {
-			a="Solicitado";
+			a="REQUESTED";
 		} else if (state.equalsIgnoreCase("IN_PROCESS")) {
-			a="En Proceso";
+			a="IN PROCESS";
 		} else if (state.equalsIgnoreCase("SENT")){
-			a= "Enviado";
+			a= "SENT";
 		} else if (state.equalsIgnoreCase("DELIVERED")){
-			a= "Entregado";
+			a= "DELIVERED";
 		}
 		return a;
 	}
 
 	public void setState(String state) {
-		if (state.equalsIgnoreCase("Solicitado")) {
+		if (state.equalsIgnoreCase("REQUESTED")) {
 			this.state = State.valueOf("REQUESTED").toString();
-		} else if (state.equalsIgnoreCase("En proceso") && this.state.equals(State.valueOf("REQUESTED").toString())) {
+		} else if (state.equalsIgnoreCase("IN PROCESS") && this.state.equals(State.valueOf("REQUESTED").toString())) {
 			this.state = State.valueOf("IN_PROCESS").toString();
-		} else if (state.equalsIgnoreCase("Enviado")&& this.state.equals(State.valueOf("IN_PROCESS").toString())) {
+		} else if (state.equalsIgnoreCase("SENT")&& this.state.equals(State.valueOf("IN_PROCESS").toString())) {
 			this.state = State.valueOf("SENT").toString();
-		} else if (state.equalsIgnoreCase("Entregado")&& this.state.equals(State.valueOf("SENT").toString())) {
+		} else if (state.equalsIgnoreCase("DELIVERED")&& this.state.equals(State.valueOf("SENT").toString())) {
 			this.state = State.valueOf("DELIVERED").toString();
 		}
 	}
