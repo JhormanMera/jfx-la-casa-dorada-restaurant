@@ -16,14 +16,13 @@ public class Product implements Serializable{
 	private User lastEditor;
 	
 	
-	public Product(String name, ProductType type, ArrayList<Ingredients> ingredients, boolean available, double price,
-			String productSize, User creator, User lastEditor) {
+	public Product(String name, ProductType type, boolean available, double price, String productSize, User creator, User lastEditor) {
 		this.name = name;
 		this.type = type;
 		this.ingredients = new ArrayList<>();
 		this.available = available;
 		this.price = price;
-		this.productSize = productSize;
+		setProductSize(productSize);
 		this.creator = creator;
 		this.lastEditor = creator;
 	}
@@ -54,6 +53,16 @@ public class Product implements Serializable{
 	public ArrayList<Ingredients> getIngredients() {
 		return ingredients;
 	}
+	public boolean eraseIngredient(String name) {
+		boolean erased=false;
+		for(int i=0;i<ingredients.size()&&!erased;i++) {
+			if(name.equalsIgnoreCase(ingredients.get(i).getName())) {
+				ingredients.remove(i);
+				erased=true;
+			}
+		}
+		return erased;
+	}
 	public void setIngredients(Ingredients ingredients) {
 		this.ingredients.add(ingredients);
 	}
@@ -70,7 +79,13 @@ public class Product implements Serializable{
 		this.price = price;
 	}
 	public String getProductSize() {
-		return productSize;
+		String size="";
+		if (productSize.equalsIgnoreCase("PERSONAL")) {
+			size = "Personal";
+		} else if (productSize.equalsIgnoreCase("DUAL")) {
+			size = "Para dos";
+		}
+		return size;
 	}
 	public void setProductSize(String productSize) {
 		if (productSize.equalsIgnoreCase("Personal")) {

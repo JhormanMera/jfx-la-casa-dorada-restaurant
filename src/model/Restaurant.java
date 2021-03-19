@@ -12,6 +12,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 public class Restaurant {
 	private static final String PEOPLE_SAVE_PATH_FILE="";
 	private static final String CUSTOMES_SAVE_PATH_FILE="";
@@ -27,6 +30,8 @@ public class Restaurant {
 	private static List<Product> products;
 	private static List<ProductType> productType;
 	private static List<Order> orders;
+	private static List<Employee> employees;
+	private static List<User> users;
 	
 	
 	
@@ -36,6 +41,8 @@ public class Restaurant {
 		ingredients=new ArrayList<>();
 		products = new ArrayList<>();	
 		orders = new ArrayList<>();
+		employees=new ArrayList<>();
+		users=new ArrayList<>();
 	}
 	
 	public void savePeople() throws FileNotFoundException, IOException {
@@ -149,12 +156,223 @@ public class Restaurant {
     			i++;
     		}
     		customes.add(i, newCustome);
+    		people.add(newCustome);
     	}
     }
     public static void addOrder (String state, String code, Custome custome, Employee employee, Date date, String observation, User creator, User lastEditor) {
-    	//Order newOrder = new Order( state,  code,  custome,  employee,  date,  observation,  creator,  lastEditor);
+    	Order newOrder =new Order( state,  code,  custome,  employee,  date,  observation,  creator,  lastEditor);
+    	//newOrder.setProducts(null);
+    	//newOrder.setAmount();
+    	orders.add(newOrder);
     }
-    
+    public static void addProductType(String name, User creator, User lastEditor) {
+    	productType.add(new ProductType(name, creator, lastEditor));
+    }
+    public static void addEmployee(String name, String lastname, String ID) {
+    	people.add(new Employee(name, lastname, ID));
+    	employees.add(new Employee(name, lastname, ID));
+    }
+    public static void addUser(String name, String lastName, String ID, String userName, String password) {
+    	people.add(new User(name, lastName, ID, userName, password));
+    	users.add(new User(name, lastName, ID, userName, password));
+    }
+    public static void addProduct(String name, ProductType type, boolean available, double price, String productSize, User creator, User lastEditor) {
+    	products.add(new Product(name, type, available, price, productSize, creator, lastEditor));
+    }
+    public static void addIngredients(String name, User creator, User lastEditor) {
+    	ingredients.add(new Ingredients(name, creator, lastEditor));
+    }
+    public static void employeesOrdersReport(String fileName) throws FileNotFoundException {
+    	PrintWriter writer = new PrintWriter (fileName);
+		for (int i=0;i<employees.size();i++) {
+			for(int j=0;j<orders.size();j++) {
+			Employee myEmployee =employees.get(i);
+			double[] employeeOrder= employeesOrders(myEmployee,orders.get(j));
+			writer.println("The employee "+myEmployee.getName()+" "+myEmployee.getLastname()+"with ID"+myEmployee.getID()+" sold "+employeeOrder[0]+" orders with a total price of: "+employeeOrder[1]);
+			}
+		}
+		writer.close();
+    }
+    public static double[] employeesOrders(Employee employee, Order order) {
+    	double[] orders=new double[2];
+    	double ordernum=0;
+    	double orderprice=0.0;
+    	if(employee==order.getEmployee()) {
+    		ordernum++;
+    		for(int i=0;i<order.getProducts().size();i++) {
+    			orderprice+=order.getAmount().get(i)*order.getProducts().get(i).getPrice();
+    		}
+    	}
+    	orders[0]=ordernum;
+    	orders[1]=orderprice;
+    	return orders;
+    }
+    public static boolean searchProductsInOrders(Product product) {
+    	boolean found=false;
+    	for(int i=0;i<orders.size()&&!found;i++) {
+    		for(int j=0;j<orders.get(i).getProducts().size()&&!found;j++) {
+    			if(product==orders.get(j).getProducts().get(j)&&(orders.get(i).getState()=="Solicitado"||orders.get(j).getState()=="En Proceso")) {
+    				found=true;
+    			}
+    		}
+    	}   
+    	return found;
+    }
+    public static int searchProduct(String name,String size) {
+    	int index=-10;
+    	boolean flag=false;
+    	for(int i=0;i<products.size()&&!flag;i++) {
+    		if(products.get(i).getName().equalsIgnoreCase(name)&&products.get(i).getProductSize().equalsIgnoreCase(size)) {
+    			index=i;
+    			flag=true;
+    		}
+    	}
+    	return index;
+    }
+    public static void eraseProduct(String name,String size) {    	
+    	boolean erased=false;
+    	int i=searchProduct(name,size);
+    	if (i>=0) {
+    		boolean found=searchProductsInOrders(products.get(i));
+    		if(found==false) {
+    			products.remove(i);
+    			erased=true;
+    		}
+    	}   		
+    			
+    	if(erased==true) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Erase Product");
+			alert.setContentText("Product Erased Successfully");
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erase Product");
+			alert.setContentText("An error has occurred when removing the product, the product does not exist or is part of an order Requested / In process");
+			alert.showAndWait();
+    	}
+    }
+    public static boolean searchIngredientInProducts(Ingredients ingredient) {
+    	boolean found=false;
+    	for(int i=0;i<products.size()&&found;i++) {
+    		for(int k=0;k<products.get(i).getIngredients().size();k++) {
+    			if(ingredient==products.get(i).getIngredients().get(k)) {
+    				found=true;
+    			}    			
+    		}
+    	}
+    	return found;
+    }
+    public static void eraseIngredient(String name) {
+    	boolean erased=false;    	
+    	for(int i=0;i<ingredients.size()&&!erased;i++) {
+    		boolean found=searchIngredientInProducts(ingredients.get(i));
+    		if(ingredients.get(i).getName().equalsIgnoreCase(name)&&found==false) {
+    			ingredients.remove(i);
+    			erased=true;
+    			}    			
+    		}
+    	if(erased==true) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Erase Ingredients");
+			alert.setContentText("Ingredient Erased Successfully");
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erase Ingredients");
+			alert.setContentText("An error has occurred when removing the Ingredient, the ingredient does not exist or is part of a product/order Requested / In process");
+			alert.showAndWait();
+    	}
+    }
+    public static boolean searchTypeInProducts(ProductType type) {
+    	boolean found=false;
+    	for(int i=0;i<products.size()&&found;i++) {
+    			if(type==products.get(i).getType()) {
+    				found=true;
+    			}    			
+    		}
+    	return found;
+    }
+    public static void eraseProductType(String name) {
+    	boolean erased=false;    	
+    	for(int i=0;i<productType.size()&&!erased;i++) {
+    		boolean found=searchTypeInProducts(productType.get(i));
+    		if(productType.get(i).getName().equalsIgnoreCase(name)&&found==false) {
+    			productType.remove(i);
+    			erased=true;
+    			}    			
+    		}
+    	if(erased==true) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Erase Product Type");
+			alert.setContentText("Product Type Erased Successfully");
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erase Product Type");
+			alert.setContentText("An error has occurred when removing the ProductType, the ProductType does not exist or is part of a product");
+			alert.showAndWait();
+    	}
+    }
+    public static void stateProduct(String name,String size,boolean state) {
+    	int index=searchProduct(name,size);
+    	boolean found=false;
+    	if(index>=0) {
+    		found=true;
+    		products.get(index).setAvailable(state);
+    	}
+    	if(found==true) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("State Product");
+			alert.setContentText("Product state has changed Successfully");
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("State Product");
+			alert.setContentText("An error has occurred changing the Product's state, the Product does not exist");
+			alert.showAndWait();
+    	}
+    }
+    public static void stateProductType(String name,boolean state) {
+    	boolean found=false;
+    	for(int i=0;i<productType.size()&&!found;i++) {
+    		if(productType.get(i).getName().equalsIgnoreCase(name)) {
+    			productType.get(i).setState(state);
+    			found=true;
+    			}    			
+    		}
+    	if(found==true) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("State Product Type");
+			alert.setContentText("Product type state has changed Successfully");
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("State Product Type");
+			alert.setContentText("An error has occurred changing the Product-Type's state, the Product type does not exist");
+			alert.showAndWait();
+    	}
+    }
+    public static void stateIngredient(String name, boolean state) {
+    	boolean found=false;
+    	for(int i=0;i<ingredients.size()&&!found;i++) {
+    		if(ingredients.get(i).getName().equalsIgnoreCase(name)) {
+    			ingredients.get(i).setState(state);
+    			found=true;
+    			}    			
+    		}
+    	if(found==true) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("State Ingredient");
+			alert.setContentText("Ingredient state has changed Successfully");
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("State Ingredient");
+			alert.setContentText("An error has occurred changing the Ingredient's state, the Ingredient does not exist");
+			alert.showAndWait();
+    	}
+    }
   /*  public void importCustomes (String fileName) throws IOException{
 		BufferedReader br = new BufferedReader (new FileReader(fileName));
 		String line = br.readLine();

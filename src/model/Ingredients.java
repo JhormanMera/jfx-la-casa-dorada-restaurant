@@ -13,7 +13,6 @@ public class Ingredients implements Serializable{
 	
 
 	public Ingredients(String name, User creator, User lastEditor) {
-		super();
 		this.name = name;
 		this.creator = creator;
 		this.lastEditor = creator;

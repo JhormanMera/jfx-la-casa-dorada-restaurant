@@ -10,44 +10,44 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="loginPane" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="loginPane" prefHeight="496.0" prefWidth="861.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="525.0" layoutY="57.0" prefHeight="436.0" prefWidth="354.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <Pane layoutX="516.0" layoutY="39.0" prefHeight="422.0" prefWidth="323.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
-            <Separator layoutX="1.0" layoutY="269.0" prefHeight="8.0" prefWidth="354.0" />
-            <Button layoutX="51.0" layoutY="211.0" mnemonicParsing="false" onAction="#Login" prefHeight="42.0" prefWidth="252.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Login">
+            <Separator layoutX="1.0" layoutY="269.0" prefHeight="9.0" prefWidth="323.0" />
+            <Button layoutX="36.0" layoutY="201.0" mnemonicParsing="false" onAction="#Login" prefHeight="42.0" prefWidth="252.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Login">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Label fx:id="showMessage" alignment="CENTER" layoutX="51.0" layoutY="298.0" prefHeight="25.0" prefWidth="252.0" text="Don't have an account yet?">
+            <Label fx:id="showMessage" alignment="CENTER" layoutX="33.0" layoutY="297.0" prefHeight="25.0" prefWidth="252.0" text="Do not have an account yet?">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <PasswordField fx:id="txtPassword" layoutX="57.0" layoutY="138.0" prefHeight="42.0" prefWidth="242.0" promptText="Password" style="-fx-border-color: black;">
+            <PasswordField fx:id="txtPassword" layoutX="45.0" layoutY="140.0" prefHeight="42.0" prefWidth="233.0" promptText="Password" style="-fx-border-color: black;">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </PasswordField>
-            <TextField fx:id="txtUserName" layoutX="56.0" layoutY="72.0" prefHeight="48.0" prefWidth="242.0" promptText="Username" style="-fx-border-color: black;">
+            <TextField fx:id="txtUserName" layoutX="44.0" layoutY="75.0" prefHeight="48.0" prefWidth="233.0" promptText="Username" style="-fx-border-color: black;">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="85.0" layoutY="27.0" prefHeight="30.0" prefWidth="185.0" text="Login">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="67.0" layoutY="25.0" prefHeight="30.0" prefWidth="185.0" text="Login">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <Button layoutX="48.0" layoutY="345.0" mnemonicParsing="false" onAction="#loginCreateAnAccount" prefHeight="48.0" prefWidth="259.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create an account">
+            <Button layoutX="33.0" layoutY="343.0" mnemonicParsing="false" onAction="#loginCreateAnAccount" prefHeight="48.0" prefWidth="259.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create an account">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
          </children>
       </Pane>
-      <ImageView fx:id="loginImage" fitHeight="458.0" fitWidth="478.0" layoutX="24.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="loginImage" fitHeight="458.0" fitWidth="478.0" layoutX="21.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Downloads/Lacasadorada.jpg" />
          </image></ImageView>

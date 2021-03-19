@@ -39,7 +39,7 @@ public class Order implements Serializable{
 
 	public void setCode(String code) {
 		this.code = code;
-	}
+	}	
 
 	public ArrayList<Product> getProducts() {
 		return products;
