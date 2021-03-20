@@ -16,47 +16,115 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class Restaurant {
-	private static final String PEOPLE_SAVE_PATH_FILE="";
+	private static final String BASE_PRODUCT_SAVE_PATH_FILE="";
 	private static final String CUSTOMES_SAVE_PATH_FILE="";
 	private static final String INGREDIENTS_SAVE_PATH_FILE="";
 	private static final String PRODUCTS_SAVE_PATH_FILE="";
 	private static final String ORDERS_SAVE_PATH_FILE="";
 	private static final String PRODUCT_TYPE_SAVE_PATH_FILE="";
 	private static final String ORDER_CODE= String.format("P%04d", 100);
-	private static final String FILE_SEPARATOR=";";
+	private static String FILE_SEPARATOR=";";
 	private static List<Custome> customes;
-	private static List<Person> people;
 	private static List<Ingredients> ingredients;
 	private static List<Product> products;
 	private static List<ProductType> productType;
 	private static List<Order> orders;
 	private static List<Employee> employees;
 	private static List<User> users;
-	
-	
+	private static List<BaseProduct> baseProducts;
+	private static List<ProductSize> productSize;
 	
 	public Restaurant() {
 		customes = new ArrayList<>();
-		people= new ArrayList<>();
 		ingredients=new ArrayList<>();
 		products = new ArrayList<>();	
 		orders = new ArrayList<>();
 		employees=new ArrayList<>();
 		users=new ArrayList<>();
+		baseProducts=new ArrayList<>();
+		productSize=new ArrayList<>();
 	}
 	
-	public void savePeople() throws FileNotFoundException, IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PEOPLE_SAVE_PATH_FILE));
-       oos.writeObject(people);
-       oos.close();
-    }
+	public static String getFILE_SEPARATOR() {
+		return FILE_SEPARATOR;
+	}
 
-    @SuppressWarnings("unchecked")
-    public void loadPeople() throws FileNotFoundException, IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(PEOPLE_SAVE_PATH_FILE));
-       people = (List<Person>) ois.readObject();
-        ois.close();
-    }
+	public static void setFILE_SEPARATOR(String fILE_SEPARATOR) {
+		FILE_SEPARATOR = fILE_SEPARATOR;
+	}
+
+	public static List<Custome> getCustomes() {
+		return customes;
+	}
+
+	public static void setCustomes(List<Custome> customes) {
+		Restaurant.customes = customes;
+	}
+
+	public static List<Ingredients> getIngredients() {
+		return ingredients;
+	}
+
+	public static void setIngredients(List<Ingredients> ingredients) {
+		Restaurant.ingredients = ingredients;
+	}
+
+	public static List<Product> getProducts() {
+		return products;
+	}
+
+	public static void setProducts(List<Product> products) {
+		Restaurant.products = products;
+	}
+
+	public static List<ProductType> getProductType() {
+		return productType;
+	}
+
+	public static void setProductType(List<ProductType> productType) {
+		Restaurant.productType = productType;
+	}
+
+	public static List<Order> getOrders() {
+		return orders;
+	}
+
+	public static void setOrders(List<Order> orders) {
+		Restaurant.orders = orders;
+	}
+
+	public static List<Employee> getEmployees() {
+		return employees;
+	}
+
+	public static void setEmployees(List<Employee> employees) {
+		Restaurant.employees = employees;
+	}
+
+	public static List<User> getUsers() {
+		return users;
+	}
+
+	public static void setUsers(List<User> users) {
+		Restaurant.users = users;
+	}
+
+	public static List<BaseProduct> getBaseProducts() {
+		return baseProducts;
+	}
+
+	public static void setBaseProducts(List<BaseProduct> baseProducts) {
+		Restaurant.baseProducts = baseProducts;
+	}
+
+	public static List<ProductSize> getProductSize() {
+		return productSize;
+	}
+
+	public static void setProductSize(List<ProductSize> productSize) {
+		Restaurant.productSize = productSize;
+	}
+	
     public void saveCustomes() throws FileNotFoundException, IOException {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(CUSTOMES_SAVE_PATH_FILE));
        oos.writeObject(customes);
@@ -93,6 +161,18 @@ public class Restaurant {
        products = (List<Product>) ois.readObject();
         ois.close();
     }
+    public void saveBaseProducts() throws FileNotFoundException, IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(BASE_PRODUCT_SAVE_PATH_FILE));
+       oos.writeObject(baseProducts);
+       oos.close();
+    }
+
+    @SuppressWarnings("unchecked")
+    public void loadBaseProducts() throws FileNotFoundException, IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(BASE_PRODUCT_SAVE_PATH_FILE));
+        baseProducts = (List<BaseProduct>) ois.readObject();
+        ois.close();
+    }
     public void saveProductType() throws FileNotFoundException, IOException {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PRODUCT_TYPE_SAVE_PATH_FILE));
        oos.writeObject(productType);
@@ -117,7 +197,18 @@ public class Restaurant {
        ingredients = (List<Ingredients>) ois.readObject();
         ois.close();
     }
-    
+    public void saveProductSize() throws FileNotFoundException, IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(INGREDIENTS_SAVE_PATH_FILE));
+       oos.writeObject(productSize);
+       oos.close();
+    }
+
+    @SuppressWarnings("unchecked")
+    public void loadProductSize() throws FileNotFoundException, IOException, ClassNotFoundException {
+       ObjectInputStream ois = new ObjectInputStream(new FileInputStream(INGREDIENTS_SAVE_PATH_FILE));
+       productSize = (List<ProductSize>) ois.readObject();
+        ois.close();
+    }
     
     public void sortByIngredients() {
 		for(int i=0; i<ingredients.size(); i++) {
@@ -181,46 +272,53 @@ public class Restaurant {
     			i++;
     		}
     		customes.add(i, newCustome);
-    		people.add(newCustome);
     	}
     }
-    public static void addOrder (String state, Custome custome, Employee employee, Date date, String observation, User creator, User lastEditor) {
-    	Order newOrder =new Order( state,  ORDER_CODE,  custome,  employee,  date,  observation,  creator,  lastEditor);
-    	//newOrder.setProducts(null);
-    	//newOrder.setAmount();
+    public static void addOrder(String state, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor) {
+    	Order newOrder =new Order(state,ORDER_CODE, products,amount, custome, employee, date, observation, creator, lastEditor);
     	orders.add(newOrder);
     }
-    public static void addProductType(String name, User creator, User lastEditor) {
-    	productType.add(new ProductType(name, creator, lastEditor));
+    public static void addProductType(String name,String code ,User creator, User lastEditor) {
+    	productType.add(new ProductType(name, code , creator, lastEditor));
     }
     public static void addEmployee(String name, String lastname, String ID) {
-    	people.add(new Employee(name, lastname, ID));
     	employees.add(new Employee(name, lastname, ID));
     }
     public static void addUser(String name, String lastName, String ID, String userName, String password) {
-    	people.add(new User(name, lastName, ID, userName, password));
-    	users.add(new User(name, lastName, ID, userName, password));
-    }
-    public static void addProduct(String name, ProductType type, boolean available, double price, String productSize, User creator, User lastEditor) {
-    	products.add(new Product(name, type, available, price, productSize, creator, lastEditor));
-    }
+    	if(searchUser(userName)!=null) {
+    		users.add(new User(name, lastName, ID, userName, password));
+    	} else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Add User");
+			alert.setContentText("An error has occurred when adding the user, the userName already exist");
+			alert.showAndWait();
+    	}
+    }   
     
     public static void addIngredients(String name, User creator, User lastEditor) {
     	ingredients.add(new Ingredients(name, creator, lastEditor));
     }
-    
-    public static void employeesOrdersReport(String fileName) throws FileNotFoundException {
-    	PrintWriter writer = new PrintWriter (fileName);
-		for (int i=0;i<employees.size();i++) {
-			for(int j=0;j<orders.size();j++) {
-			Employee myEmployee =employees.get(i);
-			double[] employeeOrder= employeesOrders(myEmployee,orders.get(j));
-			writer.println("The employee "+myEmployee.getName()+" "+myEmployee.getLastname()+"with ID"+myEmployee.getID()+" sold "+employeeOrder[0]+" orders with a total price of: "+employeeOrder[1]);
-			}
-		}
-		writer.close();
+    public static void addBaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients) {
+    	baseProducts.add(new BaseProduct( name, type, ingredients));
     }
-    
+    public static void addProductSize(String name,String code) {
+    	productSize.add(new ProductSize( name, code));
+    }
+    public static void addProduct(String code,BaseProduct baseProduct, boolean state, double price, ProductSize size, User creator, User lastEditor) {
+    	products.add(new Product(code,baseProduct, state, price, size, creator, lastEditor));
+    }   
+  
+    public static ProductSize searchProductSize(String code) {
+    	boolean flag=false;
+    	ProductSize size=null;
+    	for(int i=0;i<productSize.size()&&!flag;i++) {
+    		if(productSize.get(i).getCode().equals(code)) {
+    			size=productSize.get(i);
+    			flag=true;
+    		}
+    	}
+    	return size;
+    }
     public static double[] employeesOrders(Employee employee, Order order) {
     	double[] orders=new double[2];
     	double ordernum=0;
@@ -235,7 +333,17 @@ public class Restaurant {
     	orders[1]=orderprice;
     	return orders;
     }
+      
     
+    public static boolean searchCustomeInOrders(Custome custome) {
+    	boolean found=false;
+    	for(int i=0;i<orders.size()&&!found;i++) {
+    		if(custome==orders.get(i).getCustome()&&(orders.get(i).getState()=="REQUESTED"||orders.get(i).getState()=="IN PROCESS")) {
+    				found=true;
+    			}
+    		}
+    	return found;
+    }
     public static Product searchProductsInOrders(Product product) {
     	Product numProduct=null;
     	boolean found=false;
@@ -249,22 +357,11 @@ public class Restaurant {
     	} 
     	return numProduct;
     }
-    
-    public static boolean searchCustomeInOrders(Custome custome) {
-    	boolean found=false;
-    	for(int i=0;i<orders.size()&&!found;i++) {
-    		if(custome==orders.get(i).getCustome()&&(orders.get(i).getState()=="REQUESTED"||orders.get(i).getState()=="IN PROCESS")) {
-    				found=true;
-    			}
-    		}
-    	return found;
-    }
-    
-    public static int searchProduct(String name,String size) {
+    public static int searchProduct(String code) {
     	int index=-10;
     	boolean flag=false;
     	for(int i=0;i<products.size()&&!flag;i++) {
-    		if(products.get(i).getName().equalsIgnoreCase(name)&&products.get(i).getProductSize().equalsIgnoreCase(size)) {
+    		if(products.get(i).getCode().equals(code)) {
     			index=i;
     			flag=true;
     		}
@@ -285,23 +382,11 @@ public class Restaurant {
     	return orders;
     }
     
-    public static void productsOrderReport(String fileName) throws FileNotFoundException {
-    	PrintWriter writer = new PrintWriter (fileName);
-		for (int i=0;i<products.size();i++) {
-			for(int j=0;j<orders.size();j++) {
-				for(int k=0;k<orders.get(j).getProducts().size();k++) {
-			Product myProduct =products.get(i);
-			double[] productOrders= productsOrders(myProduct,orders.get(j).getProducts().get(k));
-			writer.println("The product "+myProduct.getName()+ " has been sold "+productOrders[0]+" times, with a total price of: "+productOrders[1]);
-			}
-		}
-	}
-		writer.close();
-    }
+   
     
-    public static void eraseProduct(String name,String size) {    	
+    public static void eraseProduct(String code) {    	
     	boolean erased=false;
-    	int i=searchProduct(name,size);
+    	int i=searchProduct(code);
     	if (i>=0) {
     		Product found=searchProductsInOrders(products.get(i));
     		if(found==null) {
@@ -322,11 +407,56 @@ public class Restaurant {
 			alert.showAndWait();
     	}
     }
+    
+    public static int searchBaseProduct(String name) {
+    	int index=-10;
+    	boolean flag=false;
+    	for(int i=0;i<baseProducts.size()&&!flag;i++) {
+    		if(baseProducts.get(i).getName().equals(name)) {
+    			index=i;
+    			flag=true;
+    		}
+    	}
+    	return index;
+    }  
+    public static boolean searchBaseProductsInProducts(BaseProduct product) {
+    	boolean found=false;
+    	for(int i=0;i<products.size()&&!found;i++) {
+    			if(product==products.get(i).getBaseProduct()) {
+    				found=true;
+    			}
+    		}
+    	return found;
+    }
+    public static void eraseBaseProduct(String name) {
+    	boolean erased=false;
+    	int i=searchBaseProduct(name);
+    	if (i>=0) {
+    		boolean found=searchBaseProductsInProducts(baseProducts.get(i));
+    		if(found==false) {
+    			baseProducts.remove(i);
+    			erased=true;
+    		}
+    	}   		
+    			
+    	if(erased==true) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Erase Product");
+			alert.setContentText("Product Erased Successfully");
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erase Product");
+			alert.setContentText("An error has occurred when removing the product, the product does not exist or is part of an order Requested / In process");
+			alert.showAndWait();
+    	}
+    }
+    
     public static boolean searchIngredientInProducts(Ingredients ingredient) {
     	boolean found=false;
-    	for(int i=0;i<products.size()&&found;i++) {
-    		for(int k=0;k<products.get(i).getIngredients().size();k++) {
-    			if(ingredient==products.get(i).getIngredients().get(k)) {
+    	for(int i=0;i<baseProducts.size()&&found;i++) {
+    		for(int k=0;k<baseProducts.get(i).getIngredients().size();k++) {
+    			if(ingredient==baseProducts.get(i).getIngredients().get(k)) {
     				found=true;
     			}    			
     		}
@@ -354,10 +484,11 @@ public class Restaurant {
 			alert.showAndWait();
     	}
     }
+    
     public static boolean searchTypeInProducts(ProductType type) {
     	boolean found=false;
-    	for(int i=0;i<products.size()&&found;i++) {
-    			if(type==products.get(i).getType()) {
+    	for(int i=0;i<baseProducts.size()&&found;i++) {
+    			if(type==baseProducts.get(i).getType()) {
     				found=true;
     			}    			
     		}
@@ -409,12 +540,12 @@ public class Restaurant {
     	}
     }
     
-    public static void stateProduct(String name,String size,boolean state) {
-    	int index=searchProduct(name,size);
+    public static void stateProduct(String code,boolean state) {
+    	int index=searchProduct(code);
     	boolean found=false;
     	if(index>=0) {
     		found=true;
-    		products.get(index).setAvailable(state);
+    		products.get(index).setState(state);
     	}
     	if(found==true) {
     		Alert alert = new Alert(AlertType.INFORMATION);
@@ -489,52 +620,126 @@ public class Restaurant {
 			alert.showAndWait();
     	}
     }
-  /*  public void importCustomes (String fileName) throws IOException{
+    public void importCustomes (String fileName) throws IOException{
 		BufferedReader br = new BufferedReader (new FileReader(fileName));
 		String line = br.readLine();
 		while (line!=null) {
 			String [] parts = line.split(";");
-			addContact(parts[0],parts[1]);
+			addCustomesListSorted(parts[0],parts[1],parts[2],parts[3],parts[4],parts[5]);
 			line = br.readLine();
 		}
 		br.close();
 
-	}
+    }
+    public static User searchUser(String userName) {
+    	User myUser=null;
+    	for(int i=0;i<users.size();i++) {
+    		if(users.get(i).getUserName().equals(userName)) {
+    			myUser=users.get(i);
+    		}
+    	}
+    	return myUser;
+    }
+    public static ProductType searchTypeProduct(String code) {
+    	boolean found=false;
+    	ProductType type=null;
+    	for(int i=0;i<productType.size()&&found;i++) {
+    			if(productType.get(i).getCode().equals(code)) {
+    				type=productType.get(i);
+    				found=true;
+    			}    			
+    		}
+    	return type;
+    }
     public void importProducts (String fileName) throws IOException{
-		BufferedReader br = new BufferedReader (new FileReader(fileName));
-		String line = br.readLine();
-		while (line!=null) {
-			String [] parts = line.split(";");
-			addContact(parts[0],parts[1]);
-			line = br.readLine();
-		}
-		br.close();
+    	//String code,BaseProduct baseProduct, boolean state, double price, ProductSize size, User creator, User lastEditor
+    	BufferedReader br = new BufferedReader (new FileReader(fileName));
+    	String line = br.readLine();
+    	while (line!=null) {
+    		String [] parts = line.split(";");
+    		BaseProduct newBaseProduct = baseProducts.get(searchBaseProduct(parts[1]));
+    		boolean state=Boolean.parseBoolean(parts[2]);
+    		double price=Double.parseDouble(parts[3]);
+    		ProductSize newProductSize=searchProductSize(parts[4]);
+    		User creator=searchUser(parts[5]);
+    		User lastEditor=searchUser(parts[6]);
+    		addProduct(parts[0],newBaseProduct,state,price,newProductSize,creator,lastEditor); 
+    		line = br.readLine();
+    	}
+    	br.close();
 
-	}
-	*/
-    public void importOrders (String fileName) throws IOException{
-		BufferedReader br = new BufferedReader (new FileReader(fileName));
-		String line = br.readLine();
-		while (line!=null) {
-			//String [] parts = line.split(";");
-			
-			//addOrder(parts[0],parts[1],parts[2],parts[3],parts[4],parts[5],parts[6],parts[7],parts[8]);
-			line = br.readLine();
-		}
-		br.close();
-
-	}
-	public void exportOrders(String fileName) throws FileNotFoundException {
-		PrintWriter writer = new PrintWriter (fileName);
-		for (int i=0;i<orders.size();i++) {
-			Order myOrder = orders.get(i);
-			writer.println(myOrder.getState()+FILE_SEPARATOR+myOrder.getCode()+FILE_SEPARATOR+myOrder.getCustome().getLastname()
-					+FILE_SEPARATOR+myOrder.getCustome().getName()+FILE_SEPARATOR+myOrder.getEmployee().getID()+FILE_SEPARATOR+myOrder.getDate()
-					+FILE_SEPARATOR+myOrder.getObservation()+FILE_SEPARATOR+myOrder.getCreator().getUserName()+FILE_SEPARATOR+myOrder.getLastEditor().getUserName());
-		}
-		writer.close();
-	}
+    }
     
+    /*
+    public void importBaseProducts (String fileName) throws IOException{
+    	//String name, ProductType type, ArrayList<Ingredients> ingredients
+    	BufferedReader br = new BufferedReader (new FileReader(fileName));
+    	String line = br.readLine();
+    	while (line!=null) {
+    		String [] parts = line.split(";");
+    		ProductType type=searchTypeProduct(parts[2]);
+    		addProduct(parts[0],parts[1],type);
+    		line = br.readLine();
+    	}
+    	br.close();
+
+    }
+
+    public void importOrders (String fileName) throws IOException{
+    	//String state, String code, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor
+    	BufferedReader br = new BufferedReader (new FileReader(fileName));
+    	String line = br.readLine();
+    	while (line!=null) {
+    		String [] parts = line.split(";");
+    		boolean state=Boolean.parseBoolean(parts[0]);
+    		addOrder(state,parts[1],parts[2],parts[3],parts[4],parts[5],parts[6],parts[7],parts[8]);
+    		line = br.readLine();
+    	}
+    	br.close();
+    }
+    */
+    public void exportOrders(String fileName) throws FileNotFoundException {
+    	PrintWriter writer = new PrintWriter (fileName);
+    	String products="";
+    	for (int i=0;i<orders.size();i++) {
+    		Order myOrder = orders.get(i);
+    		for(int j=0;i<myOrder.getProducts().size();j++) {
+    			products+=FILE_SEPARATOR+myOrder.getProducts().get(j).getBaseProduct().getName()+FILE_SEPARATOR+myOrder.getAmount().get(j)+FILE_SEPARATOR+myOrder.getProducts().get(j).getPrice();
+    		}
+    		writer.println(myOrder.getCustome().getName()+FILE_SEPARATOR+myOrder.getCustome().getAddress()+
+    				FILE_SEPARATOR+myOrder.getCustome().getPhone()+FILE_SEPARATOR+myOrder.getEmployee()+
+    				FILE_SEPARATOR+myOrder.getEmployee().getLastname()+FILE_SEPARATOR+myOrder.getDate()+
+    				FILE_SEPARATOR+myOrder.getObservation()+products);
+    	}
+    	writer.close();
+    }
+    /*
+    public static void employeesOrdersReport(String fileName) throws FileNotFoundException {
+    	PrintWriter writer = new PrintWriter (fileName);
+    	for (int i=0;i<employees.size();i++) {
+    		for(int j=0;j<orders.size();j++) {
+    			Employee myEmployee =employees.get(i);
+    			double[] employeeOrder= employeesOrders(myEmployee,orders.get(j));
+    			writer.println(myEmployee.getName()+FILE_SEPARATOR+myEmployee.getLastname()+FILE_SEPARATOR+myEmployee.getID()+FILE_SEPARATOR+employeeOrder[0]+FILE_SEPARATOR+employeeOrder[1]);
+    		}
+    	}
+    	writer.close();
+    }
+    public static void productsOrderReport(String fileName) throws FileNotFoundException {
+    	PrintWriter writer = new PrintWriter (fileName);
+    	for (int i=0;i<products.size();i++) {
+    		for(int j=0;j<orders.size();j++) {
+    			for(int k=0;k<orders.get(j).getProducts().size();k++) {
+    				Product myProduct =products.get(i);
+    				double[] productOrders= productsOrders(myProduct,orders.get(j).getProducts().get(k));
+    				writer.println(myProduct.getBaseProduct().getName()+FILE_SEPARATOR+myProduct.getSize().getName()+FILE_SEPARATOR+productOrders[0]+FILE_SEPARATOR+productOrders[1]);
+    			}
+    		}
+    	}
+    	writer.close();
+    }
+    */
+
     
 }
 

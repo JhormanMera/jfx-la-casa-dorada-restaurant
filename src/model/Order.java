@@ -18,13 +18,11 @@ public class Order implements Serializable{
 	private User creator;
 	private User lastEditor;
 	
-	
-
-	public Order(String state, String code, Custome custome, Employee employee, Date date, String observation, User creator, User lastEditor) {
-		setState(state);
+		public Order(String state, String code, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor) {
+		this.state = state;
 		this.code = code;
-		this.products = new ArrayList<>();
-		this.amount = new ArrayList<>();
+		this.products = products;
+		this.amount = amount;
 		this.custome = custome;
 		this.employee = employee;
 		this.date = date;
