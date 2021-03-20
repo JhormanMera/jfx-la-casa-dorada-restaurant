@@ -7,47 +7,42 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="696.0" style="-fx-background-color: black; -fx-background-color: gold;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: black; -fx-background-color: gold;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="183.0" layoutY="175.0" prefHeight="467.0" prefWidth="361.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <Pane layoutX="294.0" layoutY="161.0" prefHeight="420.0" prefWidth="374.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
-            <TextField fx:id="txtRegProductName" layoutX="74.0" layoutY="84.0" promptText="Product Name">
+            <TextField fx:id="txtRegProductName" layoutX="74.0" layoutY="95.0" promptText="Product Name">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <Label alignment="CENTER" layoutX="81.0" layoutY="32.0" prefHeight="31.0" prefWidth="186.0" text="Create A Product">
+            <Label alignment="CENTER" layoutX="81.0" layoutY="30.0" prefHeight="31.0" prefWidth="186.0" text="Create A Product">
                <font>
                   <Font name="System Bold Italic" size="19.0" />
                </font>
             </Label>
-            <TextField fx:id="txtRegProductType" layoutX="74.0" layoutY="134.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Type">
+            <TextField fx:id="txtRegProductType" layoutX="75.0" layoutY="153.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Code">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegProductIngredients" layoutX="74.0" layoutY="193.0" prefHeight="31.0" prefWidth="199.0" promptText="Ingredients Set">
+            <TextField fx:id="txtRegProductSize" layoutX="74.0" layoutY="212.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Size">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegProductSize" layoutX="74.0" layoutY="246.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Size">
+            <TextField fx:id="txtRegProductPrice" layoutX="74.0" layoutY="271.0" prefHeight="31.0" prefWidth="199.0" promptText="Price">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegProductPrice" layoutX="74.0" layoutY="299.0" prefHeight="31.0" prefWidth="199.0" promptText="Price">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </TextField>
-            <Button layoutX="110.0" layoutY="364.0" mnemonicParsing="false" onAction="#CreateAProduct" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Product">
+            <Button layoutX="104.0" layoutY="340.0" mnemonicParsing="false" onAction="#CreateAProduct" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Product">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
          </children>
       </Pane>
-      <ImageView fitHeight="130.0" fitWidth="671.0" layoutX="12.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="137.0" fitWidth="910.0" layoutX="4.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </Pane>
