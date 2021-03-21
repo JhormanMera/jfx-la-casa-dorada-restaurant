@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -13,14 +14,14 @@
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="729.0" minWidth="806.0" prefHeight="729.0" prefWidth="824.0" style="-fx-background-color: white; -fx-border-color: black;">
+            <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="729.0" minWidth="772.0" prefHeight="729.0" prefWidth="785.0" style="-fx-background-color: white; -fx-border-color: black;">
                <columns>
                   <TableColumn fx:id="baseProductName" minWidth="151.0" prefWidth="252.0" style="-fx-border-color: black; -fx-background-color: white;" text="Name" />
                   <TableColumn fx:id="baseProductType" minWidth="85.0" prefWidth="252.0" style="-fx-border-color: black; -fx-background-color: white;" text="Type" />
-                  <TableColumn fx:id="baseProductIngredients" minWidth="156.0" prefWidth="318.0" style="-fx-border-color: black; -fx-background-color: white;" text="Ingredients" />
+                  <TableColumn fx:id="baseProductIngredients" minWidth="156.0" prefWidth="265.0" style="-fx-border-color: black; -fx-background-color: white;" text="Ingredients" />
                </columns>
             </TableView>
-            <VBox prefHeight="729.0" prefWidth="91.0">
+            <VBox prefHeight="729.0" prefWidth="155.0">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="62.0">
@@ -32,7 +33,10 @@
                         </Button>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="txtBaseProductName" promptText="Base Product Name" />
+                     </children></HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#DeleteBaseProduct" prefHeight="55.0" prefWidth="81.0" style="-fx-background-color: white; -fx-border-color: black;" text="Delete">

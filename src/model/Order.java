@@ -27,7 +27,7 @@ public class Order implements Serializable{
 	
 		public Order(String state, String code, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor) throws ParseException {
 		String hourFormat = "HH:mm:ss";
-		String dayFormat= "dd.MM.aaaa";
+		String dayFormat= "dd.MM.yyyy";
 		objSDFHour= new SimpleDateFormat(hourFormat);
 		objSDFDay= new SimpleDateFormat(dayFormat);
 		this.state = state;

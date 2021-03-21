@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +26,7 @@ public class Restaurant {
 	private static final String PRODUCTS_SAVE_PATH_FILE="";
 	private static final String ORDERS_SAVE_PATH_FILE="";
 	private static final String PRODUCT_TYPE_SAVE_PATH_FILE="";
-	private static final String ORDER_CODE= String.format("P%04d", 100);
+	private static final String ORDER_CODE= String.format("P%04d", 100000);
 	private static String FILE_SEPARATOR=";";
 	private static List<Custome> customes;
 	private static List<Ingredients> ingredients;
@@ -211,7 +213,7 @@ public class Restaurant {
        productSize = (List<ProductSize>) ois.readObject();
         ois.close();
     }
-    
+   
     public void sortByIngredients() {
 		for(int i=0; i<ingredients.size(); i++) {
 			int posMin=i;
@@ -252,8 +254,7 @@ public class Restaurant {
 			}
 		}
 		return b;
-  }
-    
+  }    
     public void SortProductsByPrice() {
     	for(int i=0;i<products.size();i++) {
     		for(int j=i;j>0&&products.get(j-1).getPrice()>products.get(j).getPrice();j--) {
@@ -276,7 +277,7 @@ public class Restaurant {
     		customes.add(i, newCustome);
     	}
     }
-    public void addOrder(String state, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor) throws ParseException {
+    public void addOrder(String state, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor, ArrayList<Product> products, ArrayList<Integer> amount) throws ParseException {
     	Order newOrder =new Order(state,ORDER_CODE, products,amount, custome, employee, date, observation, creator, lastEditor);
     	orders.add(newOrder);
     }
@@ -299,6 +300,7 @@ public class Restaurant {
     
     public void addIngredients(String name, User creator, User lastEditor) {
     	ingredients.add(new Ingredients(name, creator, lastEditor));
+    	sortByIngredients();
     }
     public void addBaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients) {
     	baseProducts.add(new BaseProduct( name, type, ingredients));
@@ -308,6 +310,7 @@ public class Restaurant {
     }
     public void addProduct(String code,BaseProduct baseProduct, boolean state, double price, ProductSize size, User creator, User lastEditor) {
     	products.add(new Product(code,baseProduct, state, price, size, creator, lastEditor));
+    	SortProductsByPrice();
     }   
   
     public ProductSize searchProductSize(String code) {
@@ -320,6 +323,81 @@ public class Restaurant {
     		}
     	}
     	return size;
+    }
+    public Ingredients searchIngredient(String name) {
+    	boolean flag=false;
+    	Ingredients ingre=null;
+    	for(int i=0;i<ingredients.size()&&!flag;i++) {
+    		if(ingredients.get(i).getName().equals(name)) {
+    			ingre=ingredients.get(i);
+    			flag=true;
+    		}
+    	}
+    	return ingre;
+    }
+    
+    public int searchOrders(String code) {
+    	int myOrder = -10;
+    	boolean flag=false;
+    	for(int i=0;i<orders.size()&&!flag;i++) {
+    		if(orders.get(i).getCode().equals(code)) {
+    			myOrder=i;
+    			flag=true;
+    		}
+    	}
+    	return myOrder;
+    }
+    
+    public int searchEmployees(String ID) {
+    	int myEmployee = -10;
+    	boolean flag=false;
+    	for(int i=0;i<employees.size()&&!flag;i++) {
+    		if(employees.get(i).getID().equals(ID)) {
+    			myEmployee=i;
+    			flag=true;
+    		}
+    	}
+    	return myEmployee;
+    }
+    public void eraseOrder(String code) {    	
+    	boolean erased=false;
+    	int i=searchOrders(code);
+    	if (i>=0) {
+    			orders.remove(i);
+    			erased=true;
+    	}   		
+    			
+    	if(erased==true) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Erase Order");
+			alert.setContentText("Order Erased Successfully");
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erase Order");
+			alert.setContentText("An error has occurred when removing the Order, the Order code does not exist");
+			alert.showAndWait();
+    	}
+    }
+    public void eraseEmployee(String ID) {    	
+    	boolean erased=false;
+    	int i=searchEmployees(ID);
+    	if (i>=0) {
+    			employees.remove(i);
+    			erased=true;
+    	}   		
+    			
+    	if(erased==true) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Erase Employee");
+			alert.setContentText("Employee Erased Successfully");
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erase Employee");
+			alert.setContentText("An error has occurred when removing the Employee, the Employee does not exist");
+			alert.showAndWait();
+    	}
     }
     public double[] employeesOrders(Employee employee, Order order) {
     	double[] orders=new double[2];
@@ -671,35 +749,51 @@ public class Restaurant {
     	br.close();
 
     }    
-    /*
+
     public void importBaseProducts (String fileName) throws IOException{
-    	//String name, ProductType type, ArrayList<Ingredients> ingredients
+    	//addBaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients)
+    	ArrayList<Ingredients> myIngredients=new ArrayList<>();
     	BufferedReader br = new BufferedReader (new FileReader(fileName));
     	String line = br.readLine();
     	while (line!=null) {
     		String [] parts = line.split(";");
     		ProductType type=searchTypeProduct(parts[2]);
-    		addProduct(parts[0],parts[1],type);
+    		for(int i=2;i<parts.length;i++) {    			
+	    		myIngredients.add(searchIngredient(parts[i]));
+	    		}
+    		addBaseProduct(parts[0],type,myIngredients);
     		line = br.readLine();
     	}
     	br.close();
 
     }
-
+    /*
     public void importOrders (String fileName) throws IOException{
-    	//String state, String code, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor
+    	//String state, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor, ArrayList<Product> products, ArrayList<Integer> amount
     	BufferedReader br = new BufferedReader (new FileReader(fileName));
     	String line = br.readLine();
+    	DateFormat objSDF=new SimpleDateFormat("aaaa.MM.dd HH:mm:ss");
+    	ArrayList<Product> product = new ArrayList<>();
+    	ArrayList<Integer> amount = new ArrayList<>();
     	while (line!=null) {
     		String [] parts = line.split(";");
     		boolean state=Boolean.parseBoolean(parts[0]);
-    		addOrder(state,parts[1],parts[2],parts[3],parts[4],parts[5],parts[6],parts[7],parts[8]);
+    		Custome custome = customes.get(binarySearchCustomes(parts[1],parts[2]));
+    		Employee myEmployee = employees.get(searchEmployees(parts[3]));
+    		Date date = objSDF.parse(parts[4]);
+    		User creator = searchUser(parts[6]);
+    		User lastEditor = searchUser(parts[7]);
+    		for(int i=8;i<parts.length;i++) {
+    			product.add(products.get(searchProduct(parts[i])));
+    			
+    		}
+    		addOrder(state,custome,myEmployee,date,parts[5],creator,lastEditor);
     		line = br.readLine();
     	}
     	br.close();
     }
     */
-    public void exportOrders(String fileName) throws FileNotFoundException {
+    public void exportOrdersReport(String fileName) throws FileNotFoundException {
     	PrintWriter writer = new PrintWriter (fileName);
     	String products="";
     	for (int i=0;i<orders.size();i++) {

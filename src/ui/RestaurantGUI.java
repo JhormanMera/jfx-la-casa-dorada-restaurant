@@ -163,6 +163,9 @@ public class RestaurantGUI {
 
     @FXML
     private TableColumn<?, ?> baseProductIngredients;
+    
+    @FXML
+    private TextField txtBaseProductName;
 
     @FXML
     private TableColumn<?, ?> customesLastName;
@@ -184,6 +187,12 @@ public class RestaurantGUI {
 
     @FXML
     private TableColumn<?, ?> customesState;
+    
+    @FXML
+    private TextField txtCustomeLastName;
+
+    @FXML
+    private TextField txtCustomeName;
    
     @FXML
     private TableColumn<?, ?> employeeName;
@@ -196,6 +205,9 @@ public class RestaurantGUI {
 
     @FXML
     private TableColumn<?, ?> employeeState;
+    
+    @FXML
+    private TextField txtEmployeeID;
    
     @FXML
     private DatePicker initialDateEmployeeReport;
@@ -240,6 +252,9 @@ public class RestaurantGUI {
     private TableColumn<?, ?> ingredientsState;
     
     @FXML
+    private TextField txtIngredientName;
+    
+    @FXML
     private Label mainPaneHour;
 
     @FXML
@@ -265,6 +280,9 @@ public class RestaurantGUI {
 
     @FXML
     private TableColumn<?, ?> ordersEmployee;
+    
+    @FXML
+    private TextField txtOrdersCode;
 
     @FXML
     private TableColumn<?, ?> productsName;
@@ -283,6 +301,9 @@ public class RestaurantGUI {
 
     @FXML
     private TableColumn<?, ?> productsSize;
+    
+    @FXML
+    private TextField txtProductCode;
 
     @FXML
     public void AddNewProduct(ActionEvent event) {
