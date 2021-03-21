@@ -4,40 +4,40 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: black; -fx-background-color: gold;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="271.0" layoutY="177.0" prefHeight="404.0" prefWidth="361.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <AnchorPane layoutX="296.0" layoutY="173.0" prefHeight="408.0" prefWidth="386.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="295.0" AnchorPane.rightAnchor="236.0" AnchorPane.topAnchor="172.0">
          <children>
-            <TextField fx:id="txtRegProductName" layoutX="74.0" layoutY="84.0" promptText="Product Name">
+            <TextField fx:id="txtRegProductName" layoutX="75.0" layoutY="85.0" promptText="Product Name" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="85.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <Label alignment="CENTER" layoutX="81.0" layoutY="32.0" prefHeight="31.0" prefWidth="186.0" text="Create A Product">
-               <font>
-                  <Font name="System Bold Italic" size="19.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtRegProductSize" layoutX="74.0" layoutY="152.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Size">
+            <TextField fx:id="txtRegProductSize" layoutX="77.0" layoutY="154.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Size" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="154.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegProductPrice" layoutX="74.0" layoutY="222.0" prefHeight="31.0" prefWidth="199.0" promptText="Price">
+            <TextField fx:id="txtRegProductPrice" layoutX="77.0" layoutY="228.0" prefHeight="31.0" prefWidth="199.0" promptText="Price" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="228.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <Button layoutX="103.0" layoutY="305.0" mnemonicParsing="false" onAction="#CreateAProduct" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Product">
+            <Button layoutX="112.0" layoutY="307.0" mnemonicParsing="false" onAction="#CreateAProduct" prefHeight="33.0" prefWidth="148.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Product" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="89.0" AnchorPane.topAnchor="306.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
+            <Label alignment="CENTER" layoutX="75.0" layoutY="29.0" prefHeight="31.0" prefWidth="186.0" text="Create A Product" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="29.0">
+               <font>
+                  <Font name="System Bold Italic" size="19.0" />
+               </font>
+            </Label>
          </children>
-      </Pane>
-      <ImageView fitHeight="149.0" fitWidth="909.0" layoutX="4.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+      </AnchorPane>
+      <ImageView fitHeight="149.0" fitWidth="909.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0" />
    </children>
-</Pane>
+</AnchorPane>

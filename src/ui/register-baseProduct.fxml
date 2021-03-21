@@ -32,7 +32,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button defaultButton="true" layoutX="217.0" layoutY="261.0" mnemonicParsing="false" onAction="#AddIngredientBaseProduct" style="-fx-background-color: gold; -fx-border-color: black;" text="Add Ingredient" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="261.0">
+            <Button defaultButton="true" layoutX="212.0" layoutY="263.0" mnemonicParsing="false" onAction="#AddIngredientBaseProduct" prefHeight="33.0" prefWidth="132.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Add Ingredient" AnchorPane.leftAnchor="211.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="262.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
