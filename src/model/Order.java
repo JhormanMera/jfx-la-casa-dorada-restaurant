@@ -1,7 +1,10 @@
 package model;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Order implements Serializable{
 	
@@ -13,19 +16,29 @@ public class Order implements Serializable{
 	private ArrayList<Integer> amount;
 	private Custome custome;
 	private Employee employee;
+	private Date day;
+	private Date hour;
 	private Date date;
 	private String observation;
 	private User creator;
 	private User lastEditor;
+	private SimpleDateFormat objSDFHour;
+	private SimpleDateFormat objSDFDay;
 	
-		public Order(String state, String code, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor) {
+		public Order(String state, String code, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor) throws ParseException {
+		String hourFormat = "HH:mm:ss";
+		String dayFormat= "dd.MM.aaaa";
+		objSDFHour= new SimpleDateFormat(hourFormat);
+		objSDFDay= new SimpleDateFormat(dayFormat);
 		this.state = state;
 		this.code = code;
 		this.products = products;
 		this.amount = amount;
 		this.custome = custome;
 		this.employee = employee;
-		this.date = date;
+		this.date=date;
+		this.day = objSDFDay.parse(objSDFDay.format(date));
+		this.hour= objSDFHour.parse(objSDFHour.format(date));
 		this.observation = observation;
 		this.creator = creator;
 		this.lastEditor = lastEditor;
@@ -77,6 +90,22 @@ public class Order implements Serializable{
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public Date getDay() {
+		return day;
+	}
+
+	public void setDay(Date day) {
+		this.day = day;
+	}
+
+	public Date getHour() {
+		return hour;
+	}
+
+	public void setHour(Date hour) {
+		this.hour = hour;
 	}
 
 	public String getObservation() {

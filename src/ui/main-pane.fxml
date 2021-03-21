@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="809.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="809.0" style="-fx-background-color: gold;" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox prefHeight="19.0" prefWidth="916.0">
+            <HBox prefHeight="30.0" prefWidth="929.0" style="-fx-background-color: white; -fx-border-color: black;">
                <children>
                   <AnchorPane prefHeight="19.0" prefWidth="800.0">
                      <children>
@@ -23,43 +23,43 @@
                            <menus>
                               <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant Forms">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" text="Import Customes" />
-                                    <MenuItem mnemonicParsing="false" text="Import Products" />
-                                    <MenuItem mnemonicParsing="false" text="Import Orders" />
+                                    <MenuItem mnemonicParsing="false" onAction="#mainPaneImportCustomes" text="Import Customes" />
+                                    <MenuItem mnemonicParsing="false" onAction="#mainPaneImportProducts" text="Import Products" />
+                                    <MenuItem mnemonicParsing="false" onAction="#mainPaneImportOrders" text="Import Orders" />
                                     <SeparatorMenuItem mnemonicParsing="false" />
-                                    <MenuItem mnemonicParsing="false" text="Export Orders" />
-                                    <MenuItem mnemonicParsing="false" text="Export Products Sales" />
-                                    <MenuItem mnemonicParsing="false" text="Export Employees Sales" />
+                                    <MenuItem mnemonicParsing="false" onAction="#mainPaneExportOrders" text="Export Orders" />
+                                    <MenuItem mnemonicParsing="false" onAction="#mainPaneExportProductsSales" text="Export Products Sales" />
+                                    <MenuItem mnemonicParsing="false" onAction="#mainPaneExportEmployees" text="Export Employees Sales" />
                                  </items>
                               </Menu>
                               <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant People">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" text="Gestionate User" />
-                                    <MenuItem mnemonicParsing="false" text="Gestionate Custome" />
-                                    <MenuItem mnemonicParsing="false" text="Gestionate Employee" />
+                                    <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateUser" text="Gestionate User" />
+                                    <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateCustome" text="Gestionate Custome" />
+                                    <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateEmployee" text="Gestionate Employee" />
                                  </items>
                               </Menu>
                               <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant Products">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" text="Gestionate Base Product" />
-                                    <MenuItem mnemonicParsing="false" text="Gestionate Products" />
-                                    <MenuItem mnemonicParsing="false" text="Gestionate Ingredients" />
+                                    <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateBaseProduct" text="Gestionate Base Product" />
+                                    <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateProduct" text="Gestionate Products" />
+                                    <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateIngredient" text="Gestionate Ingredients" />
                                  </items>
                               </Menu>
                            </menus>
                         </MenuBar>
                      </children>
                   </AnchorPane>
-                  <Label text="Label">
+                  <Label fx:id="mainPaneHour" prefHeight="27.0" prefWidth="116.0" text="hh:mm:ss">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
-            <AnchorPane prefHeight="581.0" prefWidth="916.0">
+            <AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold;">
                <children>
-                  <Pane fx:id="mainPane" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Pane fx:id="mainPane" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </children>

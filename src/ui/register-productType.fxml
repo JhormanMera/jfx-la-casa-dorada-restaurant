@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="324.0" layoutY="187.0" prefHeight="395.0" prefWidth="342.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
@@ -16,7 +16,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegisterProductSizeCode" layoutX="68.0" layoutY="104.0" prefHeight="39.0" prefWidth="199.0" promptText="Code" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="104.0">
+            <TextField fx:id="txtRegisterProductTypeCode" layoutX="68.0" layoutY="104.0" prefHeight="39.0" prefWidth="199.0" promptText="Code" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="104.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

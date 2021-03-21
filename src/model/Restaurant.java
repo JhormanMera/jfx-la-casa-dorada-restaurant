@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javafx.scene.control.Alert;
@@ -45,83 +47,83 @@ public class Restaurant {
 		productSize=new ArrayList<>();
 	}
 	
-	public static String getFILE_SEPARATOR() {
+	public  String getFILE_SEPARATOR() {
 		return FILE_SEPARATOR;
 	}
 
-	public static void setFILE_SEPARATOR(String fILE_SEPARATOR) {
+	public void setFILE_SEPARATOR(String fILE_SEPARATOR) {
 		FILE_SEPARATOR = fILE_SEPARATOR;
 	}
 
-	public static List<Custome> getCustomes() {
+	public List<Custome> getCustomes() {
 		return customes;
 	}
 
-	public static void setCustomes(List<Custome> customes) {
+	public void setCustomes(List<Custome> customes) {
 		Restaurant.customes = customes;
 	}
 
-	public static List<Ingredients> getIngredients() {
+	public List<Ingredients> getIngredients() {
 		return ingredients;
 	}
 
-	public static void setIngredients(List<Ingredients> ingredients) {
+	public void setIngredients(List<Ingredients> ingredients) {
 		Restaurant.ingredients = ingredients;
 	}
 
-	public static List<Product> getProducts() {
+	public List<Product> getProducts() {
 		return products;
 	}
 
-	public static void setProducts(List<Product> products) {
+	public void setProducts(List<Product> products) {
 		Restaurant.products = products;
 	}
 
-	public static List<ProductType> getProductType() {
+	public List<ProductType> getProductType() {
 		return productType;
 	}
 
-	public static void setProductType(List<ProductType> productType) {
+	public void setProductType(List<ProductType> productType) {
 		Restaurant.productType = productType;
 	}
 
-	public static List<Order> getOrders() {
+	public List<Order> getOrders() {
 		return orders;
 	}
 
-	public static void setOrders(List<Order> orders) {
+	public void setOrders(List<Order> orders) {
 		Restaurant.orders = orders;
 	}
 
-	public static List<Employee> getEmployees() {
+	public List<Employee> getEmployees() {
 		return employees;
 	}
 
-	public static void setEmployees(List<Employee> employees) {
+	public void setEmployees(List<Employee> employees) {
 		Restaurant.employees = employees;
 	}
 
-	public static List<User> getUsers() {
+	public List<User> getUsers() {
 		return users;
 	}
 
-	public static void setUsers(List<User> users) {
+	public void setUsers(List<User> users) {
 		Restaurant.users = users;
 	}
 
-	public static List<BaseProduct> getBaseProducts() {
+	public List<BaseProduct> getBaseProducts() {
 		return baseProducts;
 	}
 
-	public static void setBaseProducts(List<BaseProduct> baseProducts) {
+	public void setBaseProducts(List<BaseProduct> baseProducts) {
 		Restaurant.baseProducts = baseProducts;
 	}
 
-	public static List<ProductSize> getProductSize() {
+	public List<ProductSize> getProductSize() {
 		return productSize;
 	}
 
-	public static void setProductSize(List<ProductSize> productSize) {
+	public void setProductSize(List<ProductSize> productSize) {
 		Restaurant.productSize = productSize;
 	}
 	
@@ -227,7 +229,7 @@ public class Restaurant {
 
     }
     
-    public static int binarySearchCustomes(String name, String lastName) {
+    public int binarySearchCustomes(String name, String lastName) {
 		Custome a=null;
 		int b=-1;
 		int start =0;
@@ -252,7 +254,7 @@ public class Restaurant {
 		return b;
   }
     
-    public static void SortProductsByPrice() {
+    public void SortProductsByPrice() {
     	for(int i=0;i<products.size();i++) {
     		for(int j=i;j>0&&products.get(j-1).getPrice()>products.get(j).getPrice();j--) {
     			Product temp=products.get(j);
@@ -262,7 +264,7 @@ public class Restaurant {
     	}
     }
     
-    public static void addCustomesListSorted(String name, String lastname, String ID, String address, String phone, String observations) {
+    public void addCustomesListSorted(String name, String lastname, String ID, String address, String phone, String observations) {
     	Custome newCustome=new Custome(name, lastname, ID, address, phone, observations);
     	if(customes.isEmpty()) {
     		customes.add(newCustome);
@@ -274,17 +276,17 @@ public class Restaurant {
     		customes.add(i, newCustome);
     	}
     }
-    public static void addOrder(String state, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor) {
+    public void addOrder(String state, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor) throws ParseException {
     	Order newOrder =new Order(state,ORDER_CODE, products,amount, custome, employee, date, observation, creator, lastEditor);
     	orders.add(newOrder);
     }
-    public static void addProductType(String name,String code ,User creator, User lastEditor) {
+    public void addProductType(String name,String code ,User creator, User lastEditor) {
     	productType.add(new ProductType(name, code , creator, lastEditor));
     }
-    public static void addEmployee(String name, String lastname, String ID) {
+    public void addEmployee(String name, String lastname, String ID) {
     	employees.add(new Employee(name, lastname, ID));
     }
-    public static void addUser(String name, String lastName, String ID, String userName, String password) {
+    public void addUser(String name, String lastName, String ID, String userName, String password) {
     	if(searchUser(userName)!=null) {
     		users.add(new User(name, lastName, ID, userName, password));
     	} else {
@@ -295,20 +297,20 @@ public class Restaurant {
     	}
     }   
     
-    public static void addIngredients(String name, User creator, User lastEditor) {
+    public void addIngredients(String name, User creator, User lastEditor) {
     	ingredients.add(new Ingredients(name, creator, lastEditor));
     }
-    public static void addBaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients) {
+    public void addBaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients) {
     	baseProducts.add(new BaseProduct( name, type, ingredients));
     }
-    public static void addProductSize(String name,String code) {
+    public void addProductSize(String name,String code) {
     	productSize.add(new ProductSize( name, code));
     }
-    public static void addProduct(String code,BaseProduct baseProduct, boolean state, double price, ProductSize size, User creator, User lastEditor) {
+    public void addProduct(String code,BaseProduct baseProduct, boolean state, double price, ProductSize size, User creator, User lastEditor) {
     	products.add(new Product(code,baseProduct, state, price, size, creator, lastEditor));
     }   
   
-    public static ProductSize searchProductSize(String code) {
+    public ProductSize searchProductSize(String code) {
     	boolean flag=false;
     	ProductSize size=null;
     	for(int i=0;i<productSize.size()&&!flag;i++) {
@@ -319,7 +321,7 @@ public class Restaurant {
     	}
     	return size;
     }
-    public static double[] employeesOrders(Employee employee, Order order) {
+    public double[] employeesOrders(Employee employee, Order order) {
     	double[] orders=new double[2];
     	double ordernum=0;
     	double orderprice=0.0;
@@ -335,7 +337,7 @@ public class Restaurant {
     }
       
     
-    public static boolean searchCustomeInOrders(Custome custome) {
+    public boolean searchCustomeInOrders(Custome custome) {
     	boolean found=false;
     	for(int i=0;i<orders.size()&&!found;i++) {
     		if(custome==orders.get(i).getCustome()&&(orders.get(i).getState()=="REQUESTED"||orders.get(i).getState()=="IN PROCESS")) {
@@ -344,7 +346,7 @@ public class Restaurant {
     		}
     	return found;
     }
-    public static Product searchProductsInOrders(Product product) {
+    public Product searchProductsInOrders(Product product) {
     	Product numProduct=null;
     	boolean found=false;
     	for(int i=0;i<orders.size()&&!found;i++) {
@@ -357,7 +359,7 @@ public class Restaurant {
     	} 
     	return numProduct;
     }
-    public static int searchProduct(String code) {
+    public int searchProduct(String code) {
     	int index=-10;
     	boolean flag=false;
     	for(int i=0;i<products.size()&&!flag;i++) {
@@ -369,7 +371,7 @@ public class Restaurant {
     	return index;
     }
     
-    public static double[] productsOrders(Product products, Product order) {
+    public double[] productsOrders(Product products, Product order) {
     	double[] orders=new double[2];
     	double productnum=0;
     	double productprice=0.0;
@@ -384,7 +386,7 @@ public class Restaurant {
     
    
     
-    public static void eraseProduct(String code) {    	
+    public void eraseProduct(String code) {    	
     	boolean erased=false;
     	int i=searchProduct(code);
     	if (i>=0) {
@@ -408,7 +410,7 @@ public class Restaurant {
     	}
     }
     
-    public static int searchBaseProduct(String name) {
+    public int searchBaseProduct(String name) {
     	int index=-10;
     	boolean flag=false;
     	for(int i=0;i<baseProducts.size()&&!flag;i++) {
@@ -419,7 +421,7 @@ public class Restaurant {
     	}
     	return index;
     }  
-    public static boolean searchBaseProductsInProducts(BaseProduct product) {
+    public boolean searchBaseProductsInProducts(BaseProduct product) {
     	boolean found=false;
     	for(int i=0;i<products.size()&&!found;i++) {
     			if(product==products.get(i).getBaseProduct()) {
@@ -428,7 +430,7 @@ public class Restaurant {
     		}
     	return found;
     }
-    public static void eraseBaseProduct(String name) {
+    public void eraseBaseProduct(String name) {
     	boolean erased=false;
     	int i=searchBaseProduct(name);
     	if (i>=0) {
@@ -452,7 +454,7 @@ public class Restaurant {
     	}
     }
     
-    public static boolean searchIngredientInProducts(Ingredients ingredient) {
+    public boolean searchIngredientInProducts(Ingredients ingredient) {
     	boolean found=false;
     	for(int i=0;i<baseProducts.size()&&found;i++) {
     		for(int k=0;k<baseProducts.get(i).getIngredients().size();k++) {
@@ -463,7 +465,7 @@ public class Restaurant {
     	}
     	return found;
     }
-    public static void eraseIngredient(String name) {
+    public void eraseIngredient(String name) {
     	boolean erased=false;    	
     	for(int i=0;i<ingredients.size()&&!erased;i++) {
     		boolean found=searchIngredientInProducts(ingredients.get(i));
@@ -485,7 +487,7 @@ public class Restaurant {
     	}
     }
     
-    public static boolean searchTypeInProducts(ProductType type) {
+    public boolean searchTypeInProducts(ProductType type) {
     	boolean found=false;
     	for(int i=0;i<baseProducts.size()&&found;i++) {
     			if(type==baseProducts.get(i).getType()) {
@@ -495,7 +497,7 @@ public class Restaurant {
     	return found;
     }
     
-    public static void eraseProductType(String name) {
+    public void eraseProductType(String name) {
     	boolean erased=false;    	
     	for(int i=0;i<productType.size()&&!erased;i++) {
     		boolean found=searchTypeInProducts(productType.get(i));
@@ -517,7 +519,7 @@ public class Restaurant {
     	}
     }
     
-    public static void eraseCustome(String name, String lastName) {
+    public void eraseCustome(String name, String lastName) {
     	boolean erased=false;    	
     	int index= binarySearchCustomes(name,lastName);
     	if(index>=0) {
@@ -540,7 +542,7 @@ public class Restaurant {
     	}
     }
     
-    public static void stateProduct(String code,boolean state) {
+    public void stateProduct(String code,boolean state) {
     	int index=searchProduct(code);
     	boolean found=false;
     	if(index>=0) {
@@ -559,7 +561,7 @@ public class Restaurant {
 			alert.showAndWait();
     	}
     }
-    public static void stateProductType(String name,boolean state) {
+    public void stateProductType(String name,boolean state) {
     	boolean found=false;
     	for(int i=0;i<productType.size()&&!found;i++) {
     		if(productType.get(i).getName().equalsIgnoreCase(name)) {
@@ -580,7 +582,7 @@ public class Restaurant {
     	}
     }
     
-    public static void stateIngredient(String name, boolean state) {
+    public void stateIngredient(String name, boolean state) {
     	boolean found=false;
     	for(int i=0;i<ingredients.size()&&!found;i++) {
     		if(ingredients.get(i).getName().equalsIgnoreCase(name)) {
@@ -601,7 +603,7 @@ public class Restaurant {
     	}
     }
     
-    public static void stateCustome(String name, String lastName, boolean state) {
+    public void stateCustome(String name, String lastName, boolean state) {
     	boolean found=false;
     	int index= binarySearchCustomes(name,lastName);
     		if(index>=0) {
@@ -631,7 +633,7 @@ public class Restaurant {
 		br.close();
 
     }
-    public static User searchUser(String userName) {
+    public User searchUser(String userName) {
     	User myUser=null;
     	for(int i=0;i<users.size();i++) {
     		if(users.get(i).getUserName().equals(userName)) {
@@ -640,7 +642,7 @@ public class Restaurant {
     	}
     	return myUser;
     }
-    public static ProductType searchTypeProduct(String code) {
+    public ProductType searchTypeProduct(String code) {
     	boolean found=false;
     	ProductType type=null;
     	for(int i=0;i<productType.size()&&found;i++) {
@@ -668,8 +670,7 @@ public class Restaurant {
     	}
     	br.close();
 
-    }
-    
+    }    
     /*
     public void importBaseProducts (String fileName) throws IOException{
     	//String name, ProductType type, ArrayList<Ingredients> ingredients
@@ -713,8 +714,8 @@ public class Restaurant {
     	}
     	writer.close();
     }
-    /*
-    public static void employeesOrdersReport(String fileName) throws FileNotFoundException {
+    
+    public void employeesOrdersReport(String fileName) throws FileNotFoundException {
     	PrintWriter writer = new PrintWriter (fileName);
     	for (int i=0;i<employees.size();i++) {
     		for(int j=0;j<orders.size();j++) {
@@ -725,7 +726,7 @@ public class Restaurant {
     	}
     	writer.close();
     }
-    public static void productsOrderReport(String fileName) throws FileNotFoundException {
+    public void productsOrderReport(String fileName) throws FileNotFoundException {
     	PrintWriter writer = new PrintWriter (fileName);
     	for (int i=0;i<products.size();i++) {
     		for(int j=0;j<orders.size();j++) {
@@ -738,7 +739,6 @@ public class Restaurant {
     	}
     	writer.close();
     }
-    */
 
     
 }
