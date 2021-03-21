@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="286.0" layoutY="175.0" prefHeight="406.0" prefWidth="427.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="286.0" AnchorPane.rightAnchor="203.0" AnchorPane.topAnchor="175.0">
+         <children>
+            <Label layoutX="99.0" layoutY="15.0" text="Sales Report By Product" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="15.0">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="initialDateProductReport" layoutX="91.0" layoutY="65.0" prefHeight="31.0" prefWidth="232.0" AnchorPane.leftAnchor="91.0" AnchorPane.rightAnchor="89.0" AnchorPane.topAnchor="65.0" />
+            <TextField fx:id="initialHourProductReport" layoutX="93.0" layoutY="117.0" prefHeight="31.0" prefWidth="232.0" AnchorPane.leftAnchor="93.0" AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="117.0" />
+            <Label layoutX="110.0" layoutY="281.0" text="Hours must be in 24 hour format" />
+            <Separator layoutX="7.0" layoutY="324.0" prefHeight="3.0" prefWidth="404.0" />
+            <Button layoutX="138.0" layoutY="340.0" mnemonicParsing="false" onAction="#generateReportByProduct" prefHeight="39.0" prefWidth="151.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Generate Report" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="137.0" AnchorPane.topAnchor="340.0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <DatePicker fx:id="finalDateProductReport" layoutX="93.0" layoutY="170.0" prefHeight="31.0" prefWidth="232.0" AnchorPane.leftAnchor="93.0" AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="170.0" />
+            <TextField fx:id="finalHourProductReport" layoutX="93.0" layoutY="227.0" prefHeight="31.0" prefWidth="232.0" AnchorPane.leftAnchor="93.0" AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="227.0" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="154.0" fitWidth="905.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="5.0" />
+   </children>
+</AnchorPane>

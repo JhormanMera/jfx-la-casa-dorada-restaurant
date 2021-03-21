@@ -6,55 +6,62 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="812.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="809.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane prefHeight="44.0" prefWidth="809.0">
+            <HBox prefHeight="19.0" prefWidth="916.0">
                <children>
-                  <MenuBar prefHeight="34.0" prefWidth="809.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <menus>
-                        <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant Forms">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Import Customes" />
-                              <MenuItem mnemonicParsing="false" text="Import Products" />
-                              <MenuItem mnemonicParsing="false" text="Import Orders" />
-                              <SeparatorMenuItem mnemonicParsing="false" />
-                              <MenuItem mnemonicParsing="false" text="Export Orders" />
-                           </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant People">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Gestionate User" />
-                              <MenuItem mnemonicParsing="false" text="Gestionate Custome" />
-                              <MenuItem mnemonicParsing="false" text="Gestionate Employee" />
-                           </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant Products">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Gestionate Products" />
-                              <MenuItem mnemonicParsing="false" text="Gestionate Ingredients" />
-                           </items>
-                        </Menu>
-                     </menus>
-                  </MenuBar>
+                  <AnchorPane prefHeight="19.0" prefWidth="800.0">
+                     <children>
+                        <MenuBar prefHeight="34.0" prefWidth="809.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <menus>
+                              <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant Forms">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="Import Customes" />
+                                    <MenuItem mnemonicParsing="false" text="Import Products" />
+                                    <MenuItem mnemonicParsing="false" text="Import Orders" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" text="Export Orders" />
+                                    <MenuItem mnemonicParsing="false" text="Export Products Sales" />
+                                    <MenuItem mnemonicParsing="false" text="Export Employees Sales" />
+                                 </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant People">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="Gestionate User" />
+                                    <MenuItem mnemonicParsing="false" text="Gestionate Custome" />
+                                    <MenuItem mnemonicParsing="false" text="Gestionate Employee" />
+                                 </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant Products">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="Gestionate Base Product" />
+                                    <MenuItem mnemonicParsing="false" text="Gestionate Products" />
+                                    <MenuItem mnemonicParsing="false" text="Gestionate Ingredients" />
+                                 </items>
+                              </Menu>
+                           </menus>
+                        </MenuBar>
+                     </children>
+                  </AnchorPane>
+                  <Label text="Label">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <AnchorPane prefHeight="581.0" prefWidth="916.0">
+               <children>
+                  <Pane fx:id="mainPane" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="528.0" prefWidth="809.0">
-               <children>
-                  <Pane fx:id="mainPane" prefHeight="508.0" prefWidth="809.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-            <Label text="Label">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
          </children>
       </VBox>
    </children>

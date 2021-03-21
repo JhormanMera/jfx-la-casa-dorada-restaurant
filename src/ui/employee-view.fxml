@@ -22,10 +22,10 @@
          <children>
             <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="729.0" minWidth="785.0" prefHeight="729.0" prefWidth="785.0" style="-fx-background-color: white; -fx-border-color: black;">
                <columns>
-                  <TableColumn minWidth="130.0" prefWidth="130.0" style="-fx-border-color: black; -fx-background-color: white;" text="Name" />
-                  <TableColumn minWidth="126.0" prefWidth="126.0" style="-fx-border-color: black; -fx-background-color: white;" text="Last Name" />
-                  <TableColumn minWidth="115.0" prefWidth="115.0" style="-fx-border-color: black; -fx-background-color: white;" text="ID" />
-                  <TableColumn minWidth="84.0" prefWidth="84.0" style="-fx-border-color: black; -fx-background-color: white;" text="State" />
+                  <TableColumn fx:id="employeeName" minWidth="130.0" prefWidth="130.0" style="-fx-border-color: black; -fx-background-color: white;" text="Name" />
+                  <TableColumn fx:id="employeeLastName" minWidth="126.0" prefWidth="126.0" style="-fx-border-color: black; -fx-background-color: white;" text="Last Name" />
+                  <TableColumn fx:id="employeeID" minWidth="115.0" prefWidth="115.0" style="-fx-border-color: black; -fx-background-color: white;" text="ID" />
+                  <TableColumn fx:id="employeeState" minWidth="84.0" prefWidth="84.0" style="-fx-border-color: black; -fx-background-color: white;" text="State" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

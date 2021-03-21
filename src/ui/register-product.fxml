@@ -38,6 +38,6 @@
             </Button>
          </children>
       </Pane>
-      <ImageView fitHeight="138.0" fitWidth="909.0" layoutX="4.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="149.0" fitWidth="909.0" layoutX="4.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </Pane>

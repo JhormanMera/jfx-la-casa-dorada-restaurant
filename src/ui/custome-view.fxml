@@ -15,13 +15,13 @@
          <children>
             <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="645.0" minWidth="718.0" prefHeight="645.0" prefWidth="810.0" style="-fx-background-color: white; -fx-border-color: black;">
                <columns>
-                  <TableColumn minWidth="84.0" prefWidth="101.0" style="-fx-border-color: black; -fx-background-color: white;" text="Last Name" />
-                  <TableColumn minWidth="40.0" prefWidth="97.0" style="-fx-border-color: black; -fx-background-color: white;" text="Name" />
-                  <TableColumn minWidth="37.0" prefWidth="89.0" style="-fx-border-color: black; -fx-background-color: white;" text="ID" />
-                  <TableColumn minWidth="46.0" prefWidth="107.0" style="-fx-border-color: black; -fx-background-color: white;" text="Address" />
-                  <TableColumn minWidth="0.0" prefWidth="141.0" style="-fx-border-color: black; -fx-background-color: white;" text="Phone" />
-                  <TableColumn minWidth="80.0" prefWidth="186.0" style="-fx-border-color: black; -fx-background-color: white;" text="Observations" />
-                  <TableColumn minWidth="0.0" prefWidth="85.0" style="-fx-border-color: black; -fx-background-color: white;" text="State" />
+                  <TableColumn fx:id="customesLastName" minWidth="84.0" prefWidth="101.0" style="-fx-border-color: black; -fx-background-color: white;" text="Last Name" />
+                  <TableColumn fx:id="customesName" minWidth="40.0" prefWidth="97.0" style="-fx-border-color: black; -fx-background-color: white;" text="Name" />
+                  <TableColumn fx:id="customesID" minWidth="37.0" prefWidth="89.0" style="-fx-border-color: black; -fx-background-color: white;" text="ID" />
+                  <TableColumn fx:id="customesAddress" minWidth="46.0" prefWidth="107.0" style="-fx-border-color: black; -fx-background-color: white;" text="Address" />
+                  <TableColumn fx:id="customesPhone" minWidth="0.0" prefWidth="141.0" style="-fx-border-color: black; -fx-background-color: white;" text="Phone" />
+                  <TableColumn fx:id="customesObservations" minWidth="80.0" prefWidth="186.0" style="-fx-border-color: black; -fx-background-color: white;" text="Observations" />
+                  <TableColumn fx:id="customesState" minWidth="0.0" prefWidth="85.0" style="-fx-border-color: black; -fx-background-color: white;" text="State" />
                </columns>
             </TableView>
             <VBox prefHeight="648.0" prefWidth="110.0">
