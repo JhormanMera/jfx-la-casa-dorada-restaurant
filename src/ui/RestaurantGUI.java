@@ -89,16 +89,16 @@ public class RestaurantGUI {
     private Pane registerPane;
     
 	@FXML
-    private TextField txtRegBaseProductName;
+    private TextField txtRegisterBaseProductName;
 
     @FXML
-    private TextField txtRegBaseProductType;
+    private TextField txtRegisterBaseProductType;
 
     @FXML
-    private TextField txtRegProBaseductIngredients;
+    private TextField txtRegisterBaseProductIngredients;
 
     @FXML
-    private Label txtRegBaseProductMessage;
+    private Label txtRegisterBaseProductMessage;
 
     @FXML
     private TextField txtRegisterCustomeName;
@@ -129,12 +129,19 @@ public class RestaurantGUI {
     
     @FXML
     private TextField txtRegProductName;
+    
+    @FXML
+    private TextField txtRegisterProductBaseProduct;
+    
+    @FXML
+    private TextField txtRegisterProductCode;
 
     @FXML
-    private TextField txtRegProductSize;
-
+    private TextField txtRegisterProductPrice;
+    
     @FXML
-    private TextField txtRegProductPrice;
+    private TextField txtRegisterProductProductSize;
+    
 
     @FXML
     private TextField txtRegisterProductSizeName;
@@ -143,19 +150,10 @@ public class RestaurantGUI {
     private TextField txtRegisterProductSizeCode;
    
     @FXML
-    private TextField txtRegisterProductName;
+    private TextField txtRegisterProductTypeName;
 
     @FXML
     private TextField txtRegisterProductTypeCode;
-
-    @FXML
-    private TextField txtRegisterProductTypeCreator;
-
-    @FXML
-    private TextField txtRegisterProductTypeState;
-
-    @FXML
-    private TextField txtRegisterProductTypeLastCreator;
 
     @FXML
     private TableColumn<?, ?> baseProductName;
@@ -306,7 +304,7 @@ public class RestaurantGUI {
     
     @FXML
     private TextField txtProductCode;
-
+    
     @FXML
     public void AddNewProduct(ActionEvent event) {
 
@@ -314,8 +312,10 @@ public class RestaurantGUI {
 
     @FXML
     public void DeleteProduct(ActionEvent event) {
-
+    	restaurant.eraseProduct(txtProductCode.getText());
     }
+    
+    
     @FXML
     public void AddNewOrder(ActionEvent event) {
 
@@ -323,8 +323,9 @@ public class RestaurantGUI {
 
     @FXML
     public void DeleteOrder(ActionEvent event) {
-
+    	restaurant.eraseOrder(txtOrdersCode.getText());
     }
+    
     @FXML
     public void mainPaneExportEmployees(ActionEvent event) throws IOException {
 		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("generate-report-employee.fxml"));
@@ -333,9 +334,15 @@ public class RestaurantGUI {
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
     }
-
-
     
+    @FXML
+    public void mainPaneExportOrders(ActionEvent event) throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("generate-report-order.fxml"));
+		fxmlloader.setController(this);
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
+    }
 
     @FXML
     public void mainPaneExportProductsSales(ActionEvent event) throws IOException {
@@ -346,7 +353,6 @@ public class RestaurantGUI {
 		mainPane.getChildren().setAll(root);
     }
 
-
     @FXML
     public void mainPaneGestionateBaseProduct(ActionEvent event) throws IOException {
 		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("baseProduct-view.fxml"));
@@ -355,7 +361,6 @@ public class RestaurantGUI {
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
     }
-
 
     @FXML
     public void mainPaneGestionateCustome(ActionEvent event)throws IOException {
@@ -366,7 +371,6 @@ public class RestaurantGUI {
 		mainPane.getChildren().setAll(root);
     }
 
-
     @FXML
     public void mainPaneGestionateEmployee(ActionEvent event) throws IOException {
 		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("employee-view.fxml"));
@@ -375,7 +379,6 @@ public class RestaurantGUI {
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
     }
-
 
     @FXML
     public void mainPaneGestionateIngredient(ActionEvent event) throws IOException {
@@ -386,7 +389,6 @@ public class RestaurantGUI {
 		mainPane.getChildren().setAll(root);
     }
 
-
     @FXML
     public void mainPaneGestionateProduct(ActionEvent event) throws IOException {
 		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("products-view.fxml"));
@@ -395,7 +397,6 @@ public class RestaurantGUI {
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
     }
-
 
     @FXML
     public void mainPaneGestionateUser(ActionEvent event) throws IOException {
@@ -429,7 +430,7 @@ public class RestaurantGUI {
 
     @FXML
     public void DeleteIngredients(ActionEvent event) {
-
+    	restaurant.eraseIngredient(txtIngredientName.getText());
     }
 
     @FXML
@@ -454,7 +455,7 @@ public class RestaurantGUI {
 
     @FXML
     public void DeleteEmployee(ActionEvent event) {
-
+    	restaurant.eraseEmployee(txtEmployeeID.getText());
     }
 
     @FXML
@@ -464,7 +465,7 @@ public class RestaurantGUI {
 
     @FXML
     public void DeleteCustome(ActionEvent event) {
-
+    	restaurant.eraseCustome(txtCustomeName.getText(),txtCustomeLastName.getText());
     }
 
     @FXML
@@ -476,42 +477,51 @@ public class RestaurantGUI {
     
     @FXML
     public void DeleteBaseProduct(ActionEvent event) {
+    	restaurant.eraseBaseProduct(txtBaseProductName.getText());
 
     }
 
     @FXML
     public void CreateAProductType(ActionEvent event) {
-
+    	restaurant.addProductType(txtRegisterProductTypeName.getText(),txtRegisterProductTypeCode.getText(), 
+    			restaurant.getUserLogged(), restaurant.getUserLogged());
     }
 
     @FXML
     public void CreateAProductSize(ActionEvent event) {
-
+    	restaurant.addProductSize(txtRegisterProductSizeName.getText(),txtRegisterProductSizeCode.getText(),
+    			restaurant.getUserLogged(), restaurant.getUserLogged());
     }
 
     @FXML
     public void CreateAProduct(ActionEvent event) {
-
+    	double price= Double.parseDouble(txtRegisterProductPrice.getText());
+    	restaurant.addProduct(txtRegisterProductCode.getText(),restaurant.getBaseProducts().get(restaurant.searchBaseProduct(txtRegisterProductBaseProduct.getText())), 
+    			 true, price, restaurant.getProductSize().get(restaurant.searchProductSize(txtRegisterProductProductSize.getText())),restaurant.getUserLogged(), restaurant.getUserLogged());
     }
 
     @FXML
     public void CreateAnEmployee(ActionEvent event) {
-
+    	restaurant.addEmployee(txtRegisterEmployeeName.getText(),txtRegisterEmployeeLastnames.getText(), 
+    			 txtRegisterEmployeeID.getText());
     }
 
     @FXML
     public void CreateACustome(ActionEvent event) {
-
+    	restaurant.addCustomesListSorted(txtRegisterCustomeName.getText(),txtRegisterCustomeLas.getText(),
+    			txtRegisterCustomeID.getText(), txtRegisterCustomeAddress.getText(),txtRegisterCustomePhone.getText(),
+    			txtRegisterCustomeObservations.getText());
     }
 	
 	@FXML
     public void AddIngredientBaseProduct(ActionEvent event) {
-
+		restaurant.getIngredientBP().add(restaurant.searchIngredient(txtRegisterBaseProductIngredients.getText()));
     }
 
     @FXML
     public void CreateABaseProduct(ActionEvent event) {
-
+    	restaurant.addBaseProduct(txtRegisterBaseProductName.getText(),restaurant.searchTypeProduct(txtRegisterBaseProductType.getText()),
+    			restaurant.getIngredientBP());
     }
 
     @FXML
@@ -571,17 +581,11 @@ public class RestaurantGUI {
 		this.registerImage.setImage(img);
 	}
 	
-	@FXML
-    public void mainPaneExportOrders(ActionEvent event) throws IOException {
-		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("generate-report-order.fxml"));
-		fxmlloader.setController(this);
-		Parent root = fxmlloader.load();
-		mainPane.getChildren().clear();
-		mainPane.getChildren().setAll(root);
-    }
+	
 	
     @FXML
     public void initialize() {
+    	
      
     }
     

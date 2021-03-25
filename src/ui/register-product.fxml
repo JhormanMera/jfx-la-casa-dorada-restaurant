@@ -11,17 +11,17 @@
    <children>
       <AnchorPane layoutX="296.0" layoutY="173.0" prefHeight="408.0" prefWidth="386.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="295.0" AnchorPane.rightAnchor="236.0" AnchorPane.topAnchor="172.0">
          <children>
-            <TextField fx:id="txtRegProductName" layoutX="75.0" layoutY="85.0" promptText="Product Name" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="85.0">
+            <TextField fx:id="txtRegisterProductName" layoutX="75.0" layoutY="85.0" promptText="Product Name" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="85.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegProductSize" layoutX="77.0" layoutY="154.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Size" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="154.0">
+            <TextField fx:id="txtRegisterProductSize" layoutX="77.0" layoutY="154.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Size" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="154.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegProductPrice" layoutX="77.0" layoutY="228.0" prefHeight="31.0" prefWidth="199.0" promptText="Price" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="228.0">
+            <TextField fx:id="txtRegisterProductPrice" layoutX="77.0" layoutY="228.0" prefHeight="31.0" prefWidth="199.0" promptText="Price" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="228.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

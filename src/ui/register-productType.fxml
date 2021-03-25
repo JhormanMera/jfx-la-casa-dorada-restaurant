@@ -7,45 +7,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="324.0" layoutY="187.0" prefHeight="395.0" prefWidth="342.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <AnchorPane layoutX="324.0" layoutY="232.0" prefHeight="348.0" prefWidth="342.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
-            <TextField fx:id="txtRegisterProductName" layoutX="66.0" layoutY="54.0" prefHeight="39.0" prefWidth="199.0" promptText="Name" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="54.0">
+            <TextField fx:id="txtRegisterProductTypeName" layoutX="67.0" layoutY="99.0" prefHeight="39.0" prefWidth="199.0" promptText="Name" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="99.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegisterProductTypeCode" layoutX="68.0" layoutY="104.0" prefHeight="39.0" prefWidth="199.0" promptText="Code" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="104.0">
+            <TextField fx:id="txtRegisterProductTypeCode" layoutX="71.0" layoutY="169.0" prefHeight="39.0" prefWidth="199.0" promptText="Code" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="81.0" AnchorPane.topAnchor="169.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <Button layoutX="82.0" layoutY="325.0" mnemonicParsing="false" onAction="#CreateAProductType" prefHeight="46.0" prefWidth="179.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Product Type" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="325.0">
+            <Button layoutX="85.0" layoutY="259.0" mnemonicParsing="false" onAction="#CreateAProductType" prefHeight="46.0" prefWidth="188.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Product Type" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="259.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <TextField fx:id="txtRegisterProductTypeCreator" layoutX="69.0" layoutY="215.0" prefHeight="39.0" prefWidth="199.0" promptText="Creator" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="215.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </TextField>
-            <Label layoutX="70.0" layoutY="14.0" prefHeight="27.0" prefWidth="194.0" text="Create a Product Type" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="14.0">
+            <Label layoutX="71.0" layoutY="35.0" prefHeight="27.0" prefWidth="194.0" text="Create a Product Type" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="81.0" AnchorPane.topAnchor="35.0">
                <font>
                   <Font name="System Bold Italic" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txtRegisterProductTypeState" layoutX="68.0" layoutY="159.0" prefHeight="39.0" prefWidth="199.0" promptText="State" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="159.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtRegisterProductTypeLastCreator" layoutX="68.0" layoutY="270.0" prefHeight="39.0" prefWidth="199.0" promptText="Last Creator" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="270.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </TextField>
          </children>
       </AnchorPane>
       <ImageView fitHeight="145.0" fitWidth="904.0" layoutX="5.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />

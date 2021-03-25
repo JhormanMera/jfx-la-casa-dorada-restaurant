@@ -9,9 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,15 +26,17 @@ public class Restaurant {
 	private static final String PRODUCT_TYPE_SAVE_PATH_FILE="";
 	private static final String ORDER_CODE= String.format("P%04d", 100000);
 	private static String FILE_SEPARATOR=";";
-	private static List<Custome> customes;
-	private static List<Ingredients> ingredients;
-	private static List<Product> products;
-	private static List<ProductType> productType;
-	private static List<Order> orders;
-	private static List<Employee> employees;
-	private static List<User> users;
-	private static List<BaseProduct> baseProducts;
-	private static List<ProductSize> productSize;
+	private User userLogged;
+	private List<Custome> customes;
+	private List<Ingredients> ingredients;
+	private List<Product> products;
+	private List<ProductType> productType;
+	private List<Order> orders;
+	private List<Employee> employees;
+	private List<User> users;
+	private List<BaseProduct> baseProducts;
+	private List<ProductSize> productSize;
+	private ArrayList<Ingredients> ingredientBP;
 	
 	public Restaurant() {
 		customes = new ArrayList<>();
@@ -47,6 +47,7 @@ public class Restaurant {
 		users=new ArrayList<>();
 		baseProducts=new ArrayList<>();
 		productSize=new ArrayList<>();
+		ingredientBP=new ArrayList<>();
 	}
 	
 	public  String getFILE_SEPARATOR() {
@@ -62,7 +63,7 @@ public class Restaurant {
 	}
 
 	public void setCustomes(List<Custome> customes) {
-		Restaurant.customes = customes;
+		this.customes = customes;
 	}
 
 	public List<Ingredients> getIngredients() {
@@ -70,7 +71,7 @@ public class Restaurant {
 	}
 
 	public void setIngredients(List<Ingredients> ingredients) {
-		Restaurant.ingredients = ingredients;
+		this.ingredients = ingredients;
 	}
 
 	public List<Product> getProducts() {
@@ -78,7 +79,7 @@ public class Restaurant {
 	}
 
 	public void setProducts(List<Product> products) {
-		Restaurant.products = products;
+		this.products = products;
 	}
 
 	public List<ProductType> getProductType() {
@@ -86,7 +87,7 @@ public class Restaurant {
 	}
 
 	public void setProductType(List<ProductType> productType) {
-		Restaurant.productType = productType;
+		this.productType = productType;
 	}
 
 	public List<Order> getOrders() {
@@ -94,7 +95,7 @@ public class Restaurant {
 	}
 
 	public void setOrders(List<Order> orders) {
-		Restaurant.orders = orders;
+		this.orders = orders;
 	}
 
 	public List<Employee> getEmployees() {
@@ -102,7 +103,7 @@ public class Restaurant {
 	}
 
 	public void setEmployees(List<Employee> employees) {
-		Restaurant.employees = employees;
+		this.employees = employees;
 	}
 
 	public List<User> getUsers() {
@@ -110,7 +111,7 @@ public class Restaurant {
 	}
 
 	public void setUsers(List<User> users) {
-		Restaurant.users = users;
+		this.users = users;
 	}
 
 	public List<BaseProduct> getBaseProducts() {
@@ -118,7 +119,7 @@ public class Restaurant {
 	}
 
 	public void setBaseProducts(List<BaseProduct> baseProducts) {
-		Restaurant.baseProducts = baseProducts;
+		this.baseProducts = baseProducts;
 	}
 
 	public List<ProductSize> getProductSize() {
@@ -126,7 +127,7 @@ public class Restaurant {
 	}
 
 	public void setProductSize(List<ProductSize> productSize) {
-		Restaurant.productSize = productSize;
+		this.productSize = productSize;
 	}
 	
     public void saveCustomes() throws FileNotFoundException, IOException {
@@ -288,8 +289,9 @@ public class Restaurant {
     	employees.add(new Employee(name, lastname, ID));
     }
     public void addUser(String name, String lastName, String ID, String userName, String password) {
-    	if(searchUser(userName)!=null) {
+    	if(searchUser(userName)<0) {
     		users.add(new User(name, lastName, ID, userName, password));
+    		employees.add(new User(name, lastName, ID, userName, password));
     	} else {
     		Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Add User");
@@ -305,20 +307,20 @@ public class Restaurant {
     public void addBaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients) {
     	baseProducts.add(new BaseProduct( name, type, ingredients));
     }
-    public void addProductSize(String name,String code) {
-    	productSize.add(new ProductSize( name, code));
+    public void addProductSize(String name,String code, User creator, User lastEditor) {
+    	productSize.add(new ProductSize( name, code,creator, lastEditor));
     }
     public void addProduct(String code,BaseProduct baseProduct, boolean state, double price, ProductSize size, User creator, User lastEditor) {
     	products.add(new Product(code,baseProduct, state, price, size, creator, lastEditor));
     	SortProductsByPrice();
     }   
   
-    public ProductSize searchProductSize(String code) {
+    public int searchProductSize(String code) {
     	boolean flag=false;
-    	ProductSize size=null;
+    	int size=-1;
     	for(int i=0;i<productSize.size()&&!flag;i++) {
     		if(productSize.get(i).getCode().equals(code)) {
-    			size=productSize.get(i);
+    			size=i;
     			flag=true;
     		}
     	}
@@ -375,10 +377,11 @@ public class Restaurant {
     	}else {
     		Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erase Order");
-			alert.setContentText("An error has occurred when removing the Order, the Order code does not exist");
+			alert.setContentText("An error has occurred when removing the Order, the Order code doesn't exist");
 			alert.showAndWait();
     	}
     }
+    
     public void eraseEmployee(String ID) {    	
     	boolean erased=false;
     	int i=searchEmployees(ID);
@@ -399,6 +402,50 @@ public class Restaurant {
 			alert.showAndWait();
     	}
     }
+    
+    public void eraseUser(String Username) {    	
+    	boolean erased=false;
+    	int i=searchUser(Username);
+    	if (i>0) {
+    			users.remove(i);
+    			erased=true;
+    	} 	
+    			
+    	if(erased==true) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Erase User");
+			alert.setContentText("User Erased Successfully");
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erase User");
+			alert.setContentText("An error has occurred when removing the User, the User doesn't exist");
+			alert.showAndWait();
+    	}
+    }
+    
+    public void eraseProductSize(String Code) {    	
+    	boolean erased=false;
+    	int i=searchProductSize(Code);
+    	if (i>=0) {
+    			productSize.remove(i);
+    			erased=true;
+    	}   		
+    			
+    	if(erased==true) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Erase Product Size");
+			alert.setContentText("Product Size Erased Successfully");
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erase Product Size");
+			alert.setContentText("An error has occurred when removing the Product Size, the Product Size doesn't exist");
+			alert.showAndWait();
+    	}
+    }
+
+
     public double[] employeesOrders(Employee employee, Order order) {
     	double[] orders=new double[2];
     	double ordernum=0;
@@ -711,15 +758,18 @@ public class Restaurant {
 		br.close();
 
     }
-    public User searchUser(String userName) {
-    	User myUser=null;
-    	for(int i=0;i<users.size();i++) {
+    public int searchUser(String userName) {
+    	boolean found=false;
+    	int myUser=-1;
+    	for(int i=0;i<users.size()&& !found;i++) {
     		if(users.get(i).getUserName().equals(userName)) {
-    			myUser=users.get(i);
+    			myUser=i;
+    			found=true;
     		}
     	}
     	return myUser;
     }
+    
     public ProductType searchTypeProduct(String code) {
     	boolean found=false;
     	ProductType type=null;
@@ -740,9 +790,9 @@ public class Restaurant {
     		BaseProduct newBaseProduct = baseProducts.get(searchBaseProduct(parts[1]));
     		boolean state=Boolean.parseBoolean(parts[2]);
     		double price=Double.parseDouble(parts[3]);
-    		ProductSize newProductSize=searchProductSize(parts[4]);
-    		User creator=searchUser(parts[5]);
-    		User lastEditor=searchUser(parts[6]);
+    		ProductSize newProductSize=productSize.get(searchProductSize(parts[4]));
+    		User creator=users.get(searchUser(parts[5]));
+    		User lastEditor=users.get(searchUser(parts[6]));
     		addProduct(parts[0],newBaseProduct,state,price,newProductSize,creator,lastEditor); 
     		line = br.readLine();
     	}
@@ -834,6 +884,20 @@ public class Restaurant {
     	writer.close();
     }
 
-    
-}
+	public User getUserLogged() {
+		return userLogged;
+	}
 
+	public void setUserLogged(User userLogged) {
+		this.userLogged = userLogged;
+	}
+
+	public ArrayList<Ingredients> getIngredientBP() {
+		return ingredientBP;
+	}
+
+	public void setIngredientBP(ArrayList<Ingredients> ingredientBP) {
+		this.ingredientBP = ingredientBP;
+	}
+
+}
