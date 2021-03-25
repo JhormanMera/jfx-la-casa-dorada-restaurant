@@ -26,6 +26,8 @@ public class RestaurantGUI {
 	private Restaurant restaurant;
 
 	private static final String LOGIN_IMAGE_PATH = "data/images/Lacasadorada.jpg";
+	
+	private static final String MAIN_MENU_IMAGE_PATH = "data/images/Lacasadorada.jpg";
 
 	private static final String REGISTER_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
 	/*
@@ -324,49 +326,86 @@ public class RestaurantGUI {
 
     }
     @FXML
-    public void mainPaneExportEmployees(ActionEvent event) {
-
+    public void mainPaneExportEmployees(ActionEvent event) throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("generate-report-employee.fxml"));
+		fxmlloader.setController(this);
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
     }
+
+
+    
 
     @FXML
-    public void mainPaneExportOrders(ActionEvent event) {
-
+    public void mainPaneExportProductsSales(ActionEvent event) throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("generate-report-products.fxml"));
+		fxmlloader.setController(this);
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
     }
+
 
     @FXML
-    public void mainPaneExportProductsSales(ActionEvent event) {
-
+    public void mainPaneGestionateBaseProduct(ActionEvent event) throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("baseProduct-view.fxml"));
+		fxmlloader.setController(this);
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
     }
+
 
     @FXML
-    public void mainPaneGestionateBaseProduct(ActionEvent event) {
-
+    public void mainPaneGestionateCustome(ActionEvent event)throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("custome-view.fxml"));
+		fxmlloader.setController(this);
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
     }
+
 
     @FXML
-    public void mainPaneGestionateCustome(ActionEvent event) {
-
+    public void mainPaneGestionateEmployee(ActionEvent event) throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("employee-view.fxml"));
+		fxmlloader.setController(this);
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
     }
+
 
     @FXML
-    public void mainPaneGestionateEmployee(ActionEvent event) {
-
+    public void mainPaneGestionateIngredient(ActionEvent event) throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("ingredients-view.fxml"));
+		fxmlloader.setController(this);
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
     }
+
 
     @FXML
-    public void mainPaneGestionateIngredient(ActionEvent event) {
-
+    public void mainPaneGestionateProduct(ActionEvent event) throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("products-view.fxml"));
+		fxmlloader.setController(this);
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
     }
+
 
     @FXML
-    public void mainPaneGestionateProduct(ActionEvent event) {
-
+    public void mainPaneGestionateUser(ActionEvent event) throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("user-view.fxml"));
+		fxmlloader.setController(this);
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
     }
 
-    @FXML
-    public void mainPaneGestionateUser(ActionEvent event) {
-
-    }
 
     @FXML
     public void mainPaneImportCustomes(ActionEvent event) {
@@ -433,11 +472,8 @@ public class RestaurantGUI {
 
     }
 
-    @FXML
-    public void BackToMenu(ActionEvent event) {
-
-    }
-
+    
+    
     @FXML
     public void DeleteBaseProduct(ActionEvent event) {
 
@@ -491,10 +527,26 @@ public class RestaurantGUI {
 		mainPane.getChildren().setAll(root);
 		File f = new File(LOGIN_IMAGE_PATH);
 		Image img = new Image(f.toURI().toString());
-		this.loginImage.setImage(img);
-		
-		
+		this.loginImage.setImage(img);	
 	}
+	
+	public void showMainMenu() throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("main-menu.fxml"));
+		fxmlloader.setController(this);		
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
+		File f = new File(MAIN_MENU_IMAGE_PATH);
+		Image img = new Image(f.toURI().toString());
+		this.mainImage.setImage(img);	
+	}
+	
+	@FXML
+	public void BackToMenu(ActionEvent event) throws IOException {
+    	showMainMenu();
+    }
+
+	
 	@FXML
 	public void CreateAnAccount(ActionEvent event) {
 
@@ -518,6 +570,16 @@ public class RestaurantGUI {
 		Image img = new Image(f.toURI().toString());
 		this.registerImage.setImage(img);
 	}
+	
+	@FXML
+    public void mainPaneExportOrders(ActionEvent event) throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("generate-report-order.fxml"));
+		fxmlloader.setController(this);
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
+    }
+	
     @FXML
     public void initialize() {
      
