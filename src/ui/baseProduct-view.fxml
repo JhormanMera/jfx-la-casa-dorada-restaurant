@@ -14,7 +14,7 @@
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="729.0" minWidth="772.0" prefHeight="729.0" prefWidth="785.0" style="-fx-background-color: white; -fx-border-color: black;">
+            <TableView fx:id="baseProductTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="729.0" minWidth="772.0" prefHeight="729.0" prefWidth="785.0" style="-fx-background-color: white; -fx-border-color: black;">
                <columns>
                   <TableColumn fx:id="baseProductName" minWidth="151.0" prefWidth="252.0" style="-fx-border-color: black; -fx-background-color: white;" text="Name" />
                   <TableColumn fx:id="baseProductType" minWidth="85.0" prefWidth="252.0" style="-fx-border-color: black; -fx-background-color: white;" text="Type" />

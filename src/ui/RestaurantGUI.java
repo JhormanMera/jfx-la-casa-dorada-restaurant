@@ -1,24 +1,29 @@
 package ui;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import model.Restaurant;
-//import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-//import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 
 public class RestaurantGUI {
@@ -30,7 +35,7 @@ public class RestaurantGUI {
 	private static final String MAIN_MENU_IMAGE_PATH = "data/images/Lacasadorada.jpg";
 
 	private static final String REGISTER_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
-	/*
+	
 	private static final String REGISTER_BASE_PRODUCT_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
 	
 	private static final String REGISTER_PRODUCT_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
@@ -47,12 +52,12 @@ public class RestaurantGUI {
 	
 	private static final String REGISTER_USER_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
 	
-	private static final String REPORT_ORDRER_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
+	private static final String REPORT_ORDER_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
 	
 	private static final String REPORT_PRODUCTS_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
 	
 	private static final String REPORT_EMPLOYEE_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
-*/
+
 	@FXML
 	private ResourceBundle resources;
 
@@ -95,6 +100,9 @@ public class RestaurantGUI {
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
+		File f = new File(REPORT_EMPLOYEE_IMAGE_PATH);
+		Image img = new Image(f.toURI().toString());
+		this.reportEmployeeImage.setImage(img);
     }
     
     @FXML
@@ -104,6 +112,9 @@ public class RestaurantGUI {
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
+		File f = new File(REPORT_ORDER_IMAGE_PATH);
+		Image img = new Image(f.toURI().toString());
+		this.reportOrderImage.setImage(img);
     }
 
     @FXML
@@ -113,6 +124,9 @@ public class RestaurantGUI {
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
+		File f = new File(REPORT_PRODUCTS_IMAGE_PATH);
+		Image img = new Image(f.toURI().toString());
+		this.reportProductImage.setImage(img);
     }
 
     @FXML
@@ -169,20 +183,35 @@ public class RestaurantGUI {
 		mainPane.getChildren().setAll(root);
     }
 
-
     @FXML
-    public void mainPaneImportCustomes(ActionEvent event) {
-
+    public void mainPaneImportCustomes(ActionEvent event) throws IOException {
+    	FileChooser fc = new FileChooser();		
+		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+		if (selectedFile !=null) {			
+    	restaurant.importCustomes(selectedFile.getAbsolutePath());
+		}
     }
 
     @FXML
     public void mainPaneImportOrders(ActionEvent event) {
-
+    	
     }
-
+    
     @FXML
-    public void mainPaneImportProducts(ActionEvent event) {
-
+    public void mainPaneImportBaseProducts(ActionEvent event) throws IOException {
+    	FileChooser fc = new FileChooser();		
+		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+		if (selectedFile !=null) {			
+    	restaurant.importBaseProducts(selectedFile.getAbsolutePath());
+		}
+    }
+    @FXML
+    public void mainPaneImportProducts(ActionEvent event) throws IOException {    	
+    	FileChooser fc = new FileChooser();		
+		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+		if (selectedFile !=null) {			
+    	restaurant.importProducts(selectedFile.getAbsolutePath());
+		}
     }
   //----------LOGIN GUI----------
     @FXML
@@ -276,6 +305,7 @@ public class RestaurantGUI {
     @FXML
     public void AddIngredientBaseProduct(ActionEvent event) {
 		restaurant.getIngredientBP().add(restaurant.searchIngredient(txtRegisterBaseProductIngredients.getText()));
+		txtRegisterBaseProductIngredients.setText("");
     }
 
     @FXML
@@ -283,10 +313,11 @@ public class RestaurantGUI {
     	restaurant.addBaseProduct(txtRegisterBaseProductName.getText(),restaurant.searchTypeProduct(txtRegisterBaseProductType.getText()),
     			restaurant.getIngredientBP());
     }
-
+    
     @FXML
     public void EraseLastIngredientBaseProduct(ActionEvent event) {
-
+    	int lastIngredient=restaurant.getIngredientBP().size();
+    	restaurant.getIngredientBP().remove(lastIngredient);
     }
     // ------------REGISTER PRODUCT TYPE GUI------------
     @FXML
@@ -306,16 +337,16 @@ public class RestaurantGUI {
     //-----------REGISTER ORDER GUI---------
 
     @FXML
-    private TextField txtRegisterOrderCode;
-
-    @FXML
     private TextField txtRegisterOrderAmount;
 
     @FXML
     private Label txtRegisterOrderMessage;
 
     @FXML
-    private TextField txtRegisterOrderCustome;
+    private TextField txtRegisterOrderCustomeLastName;
+    
+    @FXML
+    private TextField txtRegisterOrderCustomeName;
 
     @FXML
     private TextField txtRegisterOrderEmployee;
@@ -331,17 +362,32 @@ public class RestaurantGUI {
 
     @FXML
     public void AddProductOrder(ActionEvent event) {
-
+    	restaurant.getProductsOrder().add(restaurant.getProducts().get(restaurant.searchProduct(txtRegisterOrderProduct.getText())));
+    	int amount = Integer.parseInt(txtRegisterOrderAmount.getText());
+    	restaurant.getAmountProductsOrder().add(amount);
+    	txtRegisterOrderAmount.setText("");
+    	txtRegisterOrderProduct.setText("");
     }
 
     @FXML
-    public void CreateAnOrder(ActionEvent event) {
-
+    public void CreateAnOrder(ActionEvent event) throws ParseException {
+    	Date date = new Date();	
+    	restaurant.addOrder("REQUESTED", 
+    			restaurant.getCustomes().get(restaurant.binarySearchCustomes(txtRegisterOrderCustomeName.getText(),txtRegisterOrderCustomeLastName.getText())),
+    			restaurant.getEmployees().get(restaurant.searchEmployees(txtRegisterOrderEmployee.getText())), 
+    			date,
+    			txtRegisterOrderObservations.getText(), 
+    			restaurant.getUserLogged(),
+    			restaurant.getUserLogged(), 
+    			restaurant.getProductsOrder(), 
+    			restaurant.getAmountProductsOrder());
     }
 
     @FXML
     public void EraseLastProductOrder(ActionEvent event) {
-
+    	int lastProduct=restaurant.getProductsOrder().size();
+    	restaurant.getProductsOrder().remove(lastProduct);
+    	restaurant.getAmountProductsOrder().remove(lastProduct);
     }
     
 	// ----------------- REGISTER CUSTOME GUI----------------
@@ -431,6 +477,7 @@ public class RestaurantGUI {
     
     //---------REGISTER INGREDIENTS GUI-------------------
     
+    
     //----------UPDATE CUSTOMES GUI--------------
     @FXML
     private TextField txtUpdateCustomeName;
@@ -455,7 +502,7 @@ public class RestaurantGUI {
 
     @FXML
     public void UpdateCustome(ActionEvent event) {
-
+    	
     }
     
     //---------UPDATE EMPLOYEE GUI----------
@@ -608,10 +655,117 @@ public class RestaurantGUI {
     public void UpdateProductType(ActionEvent event) {
 
     }
-    //
-    
-    /*
-    
+    //------------- USER VIEW GUI-----------------
+
+    @FXML
+    private TableView<?> tableViewUser;
+
+    @FXML
+    private TableColumn<?, ?> userName;
+
+    @FXML
+    private TableColumn<?, ?> userLastname;
+
+    @FXML
+    private TableColumn<?, ?> userUsername;
+
+    @FXML
+    private TableColumn<?, ?> userPassword;
+
+    @FXML
+    private TextField txtUserUsername;
+
+    @FXML
+    public void AddNewUser(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("register-user.fxml"));
+		fxmlloader.setController(this);		
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
+		File f = new File(REGISTER_USER_IMAGE_PATH);
+		Image img = new Image(f.toURI().toString());
+		this.regUserImage.setImage(img);
+    }
+
+    @FXML
+    public void DeleteUser(ActionEvent event) {
+    	restaurant.eraseUser(txtUserUsername.getText());
+    }
+    //------------ORDER VIEW GUI------------
+    @FXML
+    private TableView<?> ordersTableView;
+
+    @FXML
+    private TableColumn<?, ?> ordersCode;
+
+    @FXML
+    private TableColumn<?, ?> ordersDate;
+
+    @FXML
+    private TableColumn<?, ?> ordersAmount;
+
+    @FXML
+    private TableColumn<?, ?> ordersProduct;
+
+    @FXML
+    private TableColumn<?, ?> ordersCustome;
+
+    @FXML
+    private TableColumn<?, ?> ordersObservations;
+
+    @FXML
+    private TableColumn<?, ?> ordersState;
+
+    @FXML
+    private TableColumn<?, ?> ordersEmployee;
+
+    @FXML
+    private TextField txtOrdersCode;
+
+    @FXML
+    public void AddNewOrder(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("register-Order.fxml"));
+		fxmlloader.setController(this);		
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
+		File f = new File(REGISTER_ORDER_IMAGE_PATH);
+		Image img = new Image(f.toURI().toString());
+		this.registerOrderImage.setImage(img);
+    }
+
+    @FXML
+    public void DeleteOrder(ActionEvent event) {
+    	restaurant.eraseOrder(txtOrdersCode.getText());
+    }
+    //-------------PRODUCT VIEW GUI------------------
+    @FXML
+    private TableView<?> productsTableView;
+
+    @FXML
+    private TableColumn<?, ?> productsName;
+
+    @FXML
+    private TableColumn<?, ?> productsName1;
+
+    @FXML
+    private TableColumn<?, ?> productsType;
+
+    @FXML
+    private TableColumn<?, ?> productsIngredients;
+
+    @FXML
+    private TableColumn<?, ?> ProductsAvailable;
+
+    @FXML
+    private TableColumn<?, ?> productsPrice;
+
+    @FXML
+    private TableColumn<?, ?> productsSize;
+
+    @FXML
+    private TextField txtProductCode;
+
     @FXML
     public void AddNewProduct(ActionEvent event) throws IOException {
     	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("register-Product.fxml"));
@@ -621,37 +775,64 @@ public class RestaurantGUI {
 		mainPane.getChildren().setAll(root);
 		File f = new File(REGISTER_PRODUCT_IMAGE_PATH);
 		Image img = new Image(f.toURI().toString());
-		this.mainImage.setImage(img);
+		this.regProductImage.setImage(img);
     }
 
     @FXML
     public void DeleteProduct(ActionEvent event) {
     	restaurant.eraseProduct(txtProductCode.getText());
     }
-    
-    
+    //-------------------BASEPRODUCT VIEW GUI--------------------
     @FXML
-    public void AddNewOrder(ActionEvent event) throws IOException {
-    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("register-Order.fxml"));
+    private TableView<?> baseProductTableView;
+
+    @FXML
+    private TableColumn<?, ?> baseProductName;
+
+    @FXML
+    private TableColumn<?, ?> baseProductType;
+
+    @FXML
+    private TableColumn<?, ?> baseProductIngredients;
+
+    @FXML
+    private TextField txtBaseProductName;
+
+    @FXML
+    public void AddNewBaseProduct(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("register-baseProduct.fxml"));
 		fxmlloader.setController(this);		
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
-		File f = new File(REGISTER_PRODUCT_IMAGE_PATH);
+		File f = new File(REGISTER_BASE_PRODUCT_IMAGE_PATH);
 		Image img = new Image(f.toURI().toString());
-		this.mainImage.setImage(img);
-    }
+		this.regBaseProductImage.setImage(img);
+    }    
+    
+    @FXML
+    public void DeleteBaseProduct(ActionEvent event) {
+    	restaurant.eraseBaseProduct(txtBaseProductName.getText());
+
+    }	
+   // ---------------INGREDIENTS VIEW GUI------------
 
     @FXML
-    public void DeleteOrder(ActionEvent event) {
-    	restaurant.eraseOrder(txtOrdersCode.getText());
-    }
-    
-    
+    private TableView<?> ingredientsTableView;
+
+    @FXML
+    private TableColumn<?, ?> ingredientsName;
+
+    @FXML
+    private TableColumn<?, ?> ingredientsState;
+
+    @FXML
+    private TextField txtIngredientName;
+
 
     @FXML
     public void AddNewIngredient(ActionEvent event) throws IOException {
-    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("main-menu.fxml"));
+    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("NO EXISTE"));//****************CREAR GUI REGISTER INGREDIENT Y UPDATE INGREDIENT**************
 		fxmlloader.setController(this);		
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
@@ -665,66 +846,243 @@ public class RestaurantGUI {
     public void DeleteIngredients(ActionEvent event) {
     	restaurant.eraseIngredient(txtIngredientName.getText());
     }
+    //----------EMPLOYEE VIEW GUI-----------
 
     @FXML
-    public void generateReportByProduct(ActionEvent event) {
-
-    }
+    private TableView<?> employeeTableView;
 
     @FXML
-    public void generateOrderReport(ActionEvent event) {
-
-    }
+    private TableColumn<?, ?> employeeName;
 
     @FXML
-    public void generateReportByEmployee(ActionEvent event) {
-
-    }
+    private TableColumn<?, ?> employeeLastName;
 
     @FXML
-    public void AddNewEmployee(ActionEvent event) {
+    private TableColumn<?, ?> employeeID;
 
+    @FXML
+    private TableColumn<?, ?> employeeState;
+
+    @FXML
+    private TextField txtEmployeeID;
+
+    @FXML
+    public void AddNewEmployee(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("register-employee.fxml"));
+		fxmlloader.setController(this);		
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
+		File f = new File(REGISTER_EMPLOYEE_IMAGE_PATH);
+		Image img = new Image(f.toURI().toString());
+		this.registerEmployeeImage.setImage(img);    	
     }
 
     @FXML
     public void DeleteEmployee(ActionEvent event) {
     	restaurant.eraseEmployee(txtEmployeeID.getText());
     }
+    //------------CUSTOMES VIEW GUI-------------------
 
     @FXML
-    public void AddNewCustome(ActionEvent event) {
+    private TableView<?> customeTableView;
 
+    @FXML
+    private TableColumn<?, ?> customesLastName;
+
+    @FXML
+    private TableColumn<?, ?> customesName;
+
+    @FXML
+    private TableColumn<?, ?> customesID;
+
+    @FXML
+    private TableColumn<?, ?> customesAddress;
+
+    @FXML
+    private TableColumn<?, ?> customesPhone;
+
+    @FXML
+    private TableColumn<?, ?> customesObservations;
+
+    @FXML
+    private TableColumn<?, ?> customesState;
+
+    @FXML
+    private TextField txtCustomeLastName;
+
+    @FXML
+    private TextField txtCustomeName;
+
+    @FXML
+    public void AddNewCustome(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("register-custome.fxml"));
+		fxmlloader.setController(this);		
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
+		File f = new File(REGISTER_CUSTOME_IMAGE_PATH);
+		Image img = new Image(f.toURI().toString());
+		this.registerCustomeImage.setImage(img); 
     }
 
     @FXML
     public void DeleteCustome(ActionEvent event) {
     	restaurant.eraseCustome(txtCustomeName.getText(),txtCustomeLastName.getText());
     }
+    //------------PRODUCT TYPE VIEW GUI------------
+    @FXML
+    private TableView<?> productTypeTableView;
 
     @FXML
-    public void AddNewBaseProduct(ActionEvent event) throws IOException {
-    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("register-baseProduct.fxml"));
+    private TableColumn<?, ?> ProductTypeName;
+
+    @FXML
+    private TableColumn<?, ?> ProductTypeCode;
+
+    @FXML
+    private TextField txtProductTypeCode;
+
+    @FXML
+    public void AddNewProductType(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("register-productType.fxml"));
 		fxmlloader.setController(this);		
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
-		File f = new File(REGISTER_BASE_PRODUCT_IMAGE_PATH);
+		File f = new File(REGISTER_PRODUCT_TYPE_IMAGE_PATH);
 		Image img = new Image(f.toURI().toString());
-		this.mainImage.setImage(img);
-    }    
+		this.registerProductTypeImage.setImage(img); 
+    }
+
+    @FXML
+    public void DeleteProductType(ActionEvent event) {
+
+    }
+    //------------PRODUCT SIZE VIEW GUI------------
+    @FXML
+    private TableView<?> productSizeTableView;
+
+    @FXML
+    private TableColumn<?, ?> ProductName;
+
+    @FXML
+    private TableColumn<?, ?> ProductSizeCode;
+
+    @FXML
+    private TextField txtProductSizeCode;
+
+    @FXML
+    public void AddNewProductSize(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("register-productSize.fxml"));
+		fxmlloader.setController(this);		
+		Parent root = fxmlloader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().setAll(root);
+		File f = new File(REGISTER_PRODUCT_SIZE_IMAGE_PATH);
+		Image img = new Image(f.toURI().toString());
+		this.regProductSizeImage.setImage(img); 
+    }
+
+    @FXML
+    public void DeleteProductSize(ActionEvent event) {
+
+    }
+    
+    //-------------GENERATE REPORT PRODUCTS GUI-----------
+    @FXML
+    private DatePicker initialDateProductReport;
+
+    @FXML
+    private TextField initialHourProductReport;
+
+    @FXML
+    private DatePicker finalDateProductReport;
+
+    @FXML
+    private TextField finalHourProductReport;
+
+    @FXML
+    private ImageView reportProductImage;
     
     @FXML
-    public void DeleteBaseProduct(ActionEvent event) {
-    	restaurant.eraseBaseProduct(txtBaseProductName.getText());
+    private TextField fileSeparatorReportProduct;
+    
+    @FXML
+    public void generateReportByProduct(ActionEvent event)throws FileNotFoundException {
+    	restaurant.setFILE_SEPARATOR(fileSeparatorReportProduct.getText());
+    	FileChooser fc = new FileChooser();		
+		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+		if (selectedFile !=null) {			
+		restaurant.productsOrderReport(selectedFile.getAbsolutePath());
+		}
+    	
+    }
+    //---------------GENERATE REPORT EMPLOYEEE GUI---------------
 
-    }	
-	*/
+    @FXML
+    private DatePicker initialDateEmployeeReport;
+
+    @FXML
+    private TextField initialHourEmployeeReport;
+
+    @FXML
+    private DatePicker finalDateEmployeeReport;
+
+    @FXML
+    private TextField finalHourEmployeeReport;
+
+    @FXML
+    private ImageView reportEmployeeImage;
+    
+    @FXML
+    private TextField fileSeparatorReportEmployee;
+
+    @FXML
+    public void generateReportByEmployee(ActionEvent event) throws FileNotFoundException {
+    	restaurant.setFILE_SEPARATOR(fileSeparatorReportEmployee.getText());
+    	FileChooser fc = new FileChooser();		
+		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+		if (selectedFile !=null) {			
+    	restaurant.employeesOrdersReport(selectedFile.getAbsolutePath());
+		}
+    }   
+    //----------------GENERATE REPORT ORDER GUI------------
+
+    @FXML
+    private DatePicker initialDateOrderReport;
+
+    @FXML
+    private TextField initialHourOrderReport;
+
+    @FXML
+    private DatePicker finalDateOrderReport;
+
+    @FXML
+    private TextField finalHourOrderReport;
+
+    @FXML
+    private ImageView reportOrderImage;
+    
+    @FXML
+    private TextField fileSeparatorReportOrder;
+
+    @FXML
+    public void generateOrderReport(ActionEvent event) throws FileNotFoundException {
+    	restaurant.setFILE_SEPARATOR(fileSeparatorReportOrder.getText());
+    	FileChooser fc = new FileChooser();		
+		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+		if (selectedFile !=null) {			
+    	restaurant.exportOrdersReport(selectedFile.getAbsolutePath());
+		}
+    }
+    
+    //----------------OTHER METHODS--------------
     @FXML
     public void initialize() {
     	
      
-    }
-    
+    }    
     public RestaurantGUI(Restaurant restaurant) {
 		this.restaurant=restaurant;
 	}

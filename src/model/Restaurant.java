@@ -26,6 +26,7 @@ public class Restaurant {
 	private static final String PRODUCT_TYPE_SAVE_PATH_FILE="";
 	private static final String ORDER_CODE= String.format("P%04d", 100000);
 	private static String FILE_SEPARATOR=";";
+	private static String FILE_SEPARATOR_IMPORT=";";
 	private User userLogged;
 	private List<Custome> customes;
 	private List<Ingredients> ingredients;
@@ -37,6 +38,8 @@ public class Restaurant {
 	private List<BaseProduct> baseProducts;
 	private List<ProductSize> productSize;
 	private ArrayList<Ingredients> ingredientBP;
+	private ArrayList<Product> productsOrder;
+	private ArrayList<Integer> amountProductsOrder;
 	
 	public Restaurant() {
 		customes = new ArrayList<>();
@@ -48,6 +51,8 @@ public class Restaurant {
 		baseProducts=new ArrayList<>();
 		productSize=new ArrayList<>();
 		ingredientBP=new ArrayList<>();
+		productsOrder=new ArrayList<>();
+		amountProductsOrder=new ArrayList<>();
 	}
 	
 	public  String getFILE_SEPARATOR() {
@@ -747,17 +752,7 @@ public class Restaurant {
 			alert.showAndWait();
     	}
     }
-    public void importCustomes (String fileName) throws IOException{
-		BufferedReader br = new BufferedReader (new FileReader(fileName));
-		String line = br.readLine();
-		while (line!=null) {
-			String [] parts = line.split(";");
-			addCustomesListSorted(parts[0],parts[1],parts[2],parts[3],parts[4],parts[5]);
-			line = br.readLine();
-		}
-		br.close();
-
-    }
+  
     public int searchUser(String userName) {
     	boolean found=false;
     	int myUser=-1;
@@ -786,7 +781,7 @@ public class Restaurant {
     	BufferedReader br = new BufferedReader (new FileReader(fileName));
     	String line = br.readLine();
     	while (line!=null) {
-    		String [] parts = line.split(";");
+    		String [] parts = line.split(FILE_SEPARATOR_IMPORT);
     		BaseProduct newBaseProduct = baseProducts.get(searchBaseProduct(parts[1]));
     		boolean state=Boolean.parseBoolean(parts[2]);
     		double price=Double.parseDouble(parts[3]);
@@ -806,7 +801,7 @@ public class Restaurant {
     	BufferedReader br = new BufferedReader (new FileReader(fileName));
     	String line = br.readLine();
     	while (line!=null) {
-    		String [] parts = line.split(";");
+    		String [] parts = line.split(FILE_SEPARATOR_IMPORT);
     		ProductType type=searchTypeProduct(parts[2]);
     		for(int i=2;i<parts.length;i++) {    			
 	    		myIngredients.add(searchIngredient(parts[i]));
@@ -817,6 +812,17 @@ public class Restaurant {
     	br.close();
 
     }
+    public void importCustomes (String fileName) throws IOException{
+  		BufferedReader br = new BufferedReader (new FileReader(fileName));
+  		String line = br.readLine();
+  		while (line!=null) {
+  			String [] parts = line.split(FILE_SEPARATOR_IMPORT);
+  			addCustomesListSorted(parts[0],parts[1],parts[2],parts[3],parts[4],parts[5]);
+  			line = br.readLine();
+  		}
+  		br.close();
+
+      }
     /*
     public void importOrders (String fileName) throws IOException{
     	//String state, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor, ArrayList<Product> products, ArrayList<Integer> amount
@@ -898,6 +904,22 @@ public class Restaurant {
 
 	public void setIngredientBP(ArrayList<Ingredients> ingredientBP) {
 		this.ingredientBP = ingredientBP;
+	}
+
+	public ArrayList<Product> getProductsOrder() {
+		return productsOrder;
+	}
+
+	public void setProductsOrder(ArrayList<Product> productsOrder) {
+		this.productsOrder = productsOrder;
+	}
+
+	public ArrayList<Integer> getAmountProductsOrder() {
+		return amountProductsOrder;
+	}
+
+	public void setAmountProductsOrder(ArrayList<Integer> amountProductsOrder) {
+		this.amountProductsOrder = amountProductsOrder;
 	}
 
 }

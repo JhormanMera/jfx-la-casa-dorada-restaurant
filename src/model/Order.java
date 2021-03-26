@@ -30,7 +30,7 @@ public class Order implements Serializable{
 		String dayFormat= "dd.MM.yyyy";
 		objSDFHour= new SimpleDateFormat(hourFormat);
 		objSDFDay= new SimpleDateFormat(dayFormat);
-		this.state = state;
+		setState(state);
 		this.code = code;
 		this.products = products;
 		this.amount = amount;
