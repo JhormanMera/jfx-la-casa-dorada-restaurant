@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="293.0" layoutY="172.0" prefHeight="409.0" prefWidth="353.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="269.0" AnchorPane.topAnchor="172.0">
          <children>
@@ -52,6 +52,6 @@
             <Separator layoutX="-2.0" layoutY="332.0" prefHeight="2.0" prefWidth="360.0" />
          </children>
       </AnchorPane>
-      <ImageView fitHeight="148.0" fitWidth="910.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="regBaseProductImage" fitHeight="148.0" fitWidth="910.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

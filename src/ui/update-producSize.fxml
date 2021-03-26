@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="313.0" layoutY="206.0" prefHeight="375.0" prefWidth="360.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
@@ -26,13 +26,13 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <Button layoutX="143.0" layoutY="259.0" mnemonicParsing="false" onAction="#UploadProductSize" prefHeight="39.0" prefWidth="79.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Upload" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="258.0">
+            <Button layoutX="143.0" layoutY="259.0" mnemonicParsing="false" onAction="#UpdateProductSize" prefHeight="39.0" prefWidth="79.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Update" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="258.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="132.0" fitWidth="900.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="updateProductSizeImage" fitHeight="132.0" fitWidth="900.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

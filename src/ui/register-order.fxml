@@ -9,70 +9,65 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="295.0" layoutY="147.0" prefHeight="436.0" prefWidth="362.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="294.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="146.0">
          <children>
-            <TextField fx:id="txtRegisterOrderCode" layoutX="77.0" layoutY="33.0" prefHeight="31.0" prefWidth="201.0" promptText="Code" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="82.0" AnchorPane.topAnchor="32.0">
+            <TextField fx:id="txtRegisterOrderCode" layoutX="74.0" layoutY="41.0" prefHeight="31.0" prefWidth="201.0" promptText="Code" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="41.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegisterOrderDate" layoutX="78.0" layoutY="72.0" prefHeight="31.0" prefWidth="199.0" promptText="Date" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="71.0">
+            <TextField fx:id="txtRegisterOrderAmount" layoutX="236.0" layoutY="173.0" prefHeight="31.0" prefWidth="81.0" promptText="Amount" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="173.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegisterOrderAmount" layoutX="80.0" layoutY="112.0" prefHeight="31.0" prefWidth="197.0" promptText="Amount" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="111.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </TextField>
-            <Button defaultButton="true" layoutX="119.0" layoutY="397.0" mnemonicParsing="false" onAction="#CreateABaseProduct" style="-fx-background-color: gold; -fx-border-color: black;" text="Create an Order">
+            <Button defaultButton="true" layoutX="119.0" layoutY="389.0" mnemonicParsing="false" onAction="#CreateAnOrder" style="-fx-background-color: gold; -fx-border-color: black;" text="Create an Order">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button defaultButton="true" layoutX="213.0" layoutY="344.0" mnemonicParsing="false" onAction="#AddProductOrder" prefHeight="33.0" prefWidth="132.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Add Product" AnchorPane.leftAnchor="213.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="344.0">
+            <Button defaultButton="true" layoutX="202.0" layoutY="233.0" mnemonicParsing="false" onAction="#AddProductOrder" prefHeight="33.0" prefWidth="132.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Add Product" AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="233.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button defaultButton="true" layoutX="35.0" layoutY="345.0" mnemonicParsing="false" onAction="#EraseLastProductOrder" prefHeight="33.0" prefWidth="122.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Erase" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="206.0" AnchorPane.topAnchor="345.0">
+            <Button defaultButton="true" layoutX="39.0" layoutY="232.0" mnemonicParsing="false" onAction="#EraseLastProductOrder" prefHeight="33.0" prefWidth="122.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Erase" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="232.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Label alignment="CENTER" layoutX="27.0" layoutY="326.0" text="Erase Last Product" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="326.0" />
+            <Label alignment="CENTER" layoutX="32.0" layoutY="210.0" text="Erase Last Product" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="203.0" AnchorPane.topAnchor="210.0" />
             <Label alignment="CENTER" layoutX="78.0" layoutY="-1.0" prefHeight="31.0" prefWidth="199.0" text="Create An Order" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="-1.0">
                <font>
                   <Font name="System Bold Italic" size="19.0" />
                </font>
             </Label>
-            <Label fx:id="txtRegBaseProductMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="109.0" layoutY="305.0" prefHeight="21.0" prefWidth="153.0" />
-            <Separator layoutX="-2.0" layoutY="389.0" prefHeight="0.0" prefWidth="359.0" />
-            <TextField fx:id="txtRegisterOrderCustome" layoutX="77.0" layoutY="149.0" prefHeight="31.0" prefWidth="199.0" promptText="Custome">
+            <Label fx:id="txtRegisterOrderMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="104.0" layoutY="284.0" prefHeight="21.0" prefWidth="153.0" />
+            <Separator layoutX="1.0" layoutY="377.0" prefHeight="0.0" prefWidth="359.0" />
+            <TextField fx:id="txtRegisterOrderCustome" layoutX="75.0" layoutY="82.0" prefHeight="31.0" prefWidth="199.0" promptText="Custome">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegisterOrderEmployee" layoutX="77.0" layoutY="187.0" prefHeight="31.0" prefWidth="199.0" promptText="Employee">
+            <TextField fx:id="txtRegisterOrderEmployee" layoutX="75.0" layoutY="123.0" prefHeight="31.0" prefWidth="199.0" promptText="Employee">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegisterOrderProduct" layoutX="77.0" layoutY="225.0" prefHeight="31.0" prefWidth="197.0" promptText="Product">
+            <TextField fx:id="txtRegisterOrderProduct" layoutX="30.0" layoutY="173.0" prefHeight="31.0" prefWidth="197.0" promptText="Product">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextArea fx:id="txtRegisterOrderObservations" layoutX="75.0" layoutY="264.0" prefHeight="53.0" prefWidth="199.0" promptText="Observations">
+            <TextArea fx:id="txtRegisterOrderObservations" layoutX="87.0" layoutY="313.0" prefHeight="56.0" prefWidth="199.0" promptText="Observations">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextArea>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="131.0" fitWidth="910.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="registerOrderImage" fitHeight="131.0" fitWidth="910.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

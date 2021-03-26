@@ -7,26 +7,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="296.0" layoutY="173.0" prefHeight="408.0" prefWidth="386.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="295.0" AnchorPane.rightAnchor="236.0" AnchorPane.topAnchor="172.0">
          <children>
-            <TextField fx:id="txtRegisterProductName" layoutX="75.0" layoutY="85.0" promptText="Product Name" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="85.0">
+            <TextField fx:id="txtRegisterProductBaseProductName" layoutX="75.0" layoutY="85.0" promptText="Base Product Name" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="85.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegisterProductSize" layoutX="77.0" layoutY="154.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Size" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="154.0">
+            <TextField fx:id="txtRegisterProductSize" layoutX="75.0" layoutY="173.0" prefHeight="31.0" prefWidth="234.0" promptText="Product Size" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="173.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegisterProductPrice" layoutX="77.0" layoutY="228.0" prefHeight="31.0" prefWidth="199.0" promptText="Price" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="228.0">
+            <TextField fx:id="txtRegisterProductPrice" layoutX="77.0" layoutY="216.0" prefHeight="31.0" prefWidth="234.0" promptText="Price" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="216.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <Button layoutX="112.0" layoutY="307.0" mnemonicParsing="false" onAction="#CreateAProduct" prefHeight="33.0" prefWidth="148.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Product" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="89.0" AnchorPane.topAnchor="306.0">
+            <Button layoutX="97.0" layoutY="281.0" mnemonicParsing="false" onAction="#CreateAProduct" prefHeight="33.0" prefWidth="148.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Product" AnchorPane.leftAnchor="97.0" AnchorPane.rightAnchor="107.0" AnchorPane.topAnchor="281.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -36,8 +36,13 @@
                   <Font name="System Bold Italic" size="19.0" />
                </font>
             </Label>
+            <TextField fx:id="txtRegisterProductCode" layoutX="74.0" layoutY="130.0" prefHeight="31.0" prefWidth="234.0" promptText="Product Code">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </TextField>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="149.0" fitWidth="909.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0" />
+      <ImageView fx:id="regProductImage" fitHeight="149.0" fitWidth="909.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>
