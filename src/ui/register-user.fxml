@@ -9,16 +9,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="575.0" prefWidth="919.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="261.0" layoutY="130.0" prefHeight="441.0" prefWidth="449.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <AnchorPane layoutX="280.0" layoutY="138.0" prefHeight="429.0" prefWidth="449.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
             <TextField fx:id="txtRegLastName" layoutX="87.0" layoutY="105.0" prefHeight="39.0" prefWidth="277.0" promptText="Last Name(s)" style="-fx-border-color: black;" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="105.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </TextField>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="84.0" layoutY="355.0" prefHeight="27.0" prefWidth="296.0" text="Already have an account?" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="68.0" AnchorPane.topAnchor="355.0">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="85.0" layoutY="355.0" prefHeight="27.0" prefWidth="296.0" text="Already have an account?" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="69.0" AnchorPane.topAnchor="355.0">
                <font>
                   <Font size="15.0" />
                </font>
@@ -33,7 +33,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </PasswordField>
-            <Button layoutX="105.0" layoutY="299.0" mnemonicParsing="false" onAction="#regUserGoToLogin" prefHeight="39.0" prefWidth="240.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Go To Login" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="97.0" AnchorPane.topAnchor="389.0">
+            <Button layoutX="114.0" layoutY="383.0" mnemonicParsing="false" onAction="#regUserGoToLogin" prefHeight="39.0" prefWidth="240.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Go To Login" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="383.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -54,13 +54,13 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </TextField>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="123.0" layoutY="14.0" prefHeight="27.0" prefWidth="181.0" text="Register User" AnchorPane.leftAnchor="123.0" AnchorPane.rightAnchor="144.0" AnchorPane.topAnchor="14.0">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="135.0" layoutY="14.0" prefHeight="27.0" prefWidth="181.0" text="Register User" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="14.0">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <ImageView fx:id="regUserImage" fitHeight="129.0" fitWidth="916.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0" />
+      <ImageView fx:id="regUserImage" fitHeight="129.0" fitWidth="916.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="3.0" />
    </children>
 </AnchorPane>

@@ -650,6 +650,7 @@ public class Restaurant {
     }
     
     public void eraseCustome(String name, String lastName) {
+    	long start = System.nanoTime();
     	boolean erased=false;    	
     	int index= binarySearchCustomes(name,lastName);
     	if(index>=0) {
@@ -658,16 +659,20 @@ public class Restaurant {
     			customes.remove(index);
     			erased=true;
     		}    			
-    	}    			
+    	} 
+    	long finish= System.nanoTime();
+		long total = finish-start;	
     	if(erased==true) {
     		Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Erase Custome");
-			alert.setContentText("Custome Erased Successfully");
+			alert.setContentText("Custome Erased Successfully,the search took "+total+" nanoseconds");
 			alert.showAndWait();
     	}else {
     		Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erase Custome");
-			alert.setContentText("An error has occurred when removing the Custome, the Custome doesn't exist or is part of a order requested/in process");
+			alert.setContentText("An error has occurred when removing the Custome,"
+					+ " the Custome doesn't exist or is part of a order requested/in process"+"\n"
+			+"the search took "+total+" nanoseconds");
 			alert.showAndWait();
     	}
     }
@@ -849,42 +854,70 @@ public class Restaurant {
     	br.close();
     }
     */
-    public void exportOrdersReport(String fileName) throws FileNotFoundException {
+    public void exportOrdersReport(String fileName, String initialDay, String finalDay, String initialHour, String finalHour) throws FileNotFoundException {
     	PrintWriter writer = new PrintWriter (fileName);
     	String products="";
+    	writer.println("CUSTOME NAME"+FILE_SEPARATOR
+				+"CUSTOME LASTNAME"+FILE_SEPARATOR
+				+"CUSTOME ADDRESS"+FILE_SEPARATOR
+				+"CUSTOME PHONE"+FILE_SEPARATOR
+				+"EMPLOYEE NAME"+FILE_SEPARATOR
+				+"EMPLOYEE LASTNAME"+FILE_SEPARATOR
+				+"ORDER DAY"+FILE_SEPARATOR
+				+"ORDER HOUR"+FILE_SEPARATOR
+				+"ORDER OBSERVATIONS"+FILE_SEPARATOR);
     	for (int i=0;i<orders.size();i++) {
     		Order myOrder = orders.get(i);
     		for(int j=0;i<myOrder.getProducts().size();j++) {
     			products+=FILE_SEPARATOR+myOrder.getProducts().get(j).getBaseProduct().getName()+FILE_SEPARATOR+myOrder.getAmount().get(j)+FILE_SEPARATOR+myOrder.getProducts().get(j).getPrice();
     		}
-    		writer.println(myOrder.getCustome().getName()+FILE_SEPARATOR+myOrder.getCustome().getAddress()+
-    				FILE_SEPARATOR+myOrder.getCustome().getPhone()+FILE_SEPARATOR+myOrder.getEmployee().getName()+
-    				FILE_SEPARATOR+myOrder.getEmployee().getLastname()+FILE_SEPARATOR+myOrder.getDay()+
+    		writer.println(myOrder.getCustome().getName()+
+    				FILE_SEPARATOR+myOrder.getCustome().getLastname()+
+    				FILE_SEPARATOR+myOrder.getCustome().getAddress()+
+    				FILE_SEPARATOR+myOrder.getCustome().getPhone()+
+    				FILE_SEPARATOR+myOrder.getEmployee().getName()+
+    				FILE_SEPARATOR+myOrder.getEmployee().getLastname()+
+    				FILE_SEPARATOR+myOrder.getDay()+
     				FILE_SEPARATOR+myOrder.getHour()+
     				FILE_SEPARATOR+myOrder.getObservation()+products);
     	}
     	writer.close();
     }
     
-    public void employeesOrdersReport(String fileName) throws FileNotFoundException {
+    public void employeesOrdersReport(String fileName, String initialDay, String finalDay, String initialHour, String finalHour) throws FileNotFoundException {
     	PrintWriter writer = new PrintWriter (fileName);
+    	writer.println("EMPLOYEE NAME"+FILE_SEPARATOR
+				+"EMPLOYEE LASTNAME"+FILE_SEPARATOR
+				+"EMPLOYEE ID"+FILE_SEPARATOR
+				+"ORDERS SOLD"+FILE_SEPARATOR
+				+"ORDERS PRICE"+FILE_SEPARATOR);
     	for (int i=0;i<employees.size();i++) {
     		for(int j=0;j<orders.size();j++) {
     			Employee myEmployee =employees.get(i);
     			double[] employeeOrder= employeesOrders(myEmployee,orders.get(j));
-    			writer.println(myEmployee.getName()+FILE_SEPARATOR+myEmployee.getLastname()+FILE_SEPARATOR+myEmployee.getID()+FILE_SEPARATOR+employeeOrder[0]+FILE_SEPARATOR+employeeOrder[1]);
+    			writer.println(myEmployee.getName()+
+    					FILE_SEPARATOR+myEmployee.getLastname()+
+    					FILE_SEPARATOR+myEmployee.getID()+
+    					FILE_SEPARATOR+employeeOrder[0]+
+    					FILE_SEPARATOR+employeeOrder[1]);
     		}
     	}
     	writer.close();
     }
-    public void productsOrderReport(String fileName) throws FileNotFoundException {
+    public void productsOrderReport(String fileName, String initialDay, String finalDay, String initialHour, String finalHour) throws FileNotFoundException {
     	PrintWriter writer = new PrintWriter (fileName);
+    	writer.println("PRODUCT NAME"+FILE_SEPARATOR
+				+"PRODUCT SOLD"+FILE_SEPARATOR
+				+"PRODUCT TOTAL PRICE"+FILE_SEPARATOR);
     	for (int i=0;i<products.size();i++) {
     		for(int j=0;j<orders.size();j++) {
     			for(int k=0;k<orders.get(j).getProducts().size();k++) {
     				Product myProduct =products.get(i);
     				double[] productOrders= productsOrders(myProduct,orders.get(j).getProducts().get(k));
-    				writer.println(myProduct.getBaseProduct().getName()+FILE_SEPARATOR+myProduct.getSize().getName()+FILE_SEPARATOR+productOrders[0]+FILE_SEPARATOR+productOrders[1]);
+    				writer.println(myProduct.getBaseProduct().getName()+
+    						FILE_SEPARATOR+myProduct.getSize().getName()+
+    						FILE_SEPARATOR+productOrders[0]+
+    						FILE_SEPARATOR+productOrders[1]);
     			}
     		}
     	}

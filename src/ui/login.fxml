@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="loginPane" prefHeight="496.0" prefWidth="861.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="loginPane" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="516.0" layoutY="39.0" prefHeight="422.0" prefWidth="323.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <Pane layoutX="559.0" layoutY="80.0" prefHeight="422.0" prefWidth="323.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
             <Separator layoutX="1.0" layoutY="269.0" prefHeight="9.0" prefWidth="323.0" />
             <Button layoutX="36.0" layoutY="201.0" mnemonicParsing="false" onAction="#Login" prefHeight="42.0" prefWidth="252.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Login">
@@ -46,6 +46,6 @@
             </Button>
          </children>
       </Pane>
-      <ImageView fx:id="loginImage" fitHeight="458.0" fitWidth="478.0" layoutX="21.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="loginImage" fitHeight="545.0" fitWidth="520.0" layoutX="21.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </Pane>

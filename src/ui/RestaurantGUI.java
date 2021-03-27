@@ -1149,10 +1149,14 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void generateReportByProduct(ActionEvent event)throws FileNotFoundException {
 		restaurant.setFILE_SEPARATOR(fileSeparatorReportProduct.getText());
+		String initialDay=initialDateProductReport.getValue().toString();
+		String finalDay=finalDateProductReport.getValue().toString();
+		String initialHour=initialHourProductReport.getText();
+		String finalHour=finalHourProductReport.getText();;
 		FileChooser fc = new FileChooser();		
 		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
 		if (selectedFile !=null) {			
-			restaurant.productsOrderReport(selectedFile.getAbsolutePath());
+			restaurant.productsOrderReport(selectedFile.getAbsolutePath(), initialDay, finalDay, initialHour, finalHour);
 		}
 
 	}
@@ -1179,10 +1183,14 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void generateReportByEmployee(ActionEvent event) throws FileNotFoundException {
 		restaurant.setFILE_SEPARATOR(fileSeparatorReportEmployee.getText());
+		String initialDay=initialDateEmployeeReport.getValue().toString();
+		String finalDay=finalDateEmployeeReport.getValue().toString();
+		String initialHour=initialHourEmployeeReport.getText();
+		String finalHour=finalHourEmployeeReport.getText();;
 		FileChooser fc = new FileChooser();		
 		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
 		if (selectedFile !=null) {			
-			restaurant.employeesOrdersReport(selectedFile.getAbsolutePath());
+			restaurant.employeesOrdersReport(selectedFile.getAbsolutePath(), initialDay, finalDay, initialHour, finalHour);
 		}
 	}   
 	//----------------GENERATE REPORT ORDER GUI------------
@@ -1210,10 +1218,14 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void generateOrderReport(ActionEvent event) throws FileNotFoundException {
 		restaurant.setFILE_SEPARATOR(fileSeparatorReportOrder.getText());
+		String initialDay=initialDateOrderReport.getValue().toString();
+		String finalDay=finalDateOrderReport.getValue().toString();
+		String initialHour=initialHourOrderReport.getText();
+		String finalHour=finalHourOrderReport.getText();;
 		FileChooser fc = new FileChooser();		
 		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
 		if (selectedFile !=null) {			
-			restaurant.exportOrdersReport(selectedFile.getAbsolutePath());
+			restaurant.exportOrdersReport(selectedFile.getAbsolutePath(), initialDay, finalDay, initialHour, finalHour);
 		}
 	}
 
@@ -1224,6 +1236,7 @@ public class RestaurantGUI implements Initializable {
 	public void initialize() {
 
 	} 
+	
 	public void digitalClock() {
 		Calendar calendar = new GregorianCalendar();
 		Date currentTime = new Date();
