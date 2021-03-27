@@ -1,10 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <HBox prefHeight="30.0" prefWidth="929.0" style="-fx-background-color: white; -fx-border-color: black;">
+         <children>
+            <AnchorPane prefHeight="28.0" prefWidth="532.0">
+               <children>
+                  <MenuBar prefHeight="27.0" prefWidth="640.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="0.0">
+                     <menus>
+                        <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant Forms">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneImportCustomes" text="Import Customes" />
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneImportProducts" text="Import Products" />
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneImportBaseProducts" text="Import BaseProducts" />
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneImportOrders" text="Import Orders" />
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneExportOrders" text="Export Orders" />
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneExportProductsSales" text="Export Products Sales" />
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneExportEmployees" text="Export Employees Sales" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant People">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateUser" text="Gestionate User" />
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateCustome" text="Gestionate Custome" />
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateEmployee" text="Gestionate Employee" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: gold;" text="Restaurant Products">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateBaseProduct" text="Gestionate Base Product" />
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateProduct" text="Gestionate Products" />
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateIngredient" text="Gestionate Ingredients" />
+                           </items>
+                        </Menu>
+                     </menus>
+                  </MenuBar>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
       <ImageView fx:id="mainImage" fitHeight="550.0" fitWidth="819.0" layoutX="50.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="14.0" />
    </children>
 </AnchorPane>

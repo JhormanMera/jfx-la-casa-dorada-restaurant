@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="575.0" prefWidth="919.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="262.0" layoutY="140.0" prefHeight="441.0" prefWidth="449.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <AnchorPane layoutX="261.0" layoutY="130.0" prefHeight="441.0" prefWidth="449.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
             <TextField fx:id="txtRegLastName" layoutX="87.0" layoutY="105.0" prefHeight="39.0" prefWidth="277.0" promptText="Last Name(s)" style="-fx-border-color: black;" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="105.0">
                <font>
@@ -33,7 +33,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </PasswordField>
-            <Button layoutX="105.0" layoutY="299.0" mnemonicParsing="false" onAction="#CreateAnAccount" prefHeight="39.0" prefWidth="240.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create an account" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="97.0" AnchorPane.topAnchor="389.0">
+            <Button layoutX="105.0" layoutY="299.0" mnemonicParsing="false" onAction="#regUserGoToLogin" prefHeight="39.0" prefWidth="240.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Go To Login" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="97.0" AnchorPane.topAnchor="389.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

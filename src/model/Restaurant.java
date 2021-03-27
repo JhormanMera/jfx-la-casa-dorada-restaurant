@@ -858,8 +858,9 @@ public class Restaurant {
     			products+=FILE_SEPARATOR+myOrder.getProducts().get(j).getBaseProduct().getName()+FILE_SEPARATOR+myOrder.getAmount().get(j)+FILE_SEPARATOR+myOrder.getProducts().get(j).getPrice();
     		}
     		writer.println(myOrder.getCustome().getName()+FILE_SEPARATOR+myOrder.getCustome().getAddress()+
-    				FILE_SEPARATOR+myOrder.getCustome().getPhone()+FILE_SEPARATOR+myOrder.getEmployee()+
-    				FILE_SEPARATOR+myOrder.getEmployee().getLastname()+FILE_SEPARATOR+myOrder.getDate()+
+    				FILE_SEPARATOR+myOrder.getCustome().getPhone()+FILE_SEPARATOR+myOrder.getEmployee().getName()+
+    				FILE_SEPARATOR+myOrder.getEmployee().getLastname()+FILE_SEPARATOR+myOrder.getDay()+
+    				FILE_SEPARATOR+myOrder.getHour()+
     				FILE_SEPARATOR+myOrder.getObservation()+products);
     	}
     	writer.close();
