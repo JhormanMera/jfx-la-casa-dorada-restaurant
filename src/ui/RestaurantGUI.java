@@ -8,6 +8,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,11 +21,21 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import model.BaseProduct;
+import model.Custome;
+import model.Employee;
+import model.Ingredients;
+import model.Order;
+import model.Product;
+import model.ProductSize;
+import model.ProductType;
 import model.Restaurant;
+import model.User;
 
 
 public class RestaurantGUI {
@@ -476,7 +488,17 @@ public class RestaurantGUI {
     }
     
     //---------REGISTER INGREDIENTS GUI-------------------
-    
+
+    @FXML
+    private TextField txtRegisterIngredientName;
+
+    @FXML
+    private ImageView registerIngredientImage;
+
+    @FXML
+    void CreateAnIngredient(ActionEvent event) {
+
+    }
     
     //----------UPDATE CUSTOMES GUI--------------
     @FXML
@@ -655,22 +677,39 @@ public class RestaurantGUI {
     public void UpdateProductType(ActionEvent event) {
 
     }
+    
+    //----------UPDATE INGREDIENTS GUI-------------
+    
+    @FXML
+    private TextField txtUpdateIngredientName;
+
+    @FXML
+    private TextField txtUpdateIngredientState;
+
+    @FXML
+    private ImageView updateIngredientImage;
+
+    @FXML
+    void UpdateIngredient(ActionEvent event) {
+
+    }
+
     //------------- USER VIEW GUI-----------------
 
     @FXML
-    private TableView<?> tableViewUser;
+    private TableView<User> userTableView;
 
     @FXML
-    private TableColumn<?, ?> userName;
+    private TableColumn<User, String> userName;
 
     @FXML
-    private TableColumn<?, ?> userLastname;
+    private TableColumn<User, String> userLastname;
 
     @FXML
-    private TableColumn<?, ?> userUsername;
+    private TableColumn<User, String> userUsername;
 
     @FXML
-    private TableColumn<?, ?> userPassword;
+    private TableColumn<User, String> userPassword;
 
     @FXML
     private TextField txtUserUsername;
@@ -691,33 +730,43 @@ public class RestaurantGUI {
     public void DeleteUser(ActionEvent event) {
     	restaurant.eraseUser(txtUserUsername.getText());
     }
+    
+    public void initializableTableUserView() {
+		 ObservableList <User> userList = FXCollections.observableArrayList(restaurant.getUsers());
+		 userTableView.setItems(userList); 
+		 userName.setCellValueFactory(new PropertyValueFactory <User,String>("name"));
+		 userLastname.setCellValueFactory(new PropertyValueFactory <User,String>("lastname"));
+		 userUsername.setCellValueFactory(new PropertyValueFactory <User,String>("username"));
+		 userPassword.setCellValueFactory(new PropertyValueFactory <User,String>("password"));
+}
+    
     //------------ORDER VIEW GUI------------
     @FXML
-    private TableView<?> ordersTableView;
+    private TableView<Order> ordersTableView;
 
     @FXML
-    private TableColumn<?, ?> ordersCode;
+    private TableColumn<Order, String> ordersCode;
 
     @FXML
-    private TableColumn<?, ?> ordersDate;
+    private TableColumn<Order, String> ordersDate;
 
     @FXML
-    private TableColumn<?, ?> ordersAmount;
+    private TableColumn<Order, String> ordersAmount;
 
     @FXML
-    private TableColumn<?, ?> ordersProduct;
+    private TableColumn<Order, String> ordersProduct;
 
     @FXML
-    private TableColumn<?, ?> ordersCustome;
+    private TableColumn<Order, String> ordersCustome;
 
     @FXML
-    private TableColumn<?, ?> ordersObservations;
+    private TableColumn<Order, String> ordersObservations;
 
     @FXML
-    private TableColumn<?, ?> ordersState;
+    private TableColumn<Order, String> ordersState;
 
     @FXML
-    private TableColumn<?, ?> ordersEmployee;
+    private TableColumn<Order, String> ordersEmployee;
 
     @FXML
     private TextField txtOrdersCode;
@@ -738,30 +787,44 @@ public class RestaurantGUI {
     public void DeleteOrder(ActionEvent event) {
     	restaurant.eraseOrder(txtOrdersCode.getText());
     }
+    
+    public void initializableTableOrderView() {
+		 ObservableList <Order> orderList = FXCollections.observableArrayList(restaurant.getOrders());
+		 ordersTableView.setItems(orderList); 
+		 ordersCode.setCellValueFactory(new PropertyValueFactory <Order,String>("code"));
+		 ordersDate.setCellValueFactory(new PropertyValueFactory <Order,String>("date"));
+		 ordersAmount.setCellValueFactory(new PropertyValueFactory <Order,String>("amount"));
+		 ordersProduct.setCellValueFactory(new PropertyValueFactory <Order,String>("product"));
+		 ordersCustome.setCellValueFactory(new PropertyValueFactory <Order,String>("custome"));
+		 ordersObservations.setCellValueFactory(new PropertyValueFactory <Order,String>("observations"));
+		 ordersState.setCellValueFactory(new PropertyValueFactory <Order,String>("state"));
+		 ordersEmployee.setCellValueFactory(new PropertyValueFactory <Order,String>("employee"));
+}
+    
     //-------------PRODUCT VIEW GUI------------------
     @FXML
-    private TableView<?> productsTableView;
+    private TableView<Product> productsTableView;
 
     @FXML
-    private TableColumn<?, ?> productsName;
+    private TableColumn<Product, String> productsName;
 
     @FXML
-    private TableColumn<?, ?> productsName1;
+    private TableColumn<Product, String> productsCode;
 
     @FXML
-    private TableColumn<?, ?> productsType;
+    private TableColumn<Product, String> productsType;
 
     @FXML
-    private TableColumn<?, ?> productsIngredients;
+    private TableColumn<Product, String> productsIngredients;
 
     @FXML
-    private TableColumn<?, ?> ProductsAvailable;
+    private TableColumn<Product, String>productsState;
 
     @FXML
-    private TableColumn<?, ?> productsPrice;
+    private TableColumn<Product, String> productsPrice;
 
     @FXML
-    private TableColumn<?, ?> productsSize;
+    private TableColumn<Product, String>productsSize;
 
     @FXML
     private TextField txtProductCode;
@@ -782,18 +845,31 @@ public class RestaurantGUI {
     public void DeleteProduct(ActionEvent event) {
     	restaurant.eraseProduct(txtProductCode.getText());
     }
+    
+    public void initializableTableProductView() {
+		 ObservableList <Product> productList = FXCollections.observableArrayList(restaurant.getProducts());
+		 productsTableView.setItems(productList); 
+		 productsName.setCellValueFactory(new PropertyValueFactory <Product,String>("name"));
+		 productsCode.setCellValueFactory(new PropertyValueFactory <Product,String>("code"));
+		 productsType.setCellValueFactory(new PropertyValueFactory <Product,String>("type"));
+		 productsIngredients.setCellValueFactory(new PropertyValueFactory <Product,String>("ingredients"));
+		 productsState.setCellValueFactory(new PropertyValueFactory <Product,String>("state"));
+		 productsPrice.setCellValueFactory(new PropertyValueFactory <Product,String>("price"));
+		 productsSize.setCellValueFactory(new PropertyValueFactory <Product,String>("size"));
+}
+    
     //-------------------BASEPRODUCT VIEW GUI--------------------
     @FXML
-    private TableView<?> baseProductTableView;
+    private TableView<BaseProduct> baseProductTableView;
 
     @FXML
-    private TableColumn<?, ?> baseProductName;
+    private TableColumn<BaseProduct, String> baseProductName;
 
     @FXML
-    private TableColumn<?, ?> baseProductType;
+    private TableColumn<BaseProduct, String> baseProductType;
 
     @FXML
-    private TableColumn<?, ?> baseProductIngredients;
+    private TableColumn<BaseProduct, String> baseProductIngredients;
 
     @FXML
     private TextField txtBaseProductName;
@@ -815,16 +891,25 @@ public class RestaurantGUI {
     	restaurant.eraseBaseProduct(txtBaseProductName.getText());
 
     }	
+    
+    public void initializableTableBaseProductView() {
+		 ObservableList <BaseProduct> baseProductList = FXCollections.observableArrayList(restaurant.getBaseProducts());
+		 baseProductTableView.setItems(baseProductList); 
+		 baseProductName.setCellValueFactory(new PropertyValueFactory <BaseProduct,String>("name"));
+		 baseProductType.setCellValueFactory(new PropertyValueFactory <BaseProduct,String>("type"));
+		 baseProductIngredients.setCellValueFactory(new PropertyValueFactory <BaseProduct,String>("ingredients"));
+  }
    // ---------------INGREDIENTS VIEW GUI------------
 
+       
     @FXML
-    private TableView<?> ingredientsTableView;
+    private TableView<Ingredients> ingredientsTableView;
 
     @FXML
-    private TableColumn<?, ?> ingredientsName;
+    private TableColumn<Ingredients,String> ingredientsName;
 
     @FXML
-    private TableColumn<?, ?> ingredientsState;
+    private TableColumn<Ingredients,String> ingredientsState;
 
     @FXML
     private TextField txtIngredientName;
@@ -846,22 +931,29 @@ public class RestaurantGUI {
     public void DeleteIngredients(ActionEvent event) {
     	restaurant.eraseIngredient(txtIngredientName.getText());
     }
+    
+    public void initializableTableIngredientsView() {
+		 ObservableList <Ingredients> ingredients = FXCollections.observableArrayList(restaurant.getIngredients());
+		 ingredientsTableView.setItems(ingredients); 
+		 ingredientsName.setCellValueFactory(new PropertyValueFactory <Ingredients,String>("name"));
+		 ingredientsState.setCellValueFactory(new PropertyValueFactory <Ingredients,String>("state"));		 
+	 }
     //----------EMPLOYEE VIEW GUI-----------
 
     @FXML
-    private TableView<?> employeeTableView;
+    private TableView<Employee> employeeTableView;
 
     @FXML
-    private TableColumn<?, ?> employeeName;
+    private TableColumn<Employee, String> employeeName;
 
     @FXML
-    private TableColumn<?, ?> employeeLastName;
+    private TableColumn<Employee, String> employeeLastName;
 
     @FXML
-    private TableColumn<?, ?> employeeID;
+    private TableColumn<Employee, String> employeeID;
 
     @FXML
-    private TableColumn<?, ?> employeeState;
+    private TableColumn<Employee, String> employeeState;
 
     @FXML
     private TextField txtEmployeeID;
@@ -882,31 +974,40 @@ public class RestaurantGUI {
     public void DeleteEmployee(ActionEvent event) {
     	restaurant.eraseEmployee(txtEmployeeID.getText());
     }
+    
+    public void initializableTableEmployeeView() {
+		 ObservableList <Employee> employeesList = FXCollections.observableArrayList(restaurant.getEmployees());
+		 employeeTableView.setItems(employeesList); 
+		 employeeName.setCellValueFactory(new PropertyValueFactory <Employee,String>("name"));
+		 employeeLastName.setCellValueFactory(new PropertyValueFactory <Employee,String>("lastname"));
+		 employeeID.setCellValueFactory(new PropertyValueFactory <Employee,String>("id"));		 
+		 employeeState.setCellValueFactory(new PropertyValueFactory <Employee,String>("state"));		 
+	 }
     //------------CUSTOMES VIEW GUI-------------------
 
     @FXML
-    private TableView<?> customeTableView;
+    private TableView<Custome> customeTableView;
 
     @FXML
-    private TableColumn<?, ?> customesLastName;
+    private TableColumn<Custome, String> customesLastName;
 
     @FXML
-    private TableColumn<?, ?> customesName;
+    private TableColumn<Custome, String> customesName;
 
     @FXML
-    private TableColumn<?, ?> customesID;
+    private TableColumn<Custome, String> customesID;
 
     @FXML
-    private TableColumn<?, ?> customesAddress;
+    private TableColumn<Custome, String> customesAddress;
 
     @FXML
-    private TableColumn<?, ?> customesPhone;
+    private TableColumn<Custome, String> customesPhone;
 
     @FXML
-    private TableColumn<?, ?> customesObservations;
+    private TableColumn<Custome, String> customesObservations;
 
     @FXML
-    private TableColumn<?, ?> customesState;
+    private TableColumn<Custome, String> customesState;
 
     @FXML
     private TextField txtCustomeLastName;
@@ -930,15 +1031,27 @@ public class RestaurantGUI {
     public void DeleteCustome(ActionEvent event) {
     	restaurant.eraseCustome(txtCustomeName.getText(),txtCustomeLastName.getText());
     }
+    
+    public void initializableTableCustomeView() {
+		 ObservableList <Custome> customeList = FXCollections.observableArrayList(restaurant.getCustomes());
+		 customeTableView.setItems(customeList); 
+		 customesLastName.setCellValueFactory(new PropertyValueFactory <Custome,String>("lastname"));
+		 customesName.setCellValueFactory(new PropertyValueFactory <Custome,String>("name"));
+		 customesID.setCellValueFactory(new PropertyValueFactory <Custome,String>("id"));		 
+		 customesAddress.setCellValueFactory(new PropertyValueFactory <Custome,String>("address"));	
+		 customesPhone.setCellValueFactory(new PropertyValueFactory <Custome,String>("phone"));		 
+		 customesObservations.setCellValueFactory(new PropertyValueFactory <Custome,String>("observations"));
+		 customesState.setCellValueFactory(new PropertyValueFactory <Custome,String>("state"));
+	 }
     //------------PRODUCT TYPE VIEW GUI------------
     @FXML
-    private TableView<?> productTypeTableView;
+    private TableView<ProductType> productTypeTableView;
 
     @FXML
-    private TableColumn<?, ?> ProductTypeName;
+    private TableColumn<ProductType, String> productTypeName;
 
     @FXML
-    private TableColumn<?, ?> ProductTypeCode;
+    private TableColumn<ProductType, String> productTypeCode;
 
     @FXML
     private TextField txtProductTypeCode;
@@ -956,18 +1069,27 @@ public class RestaurantGUI {
     }
 
     @FXML
-    public void DeleteProductType(ActionEvent event) {
+    public void DeleteProductType(ActionEvent event) { 
+    	restaurant.eraseProductType(txtProductTypeCode.getText());
 
     }
+    
+    public void initializableTableProductTypeView() {
+		 ObservableList <ProductType> productTypeList = FXCollections.observableArrayList(restaurant.getProductType());
+		 productTypeTableView.setItems(productTypeList); 
+		 productTypeName.setCellValueFactory(new PropertyValueFactory <ProductType,String>("name"));
+		 productTypeCode.setCellValueFactory(new PropertyValueFactory <ProductType,String>("code"));
+    }
+		 
     //------------PRODUCT SIZE VIEW GUI------------
     @FXML
-    private TableView<?> productSizeTableView;
+    private TableView<ProductSize> productSizeTableView;
 
     @FXML
-    private TableColumn<?, ?> ProductName;
+    private TableColumn<ProductSize, String> productSizeName;
 
     @FXML
-    private TableColumn<?, ?> ProductSizeCode;
+    private TableColumn<ProductSize, String> productSizeCode;
 
     @FXML
     private TextField txtProductSizeCode;
@@ -986,8 +1108,16 @@ public class RestaurantGUI {
 
     @FXML
     public void DeleteProductSize(ActionEvent event) {
+    	restaurant.eraseProductSize(txtProductSizeCode.getText());
 
     }
+    
+    public void initializableTableProductSizeView() {
+		 ObservableList <ProductSize> productSizeList = FXCollections.observableArrayList(restaurant.getProductSize());
+		 productSizeTableView.setItems(productSizeList); 
+		 productSizeName.setCellValueFactory(new PropertyValueFactory <ProductSize,String>("name"));
+		 productSizeCode.setCellValueFactory(new PropertyValueFactory <ProductSize,String>("code"));
+   }
     
     //-------------GENERATE REPORT PRODUCTS GUI-----------
     @FXML
