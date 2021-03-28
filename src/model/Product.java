@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Product implements Serializable{ 
+public class Product implements Serializable, Comparable<Product>{ 
 
 	private static final long serialVersionUID = 1L;
 	private BaseProduct baseProduct;
@@ -77,6 +77,11 @@ public class Product implements Serializable{
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	@Override
+	public int compareTo(Product o) {
+		return (int)(price-o.getPrice());
 	}
 	
 }

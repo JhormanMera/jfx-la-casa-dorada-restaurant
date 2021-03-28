@@ -21,7 +21,7 @@
    <center>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="productSizeTableView" minHeight="701.0" minWidth="762.0" prefHeight="701.0" prefWidth="767.0" style="-fx-background-color: white; -fx-border-color: black;">
+            <TableView fx:id="productSizeTableView" minHeight="701.0" minWidth="762.0" onMouseClicked="#selectedProductSize" prefHeight="701.0" prefWidth="767.0" style="-fx-background-color: white; -fx-border-color: black;">
                <columns>
                   <TableColumn fx:id="productSizeName" minWidth="33.0" prefWidth="396.0" style="-fx-border-color: black; -fx-background-color: white;" text="Name" />
                   <TableColumn fx:id="productSizeCode" minWidth="0.0" prefWidth="394.0" style="-fx-border-color: black; -fx-background-color: white;" text="Code" />

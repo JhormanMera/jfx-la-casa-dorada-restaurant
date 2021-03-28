@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class Restaurant {
 	private ArrayList<Ingredients> ingredientBP;
 	private ArrayList<Product> productsOrder;
 	private ArrayList<Integer> amountProductsOrder;
+	private OrdersComparator oc;
 	
 	public Restaurant() {
 		customes = new ArrayList<>();
@@ -237,6 +239,16 @@ public class Restaurant {
 
     }
     
+    public void sortBaseProductByName() {
+    	for(int i=0;i<baseProducts.size();i++) {
+    		for(int j=i;j>0&&baseProducts.get(j-1).getName().compareTo(baseProducts.get(j).getName())>0;j--) {
+    			BaseProduct temp= baseProducts.get(j);
+    			baseProducts.set(j,baseProducts.get(j-1));
+    			baseProducts.set(j-1,temp);
+    		}
+    	}
+    }
+    
     public int binarySearchCustomes(String name, String lastName) {
 		Custome a=null;
 		int b=-1;
@@ -260,16 +272,12 @@ public class Restaurant {
 			}
 		}
 		return b;
-  }    
-    public void SortProductsByPrice() {
-    	for(int i=0;i<products.size();i++) {
-    		for(int j=i;j>0&&products.get(j-1).getPrice()>products.get(j).getPrice();j--) {
-    			Product temp=products.get(j);
-    			products.set(j,products.get(j-1));
-    			products.set(j-1,temp);
-    		}
-    	}
+  }   
+    
+    public void sortProductsByPrice() {
+    	Collections.sort(products);
     }
+    	
     
     public void addCustomesListSorted(String name, String lastname, String ID, String address, String phone, String observations) {
     	Custome newCustome=new Custome(name, lastname, ID, address, phone, observations);
@@ -283,9 +291,13 @@ public class Restaurant {
     		customes.add(i, newCustome);
     	}
     }
+    
+    
+    
     public void addOrder(String state, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor, ArrayList<Product> products, ArrayList<Integer> amount) throws ParseException {
     	Order newOrder =new Order(state,ORDER_CODE, products,amount, custome, employee, date, observation, creator, lastEditor);
     	orders.add(newOrder);
+    	sortOrderByDate();
     }
     public void addProductType(String name,String code ,User creator, User lastEditor) {
     	productType.add(new ProductType(name, code , creator, lastEditor));
@@ -311,13 +323,14 @@ public class Restaurant {
     }
     public void addBaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients) {
     	baseProducts.add(new BaseProduct( name, type, ingredients));
+    	sortBaseProductByName();
     }
     public void addProductSize(String name,String code, User creator, User lastEditor) {
     	productSize.add(new ProductSize( name, code,creator, lastEditor));
     }
     public void addProduct(String code,BaseProduct baseProduct, boolean state, double price, ProductSize size, User creator, User lastEditor) {
     	products.add(new Product(code,baseProduct, state, price, size, creator, lastEditor));
-    	SortProductsByPrice();
+    	sortProductsByPrice();
     }   
   
     public int searchProductSize(String code) {
@@ -922,6 +935,11 @@ public class Restaurant {
     		}
     	}
     	writer.close();
+    }
+    
+    public void sortOrderByDate() {
+    	this.oc= new OrdersComparator();
+    	Collections.sort(orders,oc);
     }
 
 	public User getUserLogged() {

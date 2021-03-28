@@ -28,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import model.BaseProduct;
@@ -721,6 +722,11 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private TextField txtUserUsername;
+	
+	@FXML
+    void selectedUser(MouseEvent event) {
+
+    }
 
 	@FXML
 	public void AddNewUser(ActionEvent event) throws IOException {
@@ -778,6 +784,11 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private TextField txtOrdersCode;
+	
+	@FXML
+    void selectedOrder(MouseEvent event) {
+
+    }
 
 	@FXML
 	public void AddNewOrder(ActionEvent event) throws IOException {
@@ -836,6 +847,11 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private TextField txtProductCode;
+	
+	 @FXML
+	    void selectedProduct(MouseEvent event) {
+
+	    }
 
 	@FXML
 	public void AddNewProduct(ActionEvent event) throws IOException {
@@ -881,6 +897,12 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private TextField txtBaseProductName;
+	
+	 @FXML
+	    void selectedBaseProduct(MouseEvent event) {
+
+	    }
+
 
 	@FXML
 	public void AddNewBaseProduct(ActionEvent event) throws IOException {
@@ -922,6 +944,10 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	private TextField txtIngredientName;
 
+	@FXML
+    void selectedIngredient(MouseEvent event) {
+
+    }
 
 	@FXML
 	public void AddNewIngredient(ActionEvent event) throws IOException {
@@ -965,6 +991,11 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private TextField txtEmployeeID;
+	
+	 @FXML
+	    void selectedEmployee(MouseEvent event) {
+
+	    }
 
 	@FXML
 	public void AddNewEmployee(ActionEvent event) throws IOException {
@@ -1022,6 +1053,11 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private TextField txtCustomeName;
+	
+	@FXML
+    void selectedCustome(MouseEvent event) {
+
+    }
 
 	@FXML
 	public void AddNewCustome(ActionEvent event) throws IOException {
@@ -1063,6 +1099,11 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private TextField txtProductTypeCode;
+	
+	@FXML
+    void selectedProductType(MouseEvent event) {
+
+    }
 
 	@FXML
 	public void AddNewProductType(ActionEvent event) throws IOException {
@@ -1101,6 +1142,10 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private TextField txtProductSizeCode;
+	
+	@FXML
+    void selectedProductSize(MouseEvent event) {
+    }
 
 	@FXML
 	public void AddNewProductSize(ActionEvent event) throws IOException {

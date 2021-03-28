@@ -33,4 +33,5 @@ public class BaseProduct implements Serializable {
 		this.ingredients = ingredients;
 	}
 	
+	
 }
