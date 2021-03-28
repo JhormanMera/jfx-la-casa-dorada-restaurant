@@ -300,36 +300,84 @@ public class Restaurant {
     	sortOrderByDate();
     }
     public void addProductType(String name,String code ,User creator, User lastEditor) {
-    	productType.add(new ProductType(name, code , creator, lastEditor));
+    	if(searchTypeProduct(code)==null) {
+        	productType.add(new ProductType(name, code , creator, lastEditor));
+    	} else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Add Product Type ");
+			alert.setContentText("An error has occurred when adding the Product Type, the code already exist");
+			alert.showAndWait();
+    	}
     }
+    
     public void addEmployee(String name, String lastname, String ID) {
-    	employees.add(new Employee(name, lastname, ID));
+    	if(searchEmployees(ID)<0) {
+        	employees.add(new Employee(name, lastname, ID));
+    	} else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Add Employee");
+			alert.setContentText("An error has occurred when adding the employee, the ID already exist");
+			alert.showAndWait();
+    	}
     }
+    
     public void addUser(String name, String lastName, String ID, String userName, String password) {
-    	if(searchUser(userName)<0) {
+    	if(searchUser(userName)<0&&searchEmployees(ID)<0) {
     		users.add(new User(name, lastName, ID, userName, password));
     		employees.add(new User(name, lastName, ID, userName, password));
     	} else {
     		Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Add User");
-			alert.setContentText("An error has occurred when adding the user, the userName already exist");
+			alert.setContentText("An error has occurred when adding the user, the userName or the ID already exist");
 			alert.showAndWait();
     	}
     }   
     
     public void addIngredients(String name, User creator, User lastEditor) {
-    	ingredients.add(new Ingredients(name, creator, lastEditor));
+    	if(searchIngredient(name)==null) {
+        	ingredients.add(new Ingredients(name, creator, lastEditor));
+    	} else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Add Ingredient");
+			alert.setContentText("An error has occurred when adding the ingredient, the name already exist");
+			alert.showAndWait();
+    	}
     	sortByIngredients();
+    	
     }
+    
     public void addBaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients) {
-    	baseProducts.add(new BaseProduct( name, type, ingredients));
+    	if(searchBaseProduct(name)<0) {
+        	baseProducts.add(new BaseProduct( name, type, ingredients));
+    	} else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Add Base Product");
+			alert.setContentText("An error has occurred when adding the Base Product, the name already exist");
+			alert.showAndWait();
+    	}
     	sortBaseProductByName();
     }
+    
     public void addProductSize(String name,String code, User creator, User lastEditor) {
-    	productSize.add(new ProductSize( name, code,creator, lastEditor));
+    	if(searchProductSize(code)<0) {
+        	productSize.add(new ProductSize( name, code,creator, lastEditor));
+    	} else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Add Product Size");
+			alert.setContentText("An error has occurred when adding the Product Size, the code already exist");
+			alert.showAndWait();
+    	}
     }
+    
     public void addProduct(String code,BaseProduct baseProduct, boolean state, double price, ProductSize size, User creator, User lastEditor) {
-    	products.add(new Product(code,baseProduct, state, price, size, creator, lastEditor));
+    	if(searchProduct(code)<0) {
+        	products.add(new Product(code,baseProduct, state, price, size, creator, lastEditor));
+    	} else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Add Product ");
+			alert.setContentText("An error has occurred when adding the Product, the code already exist");
+			alert.showAndWait();
+    	}
     	sortProductsByPrice();
     }   
   
@@ -344,6 +392,7 @@ public class Restaurant {
     	}
     	return size;
     }
+    
     public Ingredients searchIngredient(String name) {
     	boolean flag=false;
     	Ingredients ingre=null;
@@ -868,6 +917,7 @@ public class Restaurant {
     }
     */
     public void exportOrdersReport(String fileName, String initialDay, String finalDay, String initialHour, String finalHour) throws FileNotFoundException {
+    	Order myOrder=null;
     	PrintWriter writer = new PrintWriter (fileName);
     	String products="";
     	writer.println("CUSTOME NAME"+FILE_SEPARATOR
@@ -880,7 +930,14 @@ public class Restaurant {
 				+"ORDER HOUR"+FILE_SEPARATOR
 				+"ORDER OBSERVATIONS"+FILE_SEPARATOR);
     	for (int i=0;i<orders.size();i++) {
-    		Order myOrder = orders.get(i);
+    		if(orders.get(i).getDay().compareTo(initialDay)==0&&(orders.get(i).getHour().compareTo(initialHour)>=0)) {
+    				myOrder = orders.get(i);    
+    		}else if(orders.get(i).getDay().compareTo(initialDay)>0&&(orders.get(i).getDay().compareTo(finalDay)<0)) {
+    			myOrder = orders.get(i);
+    		}else if(orders.get(i).getDay().compareTo(finalDay)==0&&(orders.get(i).getHour().compareTo(finalHour)<=0)) {
+    				myOrder = orders.get(i);
+    			
+    		}
     		for(int j=0;i<myOrder.getProducts().size();j++) {
     			products+=FILE_SEPARATOR+myOrder.getProducts().get(j).getBaseProduct().getName()+FILE_SEPARATOR+myOrder.getAmount().get(j)+FILE_SEPARATOR+myOrder.getProducts().get(j).getPrice();
     		}
@@ -906,17 +963,29 @@ public class Restaurant {
 				+"ORDERS PRICE"+FILE_SEPARATOR);
     	for (int i=0;i<employees.size();i++) {
     		for(int j=0;j<orders.size();j++) {
+    			Order myOrder= null;
+    			if(orders.get(i).getDay().compareTo(initialDay)==0&&(orders.get(i).getHour().compareTo(initialHour)>=0)) {
+    				myOrder = orders.get(i);    
+    			}else if(orders.get(i).getDay().compareTo(initialDay)>0&&(orders.get(i).getDay().compareTo(finalDay)<0)) {
+    				myOrder = orders.get(i);
+    			}else if(orders.get(i).getDay().compareTo(finalDay)==0&&(orders.get(i).getHour().compareTo(finalHour)<=0)) {
+    				myOrder = orders.get(i);
+    			
+    		}
+    			if(myOrder!=null) {
     			Employee myEmployee =employees.get(i);
-    			double[] employeeOrder= employeesOrders(myEmployee,orders.get(j));
+    			double[] employeeOrder= employeesOrders(myEmployee,myOrder);
     			writer.println(myEmployee.getName()+
     					FILE_SEPARATOR+myEmployee.getLastname()+
     					FILE_SEPARATOR+myEmployee.getID()+
     					FILE_SEPARATOR+employeeOrder[0]+
     					FILE_SEPARATOR+employeeOrder[1]);
+    			}
     		}
     	}
     	writer.close();
     }
+    
     public void productsOrderReport(String fileName, String initialDay, String finalDay, String initialHour, String finalHour) throws FileNotFoundException {
     	PrintWriter writer = new PrintWriter (fileName);
     	writer.println("PRODUCT NAME"+FILE_SEPARATOR
@@ -924,13 +993,24 @@ public class Restaurant {
 				+"PRODUCT TOTAL PRICE"+FILE_SEPARATOR);
     	for (int i=0;i<products.size();i++) {
     		for(int j=0;j<orders.size();j++) {
-    			for(int k=0;k<orders.get(j).getProducts().size();k++) {
+    			Order myOrder=null;
+    			if(orders.get(j).getDay().compareTo(initialDay)==0&&(orders.get(j).getHour().compareTo(initialHour)>=0)) {
+    				myOrder = orders.get(j);    
+    			}else if(orders.get(j).getDay().compareTo(initialDay)>0&&(orders.get(j).getDay().compareTo(finalDay)<0)) {
+    				myOrder = orders.get(j);
+    			}else if(orders.get(j).getDay().compareTo(finalDay)==0&&(orders.get(j).getHour().compareTo(finalHour)<=0)) {
+    				myOrder = orders.get(j);
+    			
+    		}
+    			if(myOrder!=null) {
+    			for(int k=0;k<myOrder.getProducts().size();k++) {
     				Product myProduct =products.get(i);
-    				double[] productOrders= productsOrders(myProduct,orders.get(j).getProducts().get(k));
+    				double[] productOrders= productsOrders(myProduct,myOrder.getProducts().get(k));
     				writer.println(myProduct.getBaseProduct().getName()+
     						FILE_SEPARATOR+myProduct.getSize().getName()+
     						FILE_SEPARATOR+productOrders[0]+
     						FILE_SEPARATOR+productOrders[1]);
+    				}
     			}
     		}
     	}
