@@ -14,23 +14,42 @@ public class BaseProduct implements Serializable {
 		this.type = type;
 		this.ingredients = ingredients;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getTypeName() {
+		String name=type.getName();
+		return name;
+	}
+	
 	public ProductType getType() {
 		return type;
 	}
+	
 	public void setType(ProductType type) {
 		this.type = type;
 	}
+	
 	public ArrayList<Ingredients> getIngredients() {
 		return ingredients;
 	}
+	
 	public void setIngredients(ArrayList<Ingredients> ingredients) {
 		this.ingredients = ingredients;
+	}
+	
+	public String getIngredientsName() {
+		String names=ingredients.get(0).getName();
+		for(int i=1;i<ingredients.size();i++) {
+			names+=" , "+ingredients.get(i).getName();
+		}
+		return names;
 	}
 	
 	

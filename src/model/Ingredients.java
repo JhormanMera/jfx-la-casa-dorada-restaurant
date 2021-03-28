@@ -19,6 +19,16 @@ public class Ingredients implements Serializable{
 		this.state = true;
 	}
 
+	public String getStateIngredient(){
+		String enable="";
+		if(state) {
+			enable="Enable";
+		}else {
+			enable="Disable";
+		}
+		return enable;
+	}
+	
 	public User getCreator() {
 		return creator;
 	}

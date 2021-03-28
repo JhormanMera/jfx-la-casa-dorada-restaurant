@@ -41,6 +41,29 @@ public class Order implements Serializable{
 		this.creator = creator;
 		this.lastEditor = lastEditor;
 	}
+	public String getProductsName() {
+		String names=products.get(0).getBaseProduct().getName()+" "+products.get(0).getSize().getName();
+		for(int i=1;i<products.size();i++) {
+			names+=" , "+products.get(i).getBaseProduct().getName()+" "+products.get(i).getSize().getName();
+		}
+		return names;
+	}
+	
+	public String getProductsAmount() {
+		String names=amount.get(0)+"";
+		for(int i=1;i<amount.size();i++) {
+			names+=" , "+amount.get(i);
+		}
+		return names;
+	}
+	public String getCustomeName() {
+		String names=custome.getName()+custome.getLastname();
+		return names;
+	}
+	public String getEmployeeName() {
+		String names=employee.getName()+employee.getLastname();
+		return names;
+	}
 
 	public String getCode() {
 		return code;

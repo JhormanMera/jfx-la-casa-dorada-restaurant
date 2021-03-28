@@ -23,6 +23,16 @@ public class Product implements Serializable, Comparable<Product>{
 		this.lastEditor = creator;
 	}
 	
+	public String getName() {
+		String name=baseProduct.getName();
+		return name;
+	}
+	
+	public String getSizeName() {
+		String name=size.getName();
+		return name;
+	}
+	
 	public BaseProduct getBaseProduct() {
 		return baseProduct;
 	}

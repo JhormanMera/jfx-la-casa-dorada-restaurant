@@ -19,7 +19,7 @@
                </font>
             </Label>
             <DatePicker fx:id="initialDateEmployeeReport" layoutX="89.0" layoutY="58.0" prefHeight="31.0" prefWidth="232.0" promptText="Initial Date" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="93.0" AnchorPane.topAnchor="58.0" />
-            <TextField fx:id="initialHourEmployeeReport" layoutX="89.0" layoutY="103.0" prefHeight="31.0" prefWidth="232.0" promptText="Initial Hour hh:mm:ss" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="93.0" AnchorPane.topAnchor="103.0" />
+            <TextField fx:id="initialHourEmployeeReport" layoutX="89.0" layoutY="103.0" prefHeight="31.0" prefWidth="232.0" promptText="Initial Hour hh:mm:ss" text="00:00:00" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="93.0" AnchorPane.topAnchor="103.0" />
             <Label layoutX="121.0" layoutY="297.0" text="Hours must be in 24 hour format" />
             <Separator layoutX="7.0" layoutY="324.0" prefHeight="3.0" prefWidth="404.0" />
             <Button layoutX="138.0" layoutY="340.0" mnemonicParsing="false" onAction="#generateReportByEmployee" prefHeight="39.0" prefWidth="151.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Generate Report" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="123.0" AnchorPane.topAnchor="340.0">
@@ -28,7 +28,7 @@
                </font>
             </Button>
             <DatePicker fx:id="finalDateEmployeeReport" layoutX="90.0" layoutY="151.0" prefHeight="31.0" prefWidth="232.0" promptText="Final Date" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="151.0" />
-            <TextField fx:id="finalHourEmployeeReport" layoutX="93.0" layoutY="195.0" prefHeight="31.0" prefWidth="232.0" promptText="Final Hour hh:mm:ss" AnchorPane.leftAnchor="93.0" AnchorPane.rightAnchor="93.0" AnchorPane.topAnchor="195.0" />
+            <TextField fx:id="finalHourEmployeeReport" layoutX="93.0" layoutY="195.0" prefHeight="31.0" prefWidth="232.0" promptText="Final Hour hh:mm:ss" text="23:59:59" AnchorPane.leftAnchor="93.0" AnchorPane.rightAnchor="93.0" AnchorPane.topAnchor="195.0" />
             <TextField fx:id="fileSepatatorReportEmployee" layoutX="150.0" layoutY="246.0" prefHeight="31.0" prefWidth="232.0" promptText="File Separator" text=";" />
             <Label layoutX="58.0" layoutY="253.0" text="File Separator" />
          </children>

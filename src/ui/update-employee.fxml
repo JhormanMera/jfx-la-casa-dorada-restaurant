@@ -21,12 +21,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtUpdateEmployeeID" layoutX="86.0" layoutY="230.0" prefHeight="39.0" prefWidth="199.0" promptText="ID">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </TextField>
-            <Button layoutX="154.0" layoutY="296.0" mnemonicParsing="false" onAction="#UpdateEmployee" prefHeight="39.0" prefWidth="84.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Update" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="124.0" AnchorPane.topAnchor="296.0">
+            <Button layoutX="145.0" layoutY="272.0" mnemonicParsing="false" onAction="#UpdateEmployee" prefHeight="39.0" prefWidth="84.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Update" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="272.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

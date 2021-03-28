@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -51,8 +52,6 @@ public class RestaurantGUI implements Initializable {
 
 	private static final String MAIN_MENU_IMAGE_PATH = "data/images/Lacasadorada.jpg";
 
-	private static final String REGISTER_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
-
 	private static final String REGISTER_BASE_PRODUCT_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
 
 	private static final String REGISTER_PRODUCT_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
@@ -68,6 +67,26 @@ public class RestaurantGUI implements Initializable {
 	private static final String REGISTER_EMPLOYEE_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
 
 	private static final String REGISTER_USER_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
+	
+	private static final String REGISTER_INGREDIENT_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
+	
+	private static final String UPDATE_BASE_PRODUCT_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
+
+	private static final String UPDATE_PRODUCT_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
+
+	private static final String UPDATE_ORDER_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
+
+	private static final String UPDATE_PRODUCT_TYPE_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
+
+	private static final String UPDATE_PRODUCT_SIZE_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
+
+	private static final String UPDATE_CUSTOME_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
+
+	private static final String UPDATE_EMPLOYEE_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
+
+	private static final String UPDATE_USER_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
+	
+	private static final String UPDATE_INGREDIENT_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
 
 	private static final String REPORT_ORDER_IMAGE_PATH = "data/images/Lacasadoradalogo.jpeg";
 
@@ -262,7 +281,7 @@ public class RestaurantGUI implements Initializable {
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
-		File f = new File(REGISTER_IMAGE_PATH);
+		File f = new File(REGISTER_USER_IMAGE_PATH);
 		Image img = new Image(f.toURI().toString());
 		this.regUserImage.setImage(img);
 	}
@@ -517,9 +536,6 @@ public class RestaurantGUI implements Initializable {
 	private TextField txtUpdateCustomeLastnames;
 
 	@FXML
-	private TextField txtUpdateCustomeID;
-
-	@FXML
 	private TextField txtUpdateCustomeAddress;
 
 	@FXML
@@ -542,9 +558,6 @@ public class RestaurantGUI implements Initializable {
 	private TextField txtUpdateEmployeeName;
 
 	@FXML
-	private TextField txtUpdateEmployeeID;
-
-	@FXML
 	private TextField txtUpdateEmployeeLastnames;
 
 	@FXML
@@ -555,8 +568,12 @@ public class RestaurantGUI implements Initializable {
 
 	}
 	// -----------UPDATE ORDER GUI--------------
-	@FXML
-	private TextField txtUpdateOrderCustome;
+
+    @FXML
+    private TextField txtUpdateOrderCustomeName;
+    
+    @FXML
+    private TextField txtUpdateOrderCustomeLastName;
 
 	@FXML
 	private TextField txtUpdateOrderAmount;
@@ -593,9 +610,6 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private TextField txtUpdateUserLastnames;
-
-	@FXML
-	private TextField txtUpdateUserID;
 
 	@FXML
 	private TextField txtUpdateUserUsername;
@@ -643,7 +657,13 @@ public class RestaurantGUI implements Initializable {
 	private TextField txtUpdateProductSizeName;
 
 	@FXML
-	private TextField txtUpdateProductSizeCode;
+	private TextField txtUpdateProductSizeCode;	
+
+    @FXML
+    private CheckBox enableProductSize;
+
+    @FXML
+    private CheckBox disableProductSize;
 
 	@FXML
 	private ImageView updateProductSizeImage;
@@ -662,6 +682,12 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	private TextField txtUploadProductPrice;
 
+    @FXML
+    private CheckBox enableProduct;
+
+    @FXML
+    private CheckBox disableProduct;
+	
 	@FXML
 	private ImageView updateProductImage;
 
@@ -675,9 +701,12 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private TextField txtUpdateProductTypeCode;
+	
+    @FXML
+    private CheckBox enableProductType;
 
-	@FXML
-	private TextField txtUpdateProductTypeState;
+    @FXML
+    private CheckBox disableProductType;
 
 	@FXML
 	private ImageView updateProductTypeImage;
@@ -692,14 +721,17 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	private TextField txtUpdateIngredientName;
 
-	@FXML
-	private TextField txtUpdateIngredientState;
+    @FXML
+    private CheckBox enableIngredient;
+
+    @FXML
+    private CheckBox disableIngredient;
 
 	@FXML
 	private ImageView updateIngredientImage;
 
 	@FXML
-	void UpdateIngredient(ActionEvent event) {
+	public void UpdateIngredient(ActionEvent event) {
 
 	}
 
@@ -724,7 +756,7 @@ public class RestaurantGUI implements Initializable {
 	private TextField txtUserUsername;
 	
 	@FXML
-    void selectedUser(MouseEvent event) {
+    public void selectedUser(MouseEvent event) {
 
     }
 
@@ -784,10 +816,46 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private TextField txtOrdersCode;
+	/*
+	@FXML
+    private TextField txtUpdateOrderCustomeName;
+    
+    @FXML
+    private TextField txtUpdateOrderCustomeLastName;
+
+	@FXML
+	private TextField txtUpdateOrderAmount;
+
+	@FXML
+	private TextField txtUpdateOrderEmployee;
+
+	@FXML
+	private TextField txtUpdateOrderProduct;
+
+	@FXML
+	private TextField txtUpdateOrderObservations;
+	 */
 	
 	@FXML
-    void selectedOrder(MouseEvent event) {
-
+	public void selectedOrder(MouseEvent event) throws IOException {
+		if (event.getClickCount()==2) {
+			Order selectedOrder = ordersTableView.getSelectionModel().getSelectedItem();
+			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("update-order.fxml"));
+			fxmlloader.setController(this);		
+			Parent root = fxmlloader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().setAll(root);
+			File f = new File(REGISTER_ORDER_IMAGE_PATH);
+			Image img = new Image(f.toURI().toString());
+			this.registerOrderImage.setImage(img);
+			txtUpdateOrderCustomeName.setText(selectedOrder.getCustome().getName());
+			txtUpdateOrderCustomeLastName.setText(selectedOrder.getCustome().getLastname());
+			txtUpdateOrderObservations.setText(selectedOrder.getObservation());
+			txtUpdateOrderEmployee.setText(selectedOrder.getEmployee().getID());
+			restaurant.setProductsOrder(selectedOrder.getProducts());
+			restaurant.setAmountProductsOrder(selectedOrder.getAmount());
+			
+		}
     }
 
 	@FXML
@@ -812,12 +880,12 @@ public class RestaurantGUI implements Initializable {
 		ordersTableView.setItems(orderList); 
 		ordersCode.setCellValueFactory(new PropertyValueFactory <Order,String>("code"));
 		ordersDate.setCellValueFactory(new PropertyValueFactory <Order,String>("date"));
-		ordersAmount.setCellValueFactory(new PropertyValueFactory <Order,String>("amount"));
-		ordersProduct.setCellValueFactory(new PropertyValueFactory <Order,String>("product"));
-		ordersCustome.setCellValueFactory(new PropertyValueFactory <Order,String>("custome"));
+		ordersAmount.setCellValueFactory(new PropertyValueFactory <Order,String>("productsAmount"));
+		ordersProduct.setCellValueFactory(new PropertyValueFactory <Order,String>("productsName"));
+		ordersCustome.setCellValueFactory(new PropertyValueFactory <Order,String>("customeName"));
 		ordersObservations.setCellValueFactory(new PropertyValueFactory <Order,String>("observations"));
 		ordersState.setCellValueFactory(new PropertyValueFactory <Order,String>("state"));
-		ordersEmployee.setCellValueFactory(new PropertyValueFactory <Order,String>("employee"));
+		ordersEmployee.setCellValueFactory(new PropertyValueFactory <Order,String>("employeeName"));
 	}
 
 	//-------------PRODUCT VIEW GUI------------------
@@ -829,12 +897,6 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private TableColumn<Product, String> productsCode;
-
-	@FXML
-	private TableColumn<Product, String> productsType;
-
-	@FXML
-	private TableColumn<Product, String> productsIngredients;
 
 	@FXML
 	private TableColumn<Product, String>productsState;
@@ -849,9 +911,9 @@ public class RestaurantGUI implements Initializable {
 	private TextField txtProductCode;
 	
 	 @FXML
-	    void selectedProduct(MouseEvent event) {
+	 public void selectedProduct(MouseEvent event) {
 
-	    }
+	 }
 
 	@FXML
 	public void AddNewProduct(ActionEvent event) throws IOException {
@@ -875,11 +937,9 @@ public class RestaurantGUI implements Initializable {
 		productsTableView.setItems(productList); 
 		productsName.setCellValueFactory(new PropertyValueFactory <Product,String>("name"));
 		productsCode.setCellValueFactory(new PropertyValueFactory <Product,String>("code"));
-		productsType.setCellValueFactory(new PropertyValueFactory <Product,String>("type"));
-		productsIngredients.setCellValueFactory(new PropertyValueFactory <Product,String>("ingredients"));
 		productsState.setCellValueFactory(new PropertyValueFactory <Product,String>("state"));
 		productsPrice.setCellValueFactory(new PropertyValueFactory <Product,String>("price"));
-		productsSize.setCellValueFactory(new PropertyValueFactory <Product,String>("size"));
+		productsSize.setCellValueFactory(new PropertyValueFactory <Product,String>("sizeName"));
 	}
 
 	//-------------------BASEPRODUCT VIEW GUI--------------------
@@ -899,9 +959,9 @@ public class RestaurantGUI implements Initializable {
 	private TextField txtBaseProductName;
 	
 	 @FXML
-	    void selectedBaseProduct(MouseEvent event) {
+	 public void selectedBaseProduct(MouseEvent event) {
 
-	    }
+	 }
 
 
 	@FXML
@@ -926,8 +986,8 @@ public class RestaurantGUI implements Initializable {
 		ObservableList <BaseProduct> baseProductList = FXCollections.observableArrayList(restaurant.getBaseProducts());
 		baseProductTableView.setItems(baseProductList); 
 		baseProductName.setCellValueFactory(new PropertyValueFactory <BaseProduct,String>("name"));
-		baseProductType.setCellValueFactory(new PropertyValueFactory <BaseProduct,String>("type"));
-		baseProductIngredients.setCellValueFactory(new PropertyValueFactory <BaseProduct,String>("ingredients"));
+		baseProductType.setCellValueFactory(new PropertyValueFactory <BaseProduct,String>("typeName"));
+		baseProductIngredients.setCellValueFactory(new PropertyValueFactory <BaseProduct,String>("ingredientsName"));
 	}
 	// ---------------INGREDIENTS VIEW GUI------------
 
@@ -945,20 +1005,20 @@ public class RestaurantGUI implements Initializable {
 	private TextField txtIngredientName;
 
 	@FXML
-    void selectedIngredient(MouseEvent event) {
+    public void selectedIngredient(MouseEvent event) {
 
     }
 
 	@FXML
 	public void AddNewIngredient(ActionEvent event) throws IOException {
-		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("NO EXISTE"));//****************CREAR GUI REGISTER INGREDIENT Y UPDATE INGREDIENT**************
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("register-ingredient.fxml"));
 		fxmlloader.setController(this);		
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
-		File f = new File(MAIN_MENU_IMAGE_PATH);
+		File f = new File(REGISTER_INGREDIENT_IMAGE_PATH);
 		Image img = new Image(f.toURI().toString());
-		this.mainImage.setImage(img);	
+		this.registerIngredientImage.setImage(img);	
 	}
 
 	@FXML
@@ -970,7 +1030,7 @@ public class RestaurantGUI implements Initializable {
 		ObservableList <Ingredients> ingredients = FXCollections.observableArrayList(restaurant.getIngredients());
 		ingredientsTableView.setItems(ingredients); 
 		ingredientsName.setCellValueFactory(new PropertyValueFactory <Ingredients,String>("name"));
-		ingredientsState.setCellValueFactory(new PropertyValueFactory <Ingredients,String>("state"));		 
+		ingredientsState.setCellValueFactory(new PropertyValueFactory <Ingredients,String>("stateIngredient"));		 
 	}
 	//----------EMPLOYEE VIEW GUI-----------
 
@@ -1020,7 +1080,7 @@ public class RestaurantGUI implements Initializable {
 		employeeName.setCellValueFactory(new PropertyValueFactory <Employee,String>("name"));
 		employeeLastName.setCellValueFactory(new PropertyValueFactory <Employee,String>("lastname"));
 		employeeID.setCellValueFactory(new PropertyValueFactory <Employee,String>("id"));		 
-		employeeState.setCellValueFactory(new PropertyValueFactory <Employee,String>("state"));		 
+		employeeState.setCellValueFactory(new PropertyValueFactory <Employee,String>("stateEmployee"));		 
 	}
 	//------------CUSTOMES VIEW GUI-------------------
 
@@ -1055,7 +1115,7 @@ public class RestaurantGUI implements Initializable {
 	private TextField txtCustomeName;
 	
 	@FXML
-    void selectedCustome(MouseEvent event) {
+    public void selectedCustome(MouseEvent event) {
 
     }
 
@@ -1085,7 +1145,7 @@ public class RestaurantGUI implements Initializable {
 		customesAddress.setCellValueFactory(new PropertyValueFactory <Custome,String>("address"));	
 		customesPhone.setCellValueFactory(new PropertyValueFactory <Custome,String>("phone"));		 
 		customesObservations.setCellValueFactory(new PropertyValueFactory <Custome,String>("observations"));
-		customesState.setCellValueFactory(new PropertyValueFactory <Custome,String>("state"));
+		customesState.setCellValueFactory(new PropertyValueFactory <Custome,String>("stateCustome"));
 	}
 	//------------PRODUCT TYPE VIEW GUI------------
 	@FXML
@@ -1101,7 +1161,7 @@ public class RestaurantGUI implements Initializable {
 	private TextField txtProductTypeCode;
 	
 	@FXML
-    void selectedProductType(MouseEvent event) {
+    public void selectedProductType(MouseEvent event) {
 
     }
 
@@ -1139,12 +1199,15 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private TableColumn<ProductSize, String> productSizeCode;
+	
+    @FXML
+    private TableColumn<ProductSize, String> productSizeState;
 
 	@FXML
 	private TextField txtProductSizeCode;
 	
 	@FXML
-    void selectedProductSize(MouseEvent event) {
+    public void selectedProductSize(MouseEvent event) {
     }
 
 	@FXML
@@ -1170,6 +1233,7 @@ public class RestaurantGUI implements Initializable {
 		productSizeTableView.setItems(productSizeList); 
 		productSizeName.setCellValueFactory(new PropertyValueFactory <ProductSize,String>("name"));
 		productSizeCode.setCellValueFactory(new PropertyValueFactory <ProductSize,String>("code"));
+		productSizeState.setCellValueFactory(new PropertyValueFactory <ProductSize,String>("stateSize"));
 	}
 
 	//-------------GENERATE REPORT PRODUCTS GUI-----------

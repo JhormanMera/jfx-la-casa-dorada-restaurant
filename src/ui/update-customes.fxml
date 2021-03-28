@@ -27,27 +27,22 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtUpdateCustomeID" layoutX="78.0" layoutY="165.0" promptText="ID">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </TextField>
             <Button layoutX="145.0" layoutY="375.0" mnemonicParsing="false" onAction="#UpdateCustome" prefHeight="33.0" prefWidth="79.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Update" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="137.0" AnchorPane.topAnchor="374.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <TextField fx:id="txtUpdateCustomeAddress" layoutX="78.0" layoutY="211.0" promptText="Address">
+            <TextField fx:id="txtUpdateCustomeAddress" layoutX="78.0" layoutY="164.0" promptText="Address">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtUpdateCustomePhone" layoutX="78.0" layoutY="255.0" promptText="Phone">
+            <TextField fx:id="txtUpdateCustomePhone" layoutX="80.0" layoutY="214.0" promptText="Phone">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextArea fx:id="txtUpdateCustomeObservations" layoutX="78.0" layoutY="300.0" prefHeight="56.0" prefWidth="199.0" promptText="Observations">
+            <TextArea fx:id="txtUpdateCustomeObservations" layoutX="80.0" layoutY="258.0" prefHeight="97.0" prefWidth="199.0" promptText="Observations">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

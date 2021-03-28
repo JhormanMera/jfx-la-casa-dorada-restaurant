@@ -358,9 +358,9 @@ public class Restaurant {
     	sortBaseProductByName();
     }
     
-    public void addProductSize(String name,String code, User creator, User lastEditor) {
+    public void addProductSize(String name,String code,User creator, User lastEditor) {
     	if(searchProductSize(code)<0) {
-        	productSize.add(new ProductSize( name, code,creator, lastEditor));
+        	productSize.add(new ProductSize( name, code,true,creator, lastEditor));
     	} else {
     		Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Add Product Size");

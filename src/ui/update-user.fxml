@@ -21,27 +21,22 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtUpdateUserLastnames" layoutX="85.0" layoutY="130.0" promptText="Lastnames">
+            <TextField fx:id="txtUpdateUserLastnames" layoutX="85.0" layoutY="134.0" promptText="Lastnames">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtUpdateUserID" layoutX="85.0" layoutY="179.0" promptText="ID">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </TextField>
-            <Button layoutX="150.0" layoutY="330.0" mnemonicParsing="false" onAction="#UpdateUser" prefHeight="37.0" prefWidth="89.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Update" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="127.0" AnchorPane.topAnchor="330.0">
+            <Button layoutX="144.0" layoutY="305.0" mnemonicParsing="false" onAction="#UpdateUser" prefHeight="37.0" prefWidth="89.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Update" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="305.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <TextField fx:id="txtUpdateUserUsername" layoutX="87.0" layoutY="226.0" promptText="Username">
+            <TextField fx:id="txtUpdateUserUsername" layoutX="85.0" layoutY="187.0" promptText="Username">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtUpdateUserPassword" layoutX="87.0" layoutY="274.0" promptText="Password">
+            <TextField fx:id="txtUpdateUserPassword" layoutX="85.0" layoutY="238.0" promptText="Password">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
