@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -155,6 +156,7 @@ public class RestaurantGUI implements Initializable {
 		showMainMenu();
 		setAllNull();
 	}
+	
 	@FXML
 	public void mainPaneExportEmployees(ActionEvent event) throws IOException {
 		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("generate-report-employee.fxml"));
@@ -165,6 +167,13 @@ public class RestaurantGUI implements Initializable {
 		File f = new File(REPORT_EMPLOYEE_IMAGE_PATH);
 		Image img = new Image(f.toURI().toString());
 		this.reportEmployeeImage.setImage(img);
+		LocalDate now = LocalDate.now();
+		initialDateEmployeeReport.setValue(now);
+		finalDateEmployeeReport.setValue(now);
+		
+		initialHourEmployeeReport.setText("00:00:00");
+		finalHourEmployeeReport.setText("00:00:00");;
+		fileSeparatorReportEmployee.setText(";");;
 	}
 
 	@FXML
@@ -177,6 +186,13 @@ public class RestaurantGUI implements Initializable {
 		File f = new File(REPORT_ORDER_IMAGE_PATH);
 		Image img = new Image(f.toURI().toString());
 		this.reportOrderImage.setImage(img);
+		LocalDate now = LocalDate.now();
+		initialDateOrderReport.setValue(now);
+		finalDateOrderReport.setValue(now);
+		
+		initialHourOrderReport.setText("00:00:00");
+		finalHourOrderReport.setText("00:00:00");;
+		fileSeparatorReportOrder.setText(";");;
 	}
 
 	@FXML
@@ -189,6 +205,13 @@ public class RestaurantGUI implements Initializable {
 		File f = new File(REPORT_PRODUCTS_IMAGE_PATH);
 		Image img = new Image(f.toURI().toString());
 		this.reportProductImage.setImage(img);
+		LocalDate now = LocalDate.now();
+		initialDateProductReport.setValue(now);
+		finalDateProductReport.setValue(now);
+		
+		initialHourProductReport.setText("00:00:00");
+		finalHourProductReport.setText("00:00:00");;
+		fileSeparatorReportProduct.setText(";");;
 	}
 
 	@FXML
@@ -409,7 +432,7 @@ public class RestaurantGUI implements Initializable {
 							txtRegUsername.getText()!=space&&txtRegUsername.getText()!=empty&&
 									txtRegPassword.getText()!=space&&txtRegPassword.getText()!=empty) {
 			
-		restaurant.addUser(txtRegName.getText(), txtRegLastName.getText(), txtRegIdentification.getText(), txtRegUsername.getText(),txtRegPassword.getText());
+		restaurant.addUser(txtRegName.getText(), txtRegLastName.getText(), txtRegIdentification.getText(), txtRegUsername.getText(),txtRegPassword.getText(),restaurant.getUserLogged(),restaurant.getUserLogged(),true);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Register User");
@@ -446,7 +469,7 @@ public class RestaurantGUI implements Initializable {
 	}
 	
 	@FXML
-	public void CreateABaseProduct(ActionEvent event) {
+	public void CreateABaseProduct(ActionEvent event) throws FileNotFoundException, IOException {
 		String space=" ";
 		String empty="";
 		if(txtRegisterBaseProductName.getText()!=space&&txtRegisterBaseProductName.getText()!=empty&&
@@ -480,7 +503,7 @@ public class RestaurantGUI implements Initializable {
 	private ImageView registerProductTypeImage;
 
 	@FXML
-	public void CreateAProductType(ActionEvent event) {
+	public void CreateAProductType(ActionEvent event) throws FileNotFoundException, IOException {
 		String space=" ";
 		String empty="";
 		if(txtRegisterProductTypeName.getText()!=space&&txtRegisterProductTypeName.getText()!=empty&&
@@ -531,7 +554,7 @@ public class RestaurantGUI implements Initializable {
 	}
 
 	@FXML
-	public void CreateAnOrder(ActionEvent event) throws ParseException {
+	public void CreateAnOrder(ActionEvent event) throws ParseException, FileNotFoundException, IOException {
 		Date date = new Date();	
 		String space=" ";
 		String empty="";
@@ -586,7 +609,7 @@ public class RestaurantGUI implements Initializable {
 	private ImageView registerCustomeImage;
 
 	@FXML
-	public void CreateACustome(ActionEvent event) {
+	public void CreateACustome(ActionEvent event) throws FileNotFoundException, IOException {
 		String space=" ";
 		String empty="";
 		if(txtRegisterCustomeName.getText()!=space&&txtRegisterCustomeName.getText()!=empty&&
@@ -620,7 +643,7 @@ public class RestaurantGUI implements Initializable {
 	private ImageView registerEmployeeImage;
 
 	@FXML
-	public void CreateAnEmployee(ActionEvent event) {
+	public void CreateAnEmployee(ActionEvent event) throws FileNotFoundException, IOException {
 		String space=" ";
 		String empty="";
 		if(txtRegisterEmployeeName.getText()!=space&&txtRegisterEmployeeName.getText()!=empty&&
@@ -628,7 +651,7 @@ public class RestaurantGUI implements Initializable {
 						txtRegisterEmployeeID.getText()!=space&&txtRegisterEmployeeID.getText()!=empty) {	
 			
 			restaurant.addEmployee(txtRegisterEmployeeName.getText(),txtRegisterEmployeeLastnames.getText(), 
-					txtRegisterEmployeeID.getText());
+					txtRegisterEmployeeID.getText(),restaurant.getUserLogged(),restaurant.getUserLogged(),true);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Register Employee");
@@ -648,7 +671,7 @@ public class RestaurantGUI implements Initializable {
 	private ImageView regProductSizeImage;
 
 	@FXML
-	public void CreateAProductSize(ActionEvent event) {
+	public void CreateAProductSize(ActionEvent event) throws FileNotFoundException, IOException {
 		String space=" ";
 		String empty="";
 		if(txtRegisterProductSizeName.getText()!=space&&txtRegisterProductSizeName.getText()!=empty&&
@@ -681,7 +704,7 @@ public class RestaurantGUI implements Initializable {
 	private ImageView regProductImage;
 
 	@FXML
-	public void CreateAProduct(ActionEvent event) {
+	public void CreateAProduct(ActionEvent event) throws FileNotFoundException, IOException {
 		String space=" ";
 		String empty="";
 		if(txtRegisterProductBaseProductName.getText()!=space&&txtRegisterProductBaseProductName.getText()!=empty&&
@@ -709,7 +732,7 @@ public class RestaurantGUI implements Initializable {
 	private ImageView registerIngredientImage;
 
 	@FXML
-	public void CreateAnIngredient(ActionEvent event) {
+	public void CreateAnIngredient(ActionEvent event) throws FileNotFoundException, IOException {
 		String space=" ";
 		String empty="";
 		if(txtRegisterIngredientName.getText()!=space&&txtRegisterIngredientName.getText()!=empty) {	
@@ -992,8 +1015,16 @@ public class RestaurantGUI implements Initializable {
 	private TextField txtUpdateBaseProductIngredients;
 
 	@FXML
-	private TextField txtUpdateBPTypeVerification;
+	private TextField txtUpdateBPTypeVerification;	
 
+    @FXML
+    private RadioButton enableBaseProduct;
+
+    @FXML
+    private ToggleGroup baseProductState;
+
+    @FXML
+    private RadioButton disableBaseProduct;
 
 	@FXML
 	private ImageView updateBaseProductImage;
@@ -1051,7 +1082,8 @@ public class RestaurantGUI implements Initializable {
 				txtUpdateProductSizeCode.getText()!=space&&txtUpdateProductSizeCode.getText()!=empty) {	
 
 			if(restaurant.getProductSize().get(restaurant.searchProductSize(txtUpdateProductSizeCode.getText()))==null
-					|| restaurant.getProductSize().get(restaurant.searchProductSize(txtUpdateProductSizeCode.getText())).getName().equals(selectedPZ.getName())) {				
+					|| restaurant.getProductSize().get(restaurant.searchProductSize(txtUpdateProductSizeCode.getText())).getName().equals(selectedPZ.getName())) {	
+				
 				selectedPZ.setName(txtUpdateProductSizeName.getText());
 				selectedPZ.setCode(txtUpdateProductSizeCode.getText());
 			}
@@ -1094,7 +1126,6 @@ public class RestaurantGUI implements Initializable {
 
     @FXML
     private RadioButton disableProduct;
-
 	
 	@FXML
 	private ImageView updateProductImage;
@@ -1276,7 +1307,7 @@ public class RestaurantGUI implements Initializable {
 	}
 
 	@FXML
-	public void DeleteUser(ActionEvent event) {
+	public void DeleteUser(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseUser(txtUserUsername.getText());
 	}
 
@@ -1364,7 +1395,7 @@ public class RestaurantGUI implements Initializable {
 	}
 
 	@FXML
-	public void DeleteOrder(ActionEvent event) {
+	public void DeleteOrder(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseOrder(txtOrdersCode.getText());
 	}
 
@@ -1442,7 +1473,7 @@ public class RestaurantGUI implements Initializable {
 	}
 
 	@FXML
-	public void DeleteProduct(ActionEvent event) {
+	public void DeleteProduct(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseProduct(txtProductCode.getText());
 	}
 
@@ -1505,7 +1536,7 @@ public class RestaurantGUI implements Initializable {
 	}    
 
 	@FXML
-	public void DeleteBaseProduct(ActionEvent event) {
+	public void DeleteBaseProduct(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseBaseProduct(txtBaseProductName.getText());
 	}	
 
@@ -1567,7 +1598,7 @@ public class RestaurantGUI implements Initializable {
 	}
 
 	@FXML
-	public void DeleteIngredients(ActionEvent event) {
+	public void DeleteIngredients(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseIngredient(txtIngredientName.getText());
 	}
 
@@ -1628,7 +1659,7 @@ public class RestaurantGUI implements Initializable {
 	}
 
 	@FXML
-	public void DeleteEmployee(ActionEvent event) {
+	public void DeleteEmployee(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseEmployee(txtEmployeeID.getText());
 	}
 
@@ -1706,7 +1737,7 @@ public class RestaurantGUI implements Initializable {
 	}
 
 	@FXML
-	public void DeleteCustome(ActionEvent event) {
+	public void DeleteCustome(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseCustome(txtCustomeName.getText(),txtCustomeLastName.getText());
 	}
 
@@ -1771,7 +1802,7 @@ public class RestaurantGUI implements Initializable {
 	}
 
 	@FXML
-	public void DeleteProductType(ActionEvent event) { 
+	public void DeleteProductType(ActionEvent event) throws FileNotFoundException, IOException { 
 		restaurant.eraseProductType(txtProductTypeCode.getText());
 	}
 
@@ -1835,7 +1866,7 @@ public class RestaurantGUI implements Initializable {
 	}
 
 	@FXML
-	public void DeleteProductSize(ActionEvent event) {
+	public void DeleteProductSize(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseProductSize(txtProductSizeCode.getText());
 	}
 
@@ -1880,6 +1911,7 @@ public class RestaurantGUI implements Initializable {
 		}
 
 	}
+
 	//---------------GENERATE REPORT EMPLOYEEE GUI---------------
 
 	@FXML

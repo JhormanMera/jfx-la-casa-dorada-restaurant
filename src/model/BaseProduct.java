@@ -8,11 +8,14 @@ public class BaseProduct implements Serializable {
 	private String name;
 	private ProductType type;
 	private ArrayList<Ingredients> ingredients;
+	private boolean state;
 	
 	public BaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients) {
 		this.name = name;
 		this.type = type;
 		this.ingredients = ingredients;
+		this.state=true;
+		
 	}
 	
 	public String getName() {
@@ -50,6 +53,14 @@ public class BaseProduct implements Serializable {
 			names+=" , "+ingredients.get(i).getName();
 		}
 		return names;
+	}
+
+	public boolean getState() {
+		return state;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
 	}
 	
 	

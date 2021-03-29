@@ -6,10 +6,10 @@ public class Employee extends Person  {
 	private String ID;
 	private boolean state;
 	
-	public Employee(String name, String lastname, String ID) {
+	public Employee(String name, String lastname, String ID, User creator, User lastEditor,boolean state) {
 		super(name, lastname);
 		this.ID=ID;
-		this.state=true;
+		this.state=state;
 	}
 
 	public String getID() {
@@ -30,7 +30,7 @@ public class Employee extends Person  {
 		return enable;
 	}
 	
-	public boolean isState() {
+	public boolean getState() {
 		return state;
 	}
 

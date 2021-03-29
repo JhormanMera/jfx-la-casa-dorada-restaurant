@@ -6,8 +6,8 @@ public class User extends Employee {
 	String password;
 	boolean state; 
 	
-	public User(String name, String lastName, String ID, String userName, String password) {
-		super(name, lastName, ID);
+	public User(String name, String lastName, String ID, String userName, String password, User creator, User lastEditor,boolean state) {
+		super(name, lastName, ID, creator,  lastEditor, state);
 		this.userName = userName;
 		this.password = password;
 	}
@@ -26,15 +26,5 @@ public class User extends Employee {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	public boolean getState() {
-		return state;
-	}
-
-	public void setState(boolean state) {
-		this.state= state;
-	}
-	
-	
+	}	
 }
