@@ -47,7 +47,7 @@ public class ProductType implements Serializable{
 		this.lastEditor = lastEditor;
 	}
 
-	public boolean isState() {
+	public boolean getState() {
 		return state;
 	}
 

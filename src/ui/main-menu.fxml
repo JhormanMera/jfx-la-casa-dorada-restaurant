@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -7,12 +8,36 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="30.0" prefWidth="929.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="929.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
-            <AnchorPane prefHeight="28.0" prefWidth="532.0">
+            <HBox alignment="CENTER" prefHeight="29.0" prefWidth="173.0" style="-fx-background-color: white;">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#BackToMenu" prefHeight="0.0" prefWidth="73.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Home">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#logOut" prefHeight="27.0" prefWidth="74.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Logout">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <AnchorPane prefHeight="29.0" prefWidth="536.0">
                <children>
                   <MenuBar prefHeight="27.0" prefWidth="640.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="0.0">
                      <menus>
@@ -40,6 +65,9 @@
                               <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateBaseProduct" text="Gestionate Base Product" />
                               <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateProduct" text="Gestionate Products" />
                               <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateIngredient" text="Gestionate Ingredients" />
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateOrder" text="Gestionate Orders" />
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateProductType" text="Gestionate Product Type" />
+                              <MenuItem mnemonicParsing="false" onAction="#mainPaneGestionateProductSize" text="Gestionate Product Size" />
                            </items>
                         </Menu>
                      </menus>
@@ -48,6 +76,6 @@
             </AnchorPane>
          </children>
       </HBox>
-      <ImageView fx:id="mainImage" fitHeight="550.0" fitWidth="819.0" layoutX="50.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="14.0" />
+      <ImageView fx:id="mainImage" fitHeight="529.0" fitWidth="819.0" layoutX="50.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="35.0" />
    </children>
 </AnchorPane>

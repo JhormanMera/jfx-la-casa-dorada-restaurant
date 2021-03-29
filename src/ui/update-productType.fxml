@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -27,21 +28,29 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <Button layoutX="148.0" layoutY="317.0" mnemonicParsing="false" onAction="#UpdateProductType" prefHeight="33.0" prefWidth="80.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Update" AnchorPane.leftAnchor="147.0" AnchorPane.rightAnchor="133.0" AnchorPane.topAnchor="316.0">
+            <Button layoutX="206.0" layoutY="321.0" mnemonicParsing="false" onAction="#UpdateProductType" prefHeight="38.0" prefWidth="129.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Update" AnchorPane.leftAnchor="206.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="321.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <CheckBox fx:id="enableProductType" layoutX="78.0" layoutY="249.0" mnemonicParsing="false" text="Enable">
+            <Button layoutX="57.0" layoutY="325.0" mnemonicParsing="false" onAction="#BacktoProductTypeView" prefHeight="38.0" prefWidth="81.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Back">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <RadioButton fx:id="enableProductType" layoutX="88.0" layoutY="248.0" mnemonicParsing="false" text="Enable">
                <font>
                   <Font size="15.0" />
                </font>
-            </CheckBox>
-            <CheckBox fx:id="disableProductType" layoutX="200.0" layoutY="249.0" mnemonicParsing="false" text="Disable">
+               <toggleGroup>
+                  <ToggleGroup fx:id="productTypeStateGroup" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="disableProductType" layoutX="196.0" layoutY="248.0" mnemonicParsing="false" text="Disable" toggleGroup="$productTypeStateGroup">
                <font>
                   <Font size="15.0" />
                </font>
-            </CheckBox>
+            </RadioButton>
          </children>
       </AnchorPane>
       <ImageView fx:id="updateProductTypeImage" fitHeight="132.0" fitWidth="900.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />

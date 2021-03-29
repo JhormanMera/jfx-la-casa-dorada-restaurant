@@ -41,7 +41,7 @@ public class Product implements Serializable, Comparable<Product>{
 		this.baseProduct = baseProduct;
 	}
 	
-	public boolean isState() {
+	public boolean getState() {
 		return state;
 	}
 	
