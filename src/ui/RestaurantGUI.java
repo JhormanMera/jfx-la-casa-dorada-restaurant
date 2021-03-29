@@ -147,11 +147,13 @@ public class RestaurantGUI implements Initializable {
 	public void logOut(ActionEvent event) throws IOException {
 		showLogin();
 		restaurant.setUserLogged(null);
+		setAllNull();
 	}
 	
 	@FXML
 	public void BackToMenu(ActionEvent event) throws IOException {
 		showMainMenu();
+		setAllNull();
 	}
 	@FXML
 	public void mainPaneExportEmployees(ActionEvent event) throws IOException {
@@ -196,6 +198,8 @@ public class RestaurantGUI implements Initializable {
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
+		initializableTableBaseProductView();
+		setAllNull();
 	}
 
 	@FXML
@@ -205,6 +209,8 @@ public class RestaurantGUI implements Initializable {
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
+		initializableTableCustomeView();
+		setAllNull();
 	}
 
 	@FXML
@@ -214,6 +220,8 @@ public class RestaurantGUI implements Initializable {
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
+		initializableTableEmployeeView();
+		setAllNull();
 	}
 
 	@FXML
@@ -223,6 +231,8 @@ public class RestaurantGUI implements Initializable {
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
+		initializableTableIngredientsView();
+		setAllNull();
 	}
 
 	@FXML
@@ -232,6 +242,8 @@ public class RestaurantGUI implements Initializable {
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
+		initializableTableProductView();
+		setAllNull();
 	}
 
 	@FXML
@@ -241,6 +253,8 @@ public class RestaurantGUI implements Initializable {
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
+		initializableTableUserView();
+		setAllNull();
 	}
 	
 	@FXML
@@ -250,6 +264,8 @@ public class RestaurantGUI implements Initializable {
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
+		initializableTableOrderView();
+		setAllNull();
     }
 	
     @FXML
@@ -259,6 +275,8 @@ public class RestaurantGUI implements Initializable {
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
+		initializableTableProductSizeView();
+		setAllNull();
     }
 
     @FXML
@@ -268,6 +286,8 @@ public class RestaurantGUI implements Initializable {
 		Parent root = fxmlloader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().setAll(root);
+		initializableTableProductTypeView();
+		setAllNull();
     }
 	
 	@FXML
@@ -280,8 +300,12 @@ public class RestaurantGUI implements Initializable {
 	}
 	
 	@FXML
-	public void mainPaneImportOrders(ActionEvent event) {
-
+	public void mainPaneImportOrders(ActionEvent event) throws IOException, ParseException {
+		FileChooser fc = new FileChooser();		
+		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+		if (selectedFile !=null) {			
+			restaurant.importOrders(selectedFile.getAbsolutePath());
+		}
 	}
 
 	@FXML
@@ -377,8 +401,23 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void RegSignIn(ActionEvent event) throws IOException {
-		
+		String space=" ";
+		String empty="";
+		if(txtRegName.getText()!=space&&txtRegName.getText()!=empty&&
+			txtRegLastName.getText()!=space&&txtRegLastName.getText()!=empty&&
+					txtRegIdentification.getText()!=space&&txtRegIdentification.getText()!=empty&&
+							txtRegUsername.getText()!=space&&txtRegUsername.getText()!=empty&&
+									txtRegPassword.getText()!=space&&txtRegPassword.getText()!=empty) {
+			
+		restaurant.addUser(txtRegName.getText(), txtRegLastName.getText(), txtRegIdentification.getText(), txtRegUsername.getText(),txtRegPassword.getText());
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Register User");
+			alert.setContentText("An error has occurred registering the User, fields can´t be empty");
+			alert.showAndWait();
+		}
 	}
+		
 	// -------REGISTER BASEPRODUCT GUI------------
 
 	@FXML
@@ -397,15 +436,32 @@ public class RestaurantGUI implements Initializable {
 	private ImageView regBaseProductImage;
 
 	@FXML
-	public void AddIngredientBaseProduct(ActionEvent event) {
+	public void AddIngredientBaseProduct(ActionEvent event) { 
+		String space=" ";
+		String empty="";
+		if(txtRegisterBaseProductIngredients.getText()!=space&&txtRegisterBaseProductIngredients.getText()!=empty) {
 		restaurant.getIngredientBP().add(restaurant.searchIngredient(txtRegisterBaseProductIngredients.getText()));
 		txtRegisterBaseProductIngredients.setText("");
+		}
 	}
-
+	
 	@FXML
 	public void CreateABaseProduct(ActionEvent event) {
-		restaurant.addBaseProduct(txtRegisterBaseProductName.getText(),restaurant.searchTypeProduct(txtRegisterBaseProductType.getText()),
-				restaurant.getIngredientBP());
+		String space=" ";
+		String empty="";
+		if(txtRegisterBaseProductName.getText()!=space&&txtRegisterBaseProductName.getText()!=empty&&
+				txtRegLastName.getText()!=space&&txtRegLastName.getText()!=empty&&
+				txtRegisterBaseProductType.getText()!=space&&txtRegisterBaseProductType.getText()!=empty &&
+				restaurant.getIngredientBP()!=null) {			
+			restaurant.addBaseProduct(txtRegisterBaseProductName.getText(),restaurant.searchTypeProduct(txtRegisterBaseProductType.getText()),
+					restaurant.getIngredientBP());
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Register Base Product");
+			alert.setContentText("An error has occurred registering the Base Product, fields can´t be empty");
+			alert.showAndWait();
+		}
+		restaurant.setIngredientBP(null);
 	}
 
 	@FXML
@@ -425,8 +481,19 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void CreateAProductType(ActionEvent event) {
-		restaurant.addProductType(txtRegisterProductTypeName.getText(),txtRegisterProductTypeCode.getText(), 
-				restaurant.getUserLogged(), restaurant.getUserLogged());
+		String space=" ";
+		String empty="";
+		if(txtRegisterProductTypeName.getText()!=space&&txtRegisterProductTypeName.getText()!=empty&&
+				txtRegisterProductTypeCode.getText()!=space&&txtRegisterProductTypeCode.getText()!=empty) {	
+			
+			restaurant.addProductType(txtRegisterProductTypeName.getText(),txtRegisterProductTypeCode.getText(), 
+					restaurant.getUserLogged(), restaurant.getUserLogged());
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Register Product Type");
+			alert.setContentText("An error has occurred registering the Product Type, fields can´t be empty");
+			alert.showAndWait();
+		}
 	}
 	//-----------REGISTER ORDER GUI---------
 
@@ -466,15 +533,27 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void CreateAnOrder(ActionEvent event) throws ParseException {
 		Date date = new Date();	
-		restaurant.addOrder("REQUESTED", 
-				restaurant.getCustomes().get(restaurant.binarySearchCustomes(txtRegisterOrderCustomeName.getText(),txtRegisterOrderCustomeLastName.getText())),
-				restaurant.getEmployees().get(restaurant.searchEmployees(txtRegisterOrderEmployee.getText())), 
-				date,
-				txtRegisterOrderObservations.getText(), 
-				restaurant.getUserLogged(),
-				restaurant.getUserLogged(), 
-				restaurant.getProductsOrder(), 
-				restaurant.getAmountProductsOrder());
+		String space=" ";
+		String empty="";
+		if(txtRegisterOrderCustomeName.getText()!=space&&txtRegisterOrderCustomeName.getText()!=empty&&
+				txtRegisterOrderCustomeLastName.getText()!=space&&txtRegisterOrderCustomeLastName.getText()!=empty&&
+				txtRegisterOrderEmployee.getText()!=space&&txtRegisterOrderEmployee.getText()!=empty) {	
+
+			restaurant.addOrder("REQUESTED", 
+					restaurant.getCustomes().get(restaurant.binarySearchCustomes(txtRegisterOrderCustomeName.getText(),txtRegisterOrderCustomeLastName.getText())),
+					restaurant.getEmployees().get(restaurant.searchEmployees(txtRegisterOrderEmployee.getText())), 
+					date,
+					txtRegisterOrderObservations.getText(), 
+					restaurant.getUserLogged(),
+					restaurant.getUserLogged(), 
+					restaurant.getProductsOrder(), 
+					restaurant.getAmountProductsOrder());
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Register Order");
+			alert.setContentText("An error has occurred registering the Order, fields can´t be empty");
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
@@ -508,9 +587,24 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void CreateACustome(ActionEvent event) {
-		restaurant.addCustomesListSorted(txtRegisterCustomeName.getText(),txtRegisterCustomeLas.getText(),
-				txtRegisterCustomeID.getText(), txtRegisterCustomeAddress.getText(),txtRegisterCustomePhone.getText(),
-				txtRegisterCustomeObservations.getText());
+		String space=" ";
+		String empty="";
+		if(txtRegisterCustomeName.getText()!=space&&txtRegisterCustomeName.getText()!=empty&&
+				txtRegisterCustomeLas.getText()!=space&&txtRegisterCustomeLas.getText()!=empty&&
+						txtRegisterCustomeID.getText()!=space&&txtRegisterCustomeID.getText()!=empty&&
+								txtRegisterCustomeAddress.getText()!=space&&txtRegisterCustomeAddress.getText()!=empty&&
+										txtRegisterCustomePhone.getText()!=space&&txtRegisterCustomePhone.getText()!=empty&&
+												txtRegisterCustomeObservations.getText()!=space&&txtRegisterCustomeObservations.getText()!=empty) {	
+
+			restaurant.addCustomesListSorted(txtRegisterCustomeName.getText(),txtRegisterCustomeLas.getText(),
+					txtRegisterCustomeID.getText(), txtRegisterCustomeAddress.getText(),txtRegisterCustomePhone.getText(),
+					txtRegisterCustomeObservations.getText());
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Register Custome");
+			alert.setContentText("An error has occurred registering the Custome, fields can´t be empty");
+			alert.showAndWait();
+		}
 	}
 	// ------------REGISTER EMPLOYEE GUI----------------
 	@FXML
@@ -527,8 +621,21 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void CreateAnEmployee(ActionEvent event) {
-		restaurant.addEmployee(txtRegisterEmployeeName.getText(),txtRegisterEmployeeLastnames.getText(), 
-				txtRegisterEmployeeID.getText());
+		String space=" ";
+		String empty="";
+		if(txtRegisterEmployeeName.getText()!=space&&txtRegisterEmployeeName.getText()!=empty&&
+				txtRegisterEmployeeLastnames.getText()!=space&&txtRegisterEmployeeLastnames.getText()!=empty&&
+						txtRegisterEmployeeID.getText()!=space&&txtRegisterEmployeeID.getText()!=empty) {	
+			
+			restaurant.addEmployee(txtRegisterEmployeeName.getText(),txtRegisterEmployeeLastnames.getText(), 
+					txtRegisterEmployeeID.getText());
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Register Employee");
+			alert.setContentText("An error has occurred registering the Employee, fields can´t be empty");
+			alert.showAndWait();
+		}
+	
 	}
 	// --------------REGISTER PRODUCT SIZE GUI-----------
 	@FXML
@@ -542,8 +649,19 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void CreateAProductSize(ActionEvent event) {
-		restaurant.addProductSize(txtRegisterProductSizeName.getText(),txtRegisterProductSizeCode.getText(),
-				restaurant.getUserLogged(), restaurant.getUserLogged());
+		String space=" ";
+		String empty="";
+		if(txtRegisterProductSizeName.getText()!=space&&txtRegisterProductSizeName.getText()!=empty&&
+				txtRegisterProductSizeCode.getText()!=space&&txtRegisterProductSizeCode.getText()!=empty) {	
+			
+			restaurant.addProductSize(txtRegisterProductSizeName.getText(),txtRegisterProductSizeCode.getText(),
+					restaurant.getUserLogged(), restaurant.getUserLogged());
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Register Product Size");
+			alert.setContentText("An error has occurred registering the Product Size, fields can´t be empty");
+			alert.showAndWait();
+		}
 	}
 	//---------------REGISTER PRODUCT GUI---------------
 
@@ -564,9 +682,22 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void CreateAProduct(ActionEvent event) {
-		double price= Double.parseDouble(txtRegisterProductPrice.getText());
-		restaurant.addProduct(txtRegisterProductCode.getText(),restaurant.getBaseProducts().get(restaurant.searchBaseProduct(txtRegisterProductBaseProductName.getText())), 
-				true, price, restaurant.getProductSize().get(restaurant.searchProductSize(txtRegisterProductSize.getText())),restaurant.getUserLogged(), restaurant.getUserLogged());
+		String space=" ";
+		String empty="";
+		if(txtRegisterProductBaseProductName.getText()!=space&&txtRegisterProductBaseProductName.getText()!=empty&&
+				txtRegisterProductSize.getText()!=space&&txtRegisterProductSize.getText()!=empty&&
+						txtRegisterProductPrice.getText()!=space&&txtRegisterProductPrice.getText()!=empty&&
+								txtRegisterProductCode.getText()!=space&&txtRegisterProductCode.getText()!=empty) {	
+			
+			double price= Double.parseDouble(txtRegisterProductPrice.getText());
+			restaurant.addProduct(txtRegisterProductCode.getText(),restaurant.getBaseProducts().get(restaurant.searchBaseProduct(txtRegisterProductBaseProductName.getText())), 
+					true, price, restaurant.getProductSize().get(restaurant.searchProductSize(txtRegisterProductSize.getText())),restaurant.getUserLogged(), restaurant.getUserLogged());
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Register Product");
+			alert.setContentText("An error has occurred registering the Product, fields can´t be empty");
+			alert.showAndWait();
+		}
 	}
 
 	//---------REGISTER INGREDIENTS GUI-------------------
@@ -579,7 +710,19 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void CreateAnIngredient(ActionEvent event) {
-		restaurant.addIngredients(txtRegisterIngredientName.getText(),restaurant.getUserLogged(),restaurant.getUserLogged());
+		String space=" ";
+		String empty="";
+		if(txtRegisterIngredientName.getText()!=space&&txtRegisterIngredientName.getText()!=empty) {	
+			
+			restaurant.addIngredients(txtRegisterIngredientName.getText(),restaurant.getUserLogged(),restaurant.getUserLogged());
+			
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Register Ingredient");
+			alert.setContentText("An error has occurred registering the Ingredient, fields can´t be empty");
+			alert.showAndWait();
+		}
+		
 	}
 
 	//----------UPDATE CUSTOMES GUI--------------
@@ -603,7 +746,26 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void UpdateCustome(ActionEvent event) {
-
+		String space=" ";
+		String empty="";
+		if(txtUpdateCustomeName.getText()!=space&&txtUpdateCustomeName.getText()!=empty&&
+				txtUpdateCustomeLastnames.getText()!=space&&txtUpdateCustomeLastnames.getText()!=empty&&
+						txtUpdateCustomeAddress.getText()!=space&&txtUpdateCustomeAddress.getText()!=empty&&
+								txtUpdateCustomePhone.getText()!=space&&txtUpdateCustomePhone.getText()!=empty&&
+										txtUpdateCustomeObservations.getText()!=space&&txtUpdateCustomeObservations.getText()!=empty) {	
+			
+			selectedCustome.setName(txtUpdateCustomeName.getText());
+			selectedCustome.setLastname(txtUpdateCustomeLastnames.getText());
+			selectedCustome.setAddress(txtUpdateCustomeAddress.getText());
+			selectedCustome.setPhone(txtUpdateCustomePhone.getText());		
+			selectedCustome.setObservations(txtUpdateCustomeObservations.getText());
+			
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Update Custome");
+			alert.setContentText("An error has occurred Updating the Custome, fields can´t be empty");
+			alert.showAndWait();
+		}
 	}
 
     @FXML
@@ -624,9 +786,21 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void UpdateEmployee(ActionEvent event) {
-
-	}
-	
+		String space=" ";
+		String empty="";
+		if(txtUpdateEmployeeName.getText()!=space&&txtUpdateEmployeeName.getText()!=empty&&
+				txtUpdateEmployeeLastnames.getText()!=space&&txtUpdateEmployeeLastnames.getText()!=empty) {	
+			
+			selectedEmployee.setName(txtUpdateEmployeeName.getText());
+			selectedEmployee.setLastname(txtUpdateEmployeeLastnames.getText());
+			
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Update Employee");
+			alert.setContentText("An error has occurred Updating the Employee, fields can´t be empty");
+			alert.showAndWait();
+		}
+	}	
 
     @FXML
     public void BacktoEmployeeView(ActionEvent event) throws IOException {
@@ -654,8 +828,7 @@ public class RestaurantGUI implements Initializable {
 	private TextField txtUpdateOrderObservations;
 
     @FXML
-    private TextField txtUpdateOrderEmployeeName;
-    
+    private TextField txtUpdateOrderEmployeeName;    
 
     @FXML
     private RadioButton orderInProcess;
@@ -714,9 +887,34 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void UpdateUser(ActionEvent event) {
-
+		String space=" ";
+		String empty="";
+		if(txtUpdateUserName.getText()!=space&&txtUpdateUserName.getText()!=empty&&
+				txtUpdateUserLastnames.getText()!=space&&txtUpdateUserLastnames.getText()!=empty&&
+				txtUpdateUserUsername.getText()!=space&&txtUpdateUserUsername.getText()!=empty&&
+				txtUpdateUserPassword.getText()!=space&&txtUpdateUserPassword.getText()!=empty) {	
+			
+			if(restaurant.getUsers().get(restaurant.searchUser(txtUpdateUserUsername.getText()))==null||
+					restaurant.getUsers().get(restaurant.searchUser(txtUpdateUserUsername.getText())).getID().equals(selectedUser.getID())) {
+				
+				selectedUser.setName(txtUpdateUserName.getText());
+				selectedUser.setLastname(txtUpdateUserLastnames.getText());
+				selectedUser.setUserName(txtUpdateUserUsername.getText());
+				selectedUser.setPassword(txtUpdateUserPassword.getText());
+			}else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Update User");
+				alert.setContentText("An error has occurred Updating the User, ");
+				alert.showAndWait();
+			}
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Update User");
+			alert.setContentText("An error has occurred Updating the User, fields can´t be empty");
+			alert.showAndWait();
+		}
 	}
-	
+
 	@FXML
 	public void BacktoUserView(ActionEvent event) throws IOException {
 		mainPaneGestionateUser(event);
@@ -789,7 +987,31 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void UpdateProductSize(ActionEvent event) {
+		String space=" ";
+		String empty="";
+		if(txtUpdateProductSizeName.getText()!=space&&txtUpdateProductSizeName.getText()!=empty&&
+				txtUpdateProductSizeCode.getText()!=space&&txtUpdateProductSizeCode.getText()!=empty) {	
 
+			if(restaurant.getProductSize().get(restaurant.searchProductSize(txtUpdateProductSizeCode.getText()))==null
+					|| restaurant.getProductSize().get(restaurant.searchProductSize(txtUpdateProductSizeCode.getText())).getName().equals(selectedPZ.getName())) {				
+				selectedPZ.setName(txtUpdateProductSizeName.getText());
+				selectedPZ.setCode(txtUpdateProductSizeCode.getText());
+			}
+			if(enableProductSize.isSelected()) {
+
+				selectedPZ.setState(true);
+
+			}else if(disableProductSize.isSelected()) {
+
+				selectedPZ.setState(false);
+
+			}
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Update Product Size");
+			alert.setContentText("An error has occurred Updating the Product Size, fields can´t be empty");
+			alert.showAndWait();
+		}
 	}
 	
     @FXML
@@ -833,8 +1055,8 @@ public class RestaurantGUI implements Initializable {
 	}
 	
     @FXML
-    public void BacktoProductView(ActionEvent event) {
-
+    public void BacktoProductView(ActionEvent event) throws IOException {
+    	mainPaneGestionateProduct(event);
     }
     
 	//----------UPDATE PRODUCT TYPE GUI-------------
@@ -858,7 +1080,27 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void UpdateProductType(ActionEvent event) {
-
+		String space=" ";
+		String empty="";
+		if(txtUpdateIngredientName.getText()!=space&&txtUpdateIngredientName.getText()!=empty) {	
+			selectedIngredient.setName(txtUpdateIngredientName.getText());
+			
+			if(enableIngredient.isSelected()) {
+				
+				selectedIngredient.setState(true);
+				
+			}else if(disableIngredient.isSelected()) {
+				
+				selectedIngredient.setState(false);
+				
+			}
+			
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Update Product Type");
+			alert.setContentText("An error has occurred Updating the Product Type, fields can´t be empty");
+			alert.showAndWait();
+		}
 	}
 
     @FXML
@@ -885,7 +1127,27 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void UpdateIngredient(ActionEvent event) {
-
+		String space=" ";
+		String empty="";
+		if(txtUpdateIngredientName.getText()!=space&&txtUpdateIngredientName.getText()!=empty) {
+			
+			selectedIngredient.setName(txtUpdateIngredientName.getText());
+			
+			if(enableIngredient.isSelected()) {
+				
+				selectedIngredient.setState(true);
+				
+			}else if(disableIngredient.isSelected()) {
+				
+				selectedIngredient.setState(false);
+				
+			}
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Update Ingredient");
+			alert.setContentText("An error has occurred Updating the Ingredient, fields can´t be empty");
+			alert.showAndWait();
+		}
 	}
 	
     @FXML
@@ -1049,7 +1311,7 @@ public class RestaurantGUI implements Initializable {
 		ObservableList <Order> orderList = FXCollections.observableArrayList(restaurant.getOrders());
 		ordersTableView.setItems(orderList); 
 		ordersCode.setCellValueFactory(new PropertyValueFactory <Order,String>("code"));
-		ordersDate.setCellValueFactory(new PropertyValueFactory <Order,String>("date"));
+		ordersDate.setCellValueFactory(new PropertyValueFactory <Order,String>("dayAndHour"));
 		ordersAmount.setCellValueFactory(new PropertyValueFactory <Order,String>("productsAmount"));
 		ordersProduct.setCellValueFactory(new PropertyValueFactory <Order,String>("productsName"));
 		ordersCustome.setCellValueFactory(new PropertyValueFactory <Order,String>("customeName"));
@@ -1626,7 +1888,17 @@ public class RestaurantGUI implements Initializable {
 
 	//----------------OTHER METHODS--------------
 
-
+	public void setAllNull() {
+		selectedUser=null;		
+		selectedEmployee=null;		
+		selectedProduct=null;		
+		selectedPZ=null;		
+		selectedCustome=null;		
+		selectedIngredient=null;		
+		selectedOrder=null;		
+		selectedPT=null;		
+		selectedBP=null;
+	}
 	@FXML
 	public void initialize() {
 

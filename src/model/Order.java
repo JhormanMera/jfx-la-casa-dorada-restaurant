@@ -64,6 +64,11 @@ public class Order implements Serializable{
 		String names=employee.getName()+employee.getLastname();
 		return names;
 	}
+	
+	public String getDayAndHour() {
+		String date=day+" "+hour;
+		return date;
+	}
 
 	public String getCode() {
 		return code;

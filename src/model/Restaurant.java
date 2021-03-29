@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -300,7 +302,7 @@ public class Restaurant {
     	sortOrderByDate();
     }
     public void addProductType(String name,String code ,User creator, User lastEditor) {
-    	if(searchTypeProduct(code)==null) {
+    	if(searchTypeProduct(name)==null) {
         	productType.add(new ProductType(name, code , creator, lastEditor));
     	} else {
     		Alert alert = new Alert(AlertType.ERROR);
@@ -832,11 +834,11 @@ public class Restaurant {
     	return myUser;
     }
     
-    public ProductType searchTypeProduct(String code) {
+    public ProductType searchTypeProduct(String name) {
     	boolean found=false;
     	ProductType type=null;
     	for(int i=0;i<productType.size()&&found;i++) {
-    			if(productType.get(i).getCode().equals(code)) {
+    			if(productType.get(i).getName().equals(name)) {
     				type=productType.get(i);
     				found=true;
     			}    			
@@ -890,32 +892,33 @@ public class Restaurant {
   		br.close();
 
       }
-    /*
-    public void importOrders (String fileName) throws IOException{
-    	//String state, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor, ArrayList<Product> products, ArrayList<Integer> amount
+    
+    public void importOrders (String fileName) throws IOException, ParseException{
     	BufferedReader br = new BufferedReader (new FileReader(fileName));
     	String line = br.readLine();
-    	DateFormat objSDF=new SimpleDateFormat("aaaa.MM.dd HH:mm:ss");
+    	DateFormat objSDF=new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
     	ArrayList<Product> product = new ArrayList<>();
     	ArrayList<Integer> amount = new ArrayList<>();
     	while (line!=null) {
     		String [] parts = line.split(";");
-    		boolean state=Boolean.parseBoolean(parts[0]);
+    		String state=parts[0];
     		Custome custome = customes.get(binarySearchCustomes(parts[1],parts[2]));
     		Employee myEmployee = employees.get(searchEmployees(parts[3]));
     		Date date = objSDF.parse(parts[4]);
-    		User creator = searchUser(parts[6]);
-    		User lastEditor = searchUser(parts[7]);
-    		for(int i=8;i<parts.length;i++) {
-    			product.add(products.get(searchProduct(parts[i])));
-    			
+    		User creator = users.get(searchUser(parts[6]));
+    		User lastEditor = users.get(searchUser(parts[7]));
+    		for(int i=0;i<parts.length;i++) {  
+    			if(i+8<=i+8+((parts.length-8)/2)/2) {
+    				product.add(products.get(searchProduct(parts[i+8])));    
+    			}else {
+    				amount.add(Integer.parseInt(parts[i+8]));
+    			}
     		}
-    		addOrder(state,custome,myEmployee,date,parts[5],creator,lastEditor);
+    		addOrder(state,custome,myEmployee,date,parts[5],creator,lastEditor,product,amount);
     		line = br.readLine();
     	}
     	br.close();
     }
-    */
     public void exportOrdersReport(String fileName, String initialDay, String finalDay, String initialHour, String finalHour) throws FileNotFoundException {
     	Order myOrder=null;
     	PrintWriter writer = new PrintWriter (fileName);
