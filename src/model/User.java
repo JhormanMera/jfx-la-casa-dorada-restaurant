@@ -4,6 +4,7 @@ public class User extends Employee {
 	private static final long serialVersionUID = 1L;
 	String userName;
 	String password;
+	boolean state; 
 	
 	public User(String name, String lastName, String ID, String userName, String password) {
 		super(name, lastName, ID);
@@ -26,5 +27,14 @@ public class User extends Employee {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public boolean getState() {
+		return state;
+	}
+
+	public void setState(boolean state) {
+		this.state= state;
+	}
+	
 	
 }

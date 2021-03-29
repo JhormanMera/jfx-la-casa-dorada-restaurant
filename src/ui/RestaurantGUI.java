@@ -743,6 +743,15 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private ImageView updateCustomeImage;
+	
+	@FXML
+    private RadioButton customeEnable;
+
+    @FXML
+    private ToggleGroup customeStateGroup;
+
+    @FXML
+    private RadioButton customeDisable;
 
 	@FXML
 	public void UpdateCustome(ActionEvent event) {
@@ -759,6 +768,16 @@ public class RestaurantGUI implements Initializable {
 			selectedCustome.setAddress(txtUpdateCustomeAddress.getText());
 			selectedCustome.setPhone(txtUpdateCustomePhone.getText());		
 			selectedCustome.setObservations(txtUpdateCustomeObservations.getText());
+			
+			if(customeEnable.isSelected()) {
+
+				selectedCustome.setState(true);
+
+			}else if(customeDisable.isSelected()) {
+
+				selectedCustome.setState(false);
+
+			}
 			
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -783,6 +802,15 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private ImageView updateEmployeeImage;
+	
+	 @FXML
+	private ToggleGroup employeeStateGroup;
+	
+	@FXML
+    private RadioButton employeeEnable;
+	
+	@FXML
+    private RadioButton employeeDisable;
 
 	@FXML
 	public void UpdateEmployee(ActionEvent event) {
@@ -793,6 +821,16 @@ public class RestaurantGUI implements Initializable {
 			
 			selectedEmployee.setName(txtUpdateEmployeeName.getText());
 			selectedEmployee.setLastname(txtUpdateEmployeeLastnames.getText());
+			
+			if(employeeEnable.isSelected()) {
+
+				selectedEmployee.setState(true);
+
+			}else if(employeeDisable.isSelected()) {
+
+				selectedEmployee.setState(false);
+
+			}
 			
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -805,7 +843,8 @@ public class RestaurantGUI implements Initializable {
     @FXML
     public void BacktoEmployeeView(ActionEvent event) throws IOException {
     	mainPaneGestionateEmployee(event);
-    }
+
+}
     
 	// -----------UPDATE ORDER GUI--------------
 
@@ -884,6 +923,15 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	private ImageView updateUserImage;
+	
+	@FXML
+    private RadioButton userEnable;
+
+    @FXML
+    private ToggleGroup userStateGroup;
+
+    @FXML
+    private RadioButton userDisable;
 
 	@FXML
 	public void UpdateUser(ActionEvent event) {
@@ -901,6 +949,16 @@ public class RestaurantGUI implements Initializable {
 				selectedUser.setLastname(txtUpdateUserLastnames.getText());
 				selectedUser.setUserName(txtUpdateUserUsername.getText());
 				selectedUser.setPassword(txtUpdateUserPassword.getText());
+				
+				if(userEnable.isSelected()) {
+
+					selectedUser.setState(true);
+
+				}else if(userDisable.isSelected()) {
+
+					selectedUser.setState(false);
+
+				}
 			}else {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Update User");
@@ -1082,16 +1140,19 @@ public class RestaurantGUI implements Initializable {
 	public void UpdateProductType(ActionEvent event) {
 		String space=" ";
 		String empty="";
-		if(txtUpdateIngredientName.getText()!=space&&txtUpdateIngredientName.getText()!=empty) {	
-			selectedIngredient.setName(txtUpdateIngredientName.getText());
+		if(txtUpdateProductTypeName.getText()!=space&&txtUpdateProductTypeName.getText()!=empty&&
+				txtUpdateProductTypeCode.getText()!=space&&txtUpdateProductTypeCode.getText()!=empty) {
 			
-			if(enableIngredient.isSelected()) {
+			selectedPT.setName(txtUpdateProductTypeName.getText());
+			selectedPT.setCode(txtUpdateProductTypeCode.getText());
+			
+			if(enableProductType.isSelected()) {
 				
-				selectedIngredient.setState(true);
+				selectedPT.setState(true);
 				
-			}else if(disableIngredient.isSelected()) {
+			}else if(disableProductType.isSelected()) {
 				
-				selectedIngredient.setState(false);
+				selectedPT.setState(false);
 				
 			}
 			

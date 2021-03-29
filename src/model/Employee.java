@@ -2,7 +2,7 @@ package model;
 
 public class Employee extends Person  {
 
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = 1L;
 	private String ID;
 	private boolean state;
 	
