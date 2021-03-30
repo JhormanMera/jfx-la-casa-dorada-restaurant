@@ -117,6 +117,7 @@ public class RestaurantGUI implements Initializable {
 	private ProductType selectedPT;
 	
 	private BaseProduct selectedBP;
+	
 
 	@FXML
 	private ResourceBundle resources;
@@ -364,7 +365,22 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void Login(ActionEvent event) {
-
+		String empty="";
+		String space=" ";
+		if(txtUserName.getText()!=space&&txtUserName.getText()!=empty&&
+				txtPassword.getText()!=space&&txtPassword.getText()!=empty) {
+			if(restaurant.searchUser(txtUserName.getText())>=0&&restaurant.searchUser(txtUserName.getText().getText()).getPassword().equals(txtPassword.getText())) {
+				showMainMenu();		
+				
+			}Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Login User");
+			alert.setContentText("An error has occurred Logging the user,the user doesn´t exist or the username or password are incorrect ");
+			alert.showAndWait();
+			
+		}Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Login User");
+		alert.setContentText("An error has occurred Logging the User, fields can´t be empty");
+		alert.showAndWait();
 	}
 
 	@FXML
