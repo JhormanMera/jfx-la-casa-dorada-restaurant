@@ -17,7 +17,9 @@ public class BaseProduct implements Serializable {
 		this.state=true;
 		
 	}
-	
+	public BaseProduct(String name) {
+		this.name=name;
+	}
 	public String getName() {
 		return name;
 	}

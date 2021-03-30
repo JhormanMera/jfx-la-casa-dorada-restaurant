@@ -172,8 +172,8 @@ public class RestaurantGUI implements Initializable {
 		finalDateEmployeeReport.setValue(now);
 		
 		initialHourEmployeeReport.setText("00:00:00");
-		finalHourEmployeeReport.setText("00:00:00");;
-		fileSeparatorReportEmployee.setText(";");;
+		finalHourEmployeeReport.setText("23:59:59");
+		fileSeparatorReportEmployee.setText(";");
 	}
 
 	@FXML
@@ -191,8 +191,8 @@ public class RestaurantGUI implements Initializable {
 		finalDateOrderReport.setValue(now);
 		
 		initialHourOrderReport.setText("00:00:00");
-		finalHourOrderReport.setText("00:00:00");;
-		fileSeparatorReportOrder.setText(";");;
+		finalHourOrderReport.setText("23:59:59");
+		fileSeparatorReportOrder.setText(";");
 	}
 
 	@FXML
@@ -210,7 +210,7 @@ public class RestaurantGUI implements Initializable {
 		finalDateProductReport.setValue(now);
 		
 		initialHourProductReport.setText("00:00:00");
-		finalHourProductReport.setText("00:00:00");;
+		finalHourProductReport.setText("23:59:59");;
 		fileSeparatorReportProduct.setText(";");;
 	}
 
@@ -330,15 +330,7 @@ public class RestaurantGUI implements Initializable {
 			restaurant.importOrders(selectedFile.getAbsolutePath());
 		}
 	}
-
-	@FXML
-	public void mainPaneImportBaseProducts(ActionEvent event) throws IOException {
-		FileChooser fc = new FileChooser();		
-		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
-		if (selectedFile !=null) {			
-			restaurant.importBaseProducts(selectedFile.getAbsolutePath());
-		}
-	}
+	
 	@FXML
 	public void mainPaneImportProducts(ActionEvent event) throws IOException {    	
 		FileChooser fc = new FileChooser();		
@@ -462,9 +454,14 @@ public class RestaurantGUI implements Initializable {
 	public void AddIngredientBaseProduct(ActionEvent event) { 
 		String space=" ";
 		String empty="";
-		if(txtRegisterBaseProductIngredients.getText()!=space&&txtRegisterBaseProductIngredients.getText()!=empty) {
+		if(txtRegisterBaseProductIngredients.getText()!=space&&txtRegisterBaseProductIngredients.getText()!=empty&&restaurant.searchIngredient(txtRegisterBaseProductIngredients.getText()).getState()==true) {
 		restaurant.getIngredientBP().add(restaurant.searchIngredient(txtRegisterBaseProductIngredients.getText()));
 		txtRegisterBaseProductIngredients.setText("");
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Register Base Product");
+			alert.setContentText("An error has occurred registering the Ingredient into the Base Product, fields can´t be empty or the Ingredient can´t be disabled");
+			alert.showAndWait();
 		}
 	}
 	
@@ -475,13 +472,13 @@ public class RestaurantGUI implements Initializable {
 		if(txtRegisterBaseProductName.getText()!=space&&txtRegisterBaseProductName.getText()!=empty&&
 				txtRegLastName.getText()!=space&&txtRegLastName.getText()!=empty&&
 				txtRegisterBaseProductType.getText()!=space&&txtRegisterBaseProductType.getText()!=empty &&
-				restaurant.getIngredientBP()!=null) {			
+				restaurant.getIngredientBP()!=null&&restaurant.searchTypeProduct(txtRegisterBaseProductType.getText()).getState()==true) {			
 			restaurant.addBaseProduct(txtRegisterBaseProductName.getText(),restaurant.searchTypeProduct(txtRegisterBaseProductType.getText()),
 					restaurant.getIngredientBP());
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Register Base Product");
-			alert.setContentText("An error has occurred registering the Base Product, fields can´t be empty");
+			alert.setContentText("An error has occurred registering the Base Product, fields can´t be empty or the Product Type can´t be disabled");
 			alert.showAndWait();
 		}
 		restaurant.setIngredientBP(null);
@@ -546,11 +543,26 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void AddProductOrder(ActionEvent event) {
-		restaurant.getProductsOrder().add(restaurant.getProducts().get(restaurant.searchProduct(txtRegisterOrderProduct.getText())));
-		int amount = Integer.parseInt(txtRegisterOrderAmount.getText());
-		restaurant.getAmountProductsOrder().add(amount);
-		txtRegisterOrderAmount.setText("");
-		txtRegisterOrderProduct.setText("");
+		String space=" ";
+		String empty="";
+		if(txtRegisterOrderProduct.getText()!=space&&txtRegisterOrderProduct.getText()!=empty&&
+				txtRegisterOrderAmount.getText()!=space&&txtRegisterOrderAmount.getText()!=empty) {
+			
+			if(restaurant.searchProduct(txtRegisterOrderProduct.getText())>=0&&
+					restaurant.getProducts().get(restaurant.searchProduct(txtRegisterOrderProduct.getText())).getState()==true) {
+
+				restaurant.getProductsOrder().add(restaurant.getProducts().get(restaurant.searchProduct(txtRegisterOrderProduct.getText())));
+				int amount = Integer.parseInt(txtRegisterOrderAmount.getText());
+				restaurant.getAmountProductsOrder().add(amount);
+				txtRegisterOrderAmount.setText("");
+				txtRegisterOrderProduct.setText("");
+			}else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Register Order");
+				alert.setContentText("An error has occurred registering the Product into the Order, the product is disabled or doesnt exist");
+				alert.showAndWait();
+			}
+		}
 	}
 
 	@FXML
@@ -561,6 +573,9 @@ public class RestaurantGUI implements Initializable {
 		if(txtRegisterOrderCustomeName.getText()!=space&&txtRegisterOrderCustomeName.getText()!=empty&&
 				txtRegisterOrderCustomeLastName.getText()!=space&&txtRegisterOrderCustomeLastName.getText()!=empty&&
 				txtRegisterOrderEmployee.getText()!=space&&txtRegisterOrderEmployee.getText()!=empty) {	
+				
+				if(restaurant.getEmployees().get(restaurant.searchEmployees(txtRegisterOrderEmployee.getText())).getState()==true&&
+						restaurant.getCustomes().get(restaurant.binarySearchCustomes(txtRegisterOrderCustomeName.getText(),txtRegisterOrderCustomeLastName.getText())).getState()==true) {				
 
 			restaurant.addOrder("REQUESTED", 
 					restaurant.getCustomes().get(restaurant.binarySearchCustomes(txtRegisterOrderCustomeName.getText(),txtRegisterOrderCustomeLastName.getText())),
@@ -571,6 +586,12 @@ public class RestaurantGUI implements Initializable {
 					restaurant.getUserLogged(), 
 					restaurant.getProductsOrder(), 
 					restaurant.getAmountProductsOrder());
+				}else {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Register Order");
+					alert.setContentText("An error has occurred registering the Order, the Custome or the Employee is disabled or doesnt exist");
+					alert.showAndWait();
+				}
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Register Order");
@@ -618,10 +639,17 @@ public class RestaurantGUI implements Initializable {
 								txtRegisterCustomeAddress.getText()!=space&&txtRegisterCustomeAddress.getText()!=empty&&
 										txtRegisterCustomePhone.getText()!=space&&txtRegisterCustomePhone.getText()!=empty&&
 												txtRegisterCustomeObservations.getText()!=space&&txtRegisterCustomeObservations.getText()!=empty) {	
+			if(restaurant.binarySearchCustomes(txtRegisterCustomeName.getText(),txtRegisterCustomeLas.getText())<0) {
 
 			restaurant.addCustomesListSorted(txtRegisterCustomeName.getText(),txtRegisterCustomeLas.getText(),
 					txtRegisterCustomeID.getText(), txtRegisterCustomeAddress.getText(),txtRegisterCustomePhone.getText(),
 					txtRegisterCustomeObservations.getText());
+			}else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Register Custome");
+				alert.setContentText("An error has occurred registering the Custome, there is already a client with that first and last name");
+				alert.showAndWait();
+			}
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Register Custome");
@@ -648,7 +676,7 @@ public class RestaurantGUI implements Initializable {
 		String empty="";
 		if(txtRegisterEmployeeName.getText()!=space&&txtRegisterEmployeeName.getText()!=empty&&
 				txtRegisterEmployeeLastnames.getText()!=space&&txtRegisterEmployeeLastnames.getText()!=empty&&
-						txtRegisterEmployeeID.getText()!=space&&txtRegisterEmployeeID.getText()!=empty) {	
+						txtRegisterEmployeeID.getText()!=space&&txtRegisterEmployeeID.getText()!=empty) {
 			
 			restaurant.addEmployee(txtRegisterEmployeeName.getText(),txtRegisterEmployeeLastnames.getText(), 
 					txtRegisterEmployeeID.getText(),restaurant.getUserLogged(),restaurant.getUserLogged(),true);
@@ -938,8 +966,6 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	private TextField txtUpdateUserLastnames;
 
-	@FXML
-	private TextField txtUpdateUserUsername;
 
 	@FXML
 	private TextField txtUpdateUserPassword;
@@ -962,15 +988,10 @@ public class RestaurantGUI implements Initializable {
 		String empty="";
 		if(txtUpdateUserName.getText()!=space&&txtUpdateUserName.getText()!=empty&&
 				txtUpdateUserLastnames.getText()!=space&&txtUpdateUserLastnames.getText()!=empty&&
-				txtUpdateUserUsername.getText()!=space&&txtUpdateUserUsername.getText()!=empty&&
 				txtUpdateUserPassword.getText()!=space&&txtUpdateUserPassword.getText()!=empty) {	
-			
-			if(restaurant.getUsers().get(restaurant.searchUser(txtUpdateUserUsername.getText()))==null||
-					restaurant.getUsers().get(restaurant.searchUser(txtUpdateUserUsername.getText())).getID().equals(selectedUser.getID())) {
 				
 				selectedUser.setName(txtUpdateUserName.getText());
 				selectedUser.setLastname(txtUpdateUserLastnames.getText());
-				selectedUser.setUserName(txtUpdateUserUsername.getText());
 				selectedUser.setPassword(txtUpdateUserPassword.getText());
 				
 				if(userEnable.isSelected()) {
@@ -982,12 +1003,6 @@ public class RestaurantGUI implements Initializable {
 					selectedUser.setState(false);
 
 				}
-			}else {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Update User");
-				alert.setContentText("An error has occurred Updating the User, ");
-				alert.showAndWait();
-			}
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Update User");
@@ -1260,8 +1275,15 @@ public class RestaurantGUI implements Initializable {
 		String space=" ";
 		String empty="";
 		if(txtUpdateIngredientName.getText()!=space&&txtUpdateIngredientName.getText()!=empty) {
+			if(restaurant.searchIngredient(txtUpdateIngredientName.getText())!=null) {
 			
 			selectedIngredient.setName(txtUpdateIngredientName.getText());
+			}else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Update Ingredient");
+				alert.setContentText("An error has occurred Updating the Ingredient, there´s already an Ingredient with that name");
+				alert.showAndWait();
+			}
 			
 			if(enableIngredient.isSelected()) {
 				
@@ -1326,7 +1348,6 @@ public class RestaurantGUI implements Initializable {
 				
 				txtUpdateUserName.setText(selectedUser.getName());
 				txtUpdateUserLastnames.setText(selectedUser.getLastname());
-				txtUpdateUserUsername.setText(selectedUser.getUserName());
 				txtUpdateUserPassword.setText(selectedUser.getPassword());	
 			}
 		}

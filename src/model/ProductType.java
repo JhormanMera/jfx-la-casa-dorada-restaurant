@@ -19,6 +19,9 @@ public class ProductType implements Serializable{
 		this.lastEditor = creator;
 		this.state = true;
 	}
+	public ProductType(String name) {
+		this.name=name;
+	}
 	
 
 	public String getCode() {

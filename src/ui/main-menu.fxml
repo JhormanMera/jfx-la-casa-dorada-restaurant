@@ -45,7 +45,6 @@
                            <items>
                               <MenuItem mnemonicParsing="false" onAction="#mainPaneImportCustomes" text="Import Customes" />
                               <MenuItem mnemonicParsing="false" onAction="#mainPaneImportProducts" text="Import Products" />
-                              <MenuItem mnemonicParsing="false" onAction="#mainPaneImportBaseProducts" text="Import BaseProducts" />
                               <MenuItem mnemonicParsing="false" onAction="#mainPaneImportOrders" text="Import Orders" />
                               <SeparatorMenuItem mnemonicParsing="false" />
                               <MenuItem mnemonicParsing="false" onAction="#mainPaneExportOrders" text="Export Orders" />

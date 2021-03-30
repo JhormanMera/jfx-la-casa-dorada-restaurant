@@ -819,6 +819,52 @@ public class Restaurant {
 
 
 	//----------------------------------------------------REPORTS-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	public void addBaseProduct(String name) throws FileNotFoundException, IOException {
+		baseProducts.add(new BaseProduct(name));
+		saveBaseProducts();
+	}
+	
+	public void addProduct(String code) throws FileNotFoundException, IOException {
+		products.add(new Product(code));
+		saveProducts();
+	}
+	
+	public void addProductType(String name) throws FileNotFoundException, IOException {
+		productType.add(new ProductType(name));
+		saveProductType();
+	}
+	
+	public void addProductSize(String name) throws FileNotFoundException, IOException{
+		productSize.add(new ProductSize(name));
+		saveProductSize();
+	}
+	
+	public void addCustomesSorted(String name, String lastname) throws FileNotFoundException, IOException {
+		Custome newCustome=new Custome( name, lastname);
+		if(customes.isEmpty()) {
+			customes.add(newCustome);
+		}else{
+			int i=0;
+			while(i<customes.size() && newCustome.getLastname().compareTo(customes.get(i).getLastname())<0) {
+				i++;
+			}
+			customes.add(i, newCustome);
+			saveCustomes();
+		}
+	}
+	
+	public void addEmployee(String ID) throws FileNotFoundException, IOException {
+		employees.add(new Employee(ID));
+		saveEmployee();
+	}
+	
+	public void addUser(String userName) throws FileNotFoundException, IOException {
+		users.add(new User(userName,userLogged,userLogged));
+		employees.add(new User(userName,userLogged,userLogged));
+		saveEmployee();
+		saveUser();
+	}
 	public double[] employeesOrders(Employee employee, Order order) {
 		double[] orders=new double[2];
 		double ordernum=0;
@@ -854,10 +900,12 @@ public class Restaurant {
 		String line = br.readLine();
 		while (line!=null) {
 			String [] parts = line.split(FILE_SEPARATOR_IMPORT);
-			BaseProduct newBaseProduct = baseProducts.get(searchBaseProduct(parts[1]));
+			addBaseProduct(parts[1]);
+			BaseProduct newBaseProduct = baseProducts.get(baseProducts.size());
 			boolean state=Boolean.parseBoolean(parts[2]);
 			double price=Double.parseDouble(parts[3]);
-			ProductSize newProductSize=productSize.get(searchProductSize(parts[4]));
+			addProductSize(parts[4]);
+			ProductSize newProductSize=productSize.get(productSize.size());
 			User creator=users.get(searchUser(parts[5]));
 			User lastEditor=users.get(searchUser(parts[6]));
 			addProduct(parts[0],newBaseProduct,state,price,newProductSize,creator,lastEditor); 
@@ -867,23 +915,6 @@ public class Restaurant {
 
 	}    
 
-	public void importBaseProducts (String fileName) throws IOException{
-		//addBaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients)
-		ArrayList<Ingredients> myIngredients=new ArrayList<>();
-		BufferedReader br = new BufferedReader (new FileReader(fileName));
-		String line = br.readLine();
-		while (line!=null) {
-			String [] parts = line.split(FILE_SEPARATOR_IMPORT);
-			ProductType type=searchTypeProduct(parts[2]);
-			for(int i=2;i<parts.length;i++) {    			
-				myIngredients.add(searchIngredient(parts[i]));
-			}
-			addBaseProduct(parts[0],type,myIngredients);
-			line = br.readLine();
-		}
-		br.close();
-
-	}
 	public void importCustomes (String fileName) throws IOException{
 		BufferedReader br = new BufferedReader (new FileReader(fileName));
 		String line = br.readLine();
@@ -905,15 +936,21 @@ public class Restaurant {
 		while (line!=null) {
 			String [] parts = line.split(";");
 			String state=parts[0];
+			addCustomesSorted(parts[1],parts[2]);
 			Custome custome = customes.get(binarySearchCustomes(parts[1],parts[2]));
-			Employee myEmployee = employees.get(searchEmployees(parts[3]));
+			addEmployee(parts[3]);
+			Employee myEmployee = employees.get(employees.size());
 			Date date = objSDF.parse(parts[4]);
-			User creator = users.get(searchUser(parts[6]));
-			User lastEditor = users.get(searchUser(parts[7]));
-			for(int i=8;i<parts.length-1;i+=2) {
-				int j=i+1;
-				product.add(products.get(searchProduct(parts[i])));    
-				amount.add(Integer.parseInt(parts[j]));
+			addUser(parts[6]);
+			User creator = users.get(users.size());
+			addUser(parts[7]);
+			User lastEditor = users.get(users.size());
+			for(int i=8;i<parts.length;i++) {
+				if(i<=((parts.length-7)/2)+8) {
+				product.add(products.get(searchProduct(parts[i]))); 
+				}else {
+				amount.add(Integer.parseInt(parts[i]));
+				}
 			}
 			addOrder(state,custome,myEmployee,date,parts[5],creator,lastEditor,product,amount);
 			line = br.readLine();

@@ -14,6 +14,9 @@ public class ProductSize {
 		this.creator=creator;
 		this.lastEditor=lastEditor;
 	}
+	public ProductSize(String name) {
+		this.name=name;
+	}
 	public String getStateSize(){
 		String enable="";
 		if(state) {

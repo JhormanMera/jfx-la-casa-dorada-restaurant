@@ -22,6 +22,9 @@ public class Product implements Serializable, Comparable<Product>{
 		this.creator = creator;
 		this.lastEditor = creator;
 	}
+	public Product(String code) {
+		this.code=code;
+	}
 	
 	public String getName() {
 		String name=baseProduct.getName();

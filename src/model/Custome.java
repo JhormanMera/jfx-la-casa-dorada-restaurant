@@ -18,6 +18,10 @@ public class Custome  extends Person {
 		this.observations = observations;
 		this.state=true;
 	}
+	public Custome(String name, String lastname) {
+		super(name, lastname);
+	}
+	
 	
 	public String getStateCustome(){
 		String enable="";
@@ -61,7 +65,7 @@ public class Custome  extends Person {
 		this.observations = observations;
 	}
 	
-	public boolean isState() {
+	public boolean getState() {
 		return state;
 	}
 	

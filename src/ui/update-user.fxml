@@ -13,17 +13,17 @@
    <children>
       <AnchorPane layoutX="313.0" layoutY="177.0" prefHeight="404.0" prefWidth="360.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
-            <Label layoutX="139.0" layoutY="36.0" text="Update User">
+            <Label layoutX="128.0" layoutY="44.0" text="Update User">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUpdateUserName" layoutX="85.0" layoutY="83.0" promptText="Name">
+            <TextField fx:id="txtUpdateUserName" layoutX="85.0" layoutY="101.0" promptText="Name">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtUpdateUserLastnames" layoutX="85.0" layoutY="134.0" promptText="Lastnames">
+            <TextField fx:id="txtUpdateUserLastnames" layoutX="85.0" layoutY="147.0" promptText="Lastnames">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -33,12 +33,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <TextField fx:id="txtUpdateUserUsername" layoutX="85.0" layoutY="187.0" promptText="Username">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtUpdateUserPassword" layoutX="85.0" layoutY="243.0" promptText="Password">
+            <TextField fx:id="txtUpdateUserPassword" layoutX="85.0" layoutY="202.0" promptText="Password">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

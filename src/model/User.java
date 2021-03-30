@@ -11,6 +11,10 @@ public class User extends Employee {
 		this.userName = userName;
 		this.password = password;
 	}
+	public User(String userName, User creator, User lastEditor) {
+		super(" ", " ", " ", creator,  lastEditor, true);
+		this.userName=userName;
+	}
 	
 	public String getUserName() {
 		return userName;

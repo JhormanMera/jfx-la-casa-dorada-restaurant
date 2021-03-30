@@ -11,7 +11,10 @@ public class Employee extends Person  {
 		this.ID=ID;
 		this.state=state;
 	}
-
+	public Employee(String ID) {
+		super(" ", " ");
+		this.ID=ID;
+	}
 	public String getID() {
 		return ID;
 	}
