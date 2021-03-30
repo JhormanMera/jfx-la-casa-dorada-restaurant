@@ -1132,15 +1132,53 @@ public class RestaurantGUI implements Initializable {
 	
     @FXML
     private TextField txtUpdateProductSizeVerification;
-    
+
     @FXML
-    public void verificateSizeCode(ActionEvent event) {
-
-    }
-
-	@FXML
 	public void updateProduct(ActionEvent event) {
+		String space=" ";
+		String empty="";
+		if(txtUpdateProductName.getText()!=space&&txtUpdateProductName.getText()!=empty&&
+				txtUpdateProductSize.getText()!=space&&txtUpdateProductSize.getText()!=empty&&
+				txtUploadProductPrice.getText()!=space&&txtUploadProductPrice.getText()!=empty){
+			if(restaurant.searchBaseProduct(txtUpdateProductName.getText())>=0&&
+					restaurant.searchProductSize(txtUpdateProductSize.getText())>=0&&
+					restaurant.getBaseProducts().get(restaurant.searchBaseProduct
+							(txtUpdateProductName.getText())).getState()==true&&
+							restaurant.getProductSize().get(restaurant.searchProductSize
+									(txtUpdateProductSize.getText())).getState()==true){
 
+
+				selectedProduct.setBaseProduct(restaurant.getBaseProducts().get(restaurant
+						.searchBaseProduct(txtUpdateProductName.getText())));
+				selectedProduct.setSize(restaurant.getProductSize().get(restaurant.searchProductSize(txtUpdateProductSize.getText())));
+				selectedProduct.setPrice(Double.parseDouble(txtUploadProductPrice.getText()));
+
+			}else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Update Product ");
+				alert.setContentText("An error has occurred Updating the Product, Base Product"
+						+ " or the Product Size wasn't found or is disable ");
+				alert.showAndWait();
+			}
+
+
+
+			if(enableProduct.isSelected()) {
+
+				selectedProduct.setState(true);
+
+			}else if(disableProduct.isSelected()) {
+
+				selectedProduct.setState(false);
+
+			}
+
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Update Product ");
+			alert.setContentText("An error has occurred Updating the Product, fields can´t be empty");
+			alert.showAndWait();
+		}
 	}
 	
     @FXML
