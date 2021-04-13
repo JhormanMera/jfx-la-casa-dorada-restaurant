@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="313.0" layoutY="152.0" prefHeight="429.0" prefWidth="371.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
@@ -51,7 +51,7 @@
             </Button>
             <Separator layoutX="9.0" layoutY="367.0" prefHeight="0.0" prefWidth="360.0" />
             <Label layoutX="57.0" layoutY="227.0" text="Erase Last Ingredient" />
-            <Label layoutX="97.0" layoutY="302.0" prefHeight="17.0" prefWidth="178.0">
+            <Label fx:id="bPMessage" layoutX="97.0" layoutY="302.0" prefHeight="17.0" prefWidth="178.0">
                <font>
                   <Font size="14.0" />
                </font></Label>
@@ -70,7 +70,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <RadioButton fx:id="enableBaseProduct" layoutX="83.0" layoutY="323.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="105.0" text="Enable">
+            <RadioButton fx:id="enableBaseProduct" layoutX="83.0" layoutY="334.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="105.0" text="Enable">
                <font>
                   <Font size="15.0" />
                </font>
@@ -78,7 +78,7 @@
                   <ToggleGroup fx:id="baseProductState" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="disableBaseProduct" layoutX="226.0" layoutY="323.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="105.0" text="Disable" toggleGroup="$baseProductState">
+            <RadioButton fx:id="disableBaseProduct" layoutX="213.0" layoutY="334.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="105.0" text="Disable" toggleGroup="$baseProductState">
                <font>
                   <Font size="15.0" />
                </font>

@@ -33,16 +33,9 @@ public class Main extends Application{
         primaryStage.setScene(scene);
         primaryStage.setTitle("La Casa Dorada Restaurant");
         primaryStage.show();
+        primaryStage.setResizable(false);
         this.restaurantGUI.showLogin();
-        restaurant.loadCustomes();
-        restaurant.loadEmployee();
-        restaurant.loadBaseProducts();
-        restaurant.loadIngredients();
-        restaurant.loadOrders();
-        restaurant.loadProducts();
-        restaurant.loadProductSize();
-        restaurant.loadProductType();
-        restaurant.loadUser();
+       
     }
 
 }

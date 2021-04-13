@@ -20,14 +20,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class Restaurant {
-	private static final String BASE_PRODUCT_SAVE_PATH_FILE="";
-	private static final String CUSTOMES_SAVE_PATH_FILE="";
-	private static final String EMPLOYEE_SAVE_PATH_FILE="";
-	private static final String USER_SAVE_PATH_FILE="";
-	private static final String INGREDIENTS_SAVE_PATH_FILE="";
-	private static final String PRODUCTS_SAVE_PATH_FILE="";
-	private static final String ORDERS_SAVE_PATH_FILE="";
-	private static final String PRODUCT_TYPE_SAVE_PATH_FILE="";
+	private static final String BASE_PRODUCT_SAVE_PATH_FILE="data/baseProduct.jpmt";
+	private static final String CUSTOMES_SAVE_PATH_FILE="data/customes.jpmt";
+	private static final String EMPLOYEE_SAVE_PATH_FILE="data/employee.jpmt";
+	private static final String USER_SAVE_PATH_FILE="data/user.jpmt";
+	private static final String INGREDIENTS_SAVE_PATH_FILE="data/ingredients.jpmt";
+	private static final String PRODUCTS_SAVE_PATH_FILE="data/products.jpmt";
+	private static final String ORDERS_SAVE_PATH_FILE="data/orders.jpmt";
+	private static final String PRODUCT_TYPE_SAVE_PATH_FILE="data/productType.jpmt";
 	private static final String ORDER_CODE= String.format("P%04d", 100000);
 	private static String FILE_SEPARATOR;
 	private static String FILE_SEPARATOR_IMPORT=";";
@@ -252,8 +252,9 @@ public class Restaurant {
 		this.customes = customes;
 	}
 
-	public void addCustomesListSorted(String name, String lastname, String ID, String address, String phone, String observations) throws FileNotFoundException, IOException {
-		Custome newCustome=new Custome(name, lastname, ID, address, phone, observations);
+	public boolean addCustomesListSorted(String name, String lastname, String ID, String address, String phone, String observations) throws FileNotFoundException, IOException {
+		Custome newCustome=new Custome(name, lastname, ID, address, phone, observations,userLogged,userLogged);
+		boolean added= false;
 		if(customes.isEmpty()) {
 			customes.add(newCustome);
 		}else{
@@ -262,8 +263,10 @@ public class Restaurant {
 				i++;
 			}
 			customes.add(i, newCustome);
+			added= true;
 			saveCustomes();
 		}
+		return added;
 	}
 
 	public boolean searchCustomeInOrders(Custome custome) {
@@ -341,16 +344,19 @@ public class Restaurant {
 		this.employees = employees;
 	}
 
-	public void addEmployee(String name, String lastname, String ID, User creator, User lastEditor,boolean state) throws FileNotFoundException, IOException {
+	public boolean addEmployee(String name, String lastname, String ID, User creator, User lastEditor,boolean state) throws FileNotFoundException, IOException {
+		boolean added=false;
 		if(searchEmployees(ID)<0) {
 			employees.add(new Employee(name, lastname, ID, creator, lastEditor,state));
 			saveEmployee();
+			added=true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Add Employee");
 			alert.setContentText("An error has occurred when adding the employee, the ID already exist");
 			alert.showAndWait();
 		}
+		return added;
 	}
 
 	public int searchEmployees(String ID) {
@@ -398,18 +404,21 @@ public class Restaurant {
 		this.users = users;
 	}
 
-	public void addUser(String name, String lastName, String ID, String userName, String password, User creator, User lastEditor,boolean state) throws FileNotFoundException, IOException {
+	public boolean addUser(String name, String lastName, String ID, String userName, String password, User creator, User lastEditor,boolean state) throws FileNotFoundException, IOException {
+		boolean added=false;
 		if(searchUser(userName)<0&&searchEmployees(ID)<0) {
 			users.add(new User(name, lastName, ID, userName, password, creator, lastEditor, state));
 			employees.add(new User(name, lastName, ID, userName, password, creator, lastEditor, state));
 			saveEmployee();
 			saveUser();
+			added = true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Add User");
 			alert.setContentText("An error has occurred when adding the user, the userName or the ID already exist");
 			alert.showAndWait();
 		}
+		return added;
 	}   
 
 	public int searchUser(String userName) {
@@ -458,17 +467,20 @@ public class Restaurant {
 		this.ingredients = ingredients;
 	}
 
-	public void addIngredients(String name, User creator, User lastEditor) throws FileNotFoundException, IOException {
+	public boolean addIngredients(String name, User creator, User lastEditor) throws FileNotFoundException, IOException {
+		boolean added=false;
 		if(searchIngredient(name)==null) {
 			ingredients.add(new Ingredients(name, creator, lastEditor));
 			sortByIngredients();
 			saveIngredients();
+			added=true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Add Ingredient");
 			alert.setContentText("An error has occurred when adding the ingredient, the name already exist");
 			alert.showAndWait();
-		}		
+		}	
+		return added;
 	}
 
 	public void sortByIngredients() {
@@ -545,17 +557,20 @@ public class Restaurant {
 
 	}
 
-	public void addBaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients) throws FileNotFoundException, IOException {
+	public boolean addBaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients) throws FileNotFoundException, IOException {
+		boolean added= false;
 		if(searchBaseProduct(name)<0) {
 			baseProducts.add(new BaseProduct( name, type, ingredients));
 			sortBaseProductByName();
 			saveBaseProducts();
+			added=true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Add Base Product");
 			alert.setContentText("An error has occurred when adding the Base Product, the name already exist");
 			alert.showAndWait();
 		}		
+		return added;
 	}
 
 
@@ -625,17 +640,20 @@ public class Restaurant {
 		this.products = products;
 	}
 
-	public void addProduct(String code,BaseProduct baseProduct, boolean state, double price, ProductSize size, User creator, User lastEditor) throws FileNotFoundException, IOException {
+	public boolean addProduct(String code,BaseProduct baseProduct, boolean state, double price, ProductSize size, User creator, User lastEditor) throws FileNotFoundException, IOException {
+		boolean added=false;
 		if(searchProduct(code)<0) {
 			products.add(new Product(code,baseProduct, state, price, size, creator, lastEditor));
 			sortProductsByPrice();
 			saveProducts();
+			added=true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Add Product ");
 			alert.setContentText("An error has occurred when adding the Product, the code already exist");
 			alert.showAndWait();
-		}		
+		}
+		return added;
 	}  
 
 	public void sortProductsByPrice() {
@@ -703,16 +721,19 @@ public class Restaurant {
 		this.productType = productType;
 	} 
 
-	public void addProductType(String name,String code ,User creator, User lastEditor) throws FileNotFoundException, IOException {
+	public boolean addProductType(String name,String code ,User creator, User lastEditor) throws FileNotFoundException, IOException {
+		boolean added=false;
 		if(searchTypeProduct(name)==null) {
 			productType.add(new ProductType(name, code , creator, lastEditor));
 			saveProductType();
+			added=true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Add Product Type ");
 			alert.setContentText("An error has occurred when adding the Product Type, the code already exist");
 			alert.showAndWait();
 		}
+		return added;
 	}
 
 	public ProductType searchTypeProduct(String name) {
@@ -771,16 +792,19 @@ public class Restaurant {
 		this.productSize = productSize;
 	}
 
-	public void addProductSize(String name,String code,User creator, User lastEditor) throws FileNotFoundException, IOException {
+	public boolean addProductSize(String name,String code,User creator, User lastEditor) throws FileNotFoundException, IOException {
+		boolean added=false;
 		if(searchProductSize(code)<0) {
 			productSize.add(new ProductSize( name, code,true,creator, lastEditor));
 			saveProductSize();
+			added=true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Add Product Size");
 			alert.setContentText("An error has occurred when adding the Product Size, the code already exist");
 			alert.showAndWait();
 		}
+		return added;
 	}
 
 	public int searchProductSize(String code) {
@@ -841,7 +865,7 @@ public class Restaurant {
 	}
 	
 	public void addCustomesSorted(String name, String lastname) throws FileNotFoundException, IOException {
-		Custome newCustome=new Custome( name, lastname);
+		Custome newCustome=new Custome(name, lastname,userLogged,userLogged);
 		if(customes.isEmpty()) {
 			customes.add(newCustome);
 		}else{
@@ -855,7 +879,7 @@ public class Restaurant {
 	}
 	
 	public void addEmployee(String ID) throws FileNotFoundException, IOException {
-		employees.add(new Employee(ID));
+		employees.add(new Employee(ID,userLogged,userLogged));
 		saveEmployee();
 	}
 	

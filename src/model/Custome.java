@@ -10,16 +10,16 @@ public class Custome  extends Person {
 	private String observations;
 	private boolean state;
 	
-	public Custome(String name, String lastname, String ID, String address, String phone, String observations) {
-		super(name, lastname);
+	public Custome(String name, String lastname, String ID, String address, String phone, String observations, User lastEditor, User creator) {
+		super(name, lastname,lastEditor, creator);
 		this.ID = ID;
 		this.address = address;
 		this.phone = phone;
 		this.observations = observations;
 		this.state=true;
 	}
-	public Custome(String name, String lastname) {
-		super(name, lastname);
+	public Custome(String name, String lastname,User lastEditor, User creator) {
+		super(name, lastname, lastEditor, creator);
 	}
 	
 	

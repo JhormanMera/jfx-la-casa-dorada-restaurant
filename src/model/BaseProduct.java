@@ -20,6 +20,17 @@ public class BaseProduct implements Serializable {
 	public BaseProduct(String name) {
 		this.name=name;
 	}
+	public boolean searchIngredientInto(Ingredients in) {
+		boolean found=false;
+		if(in!=null) {
+			for(int i=0;i<ingredients.size()&&!found;i++) {
+				if(ingredients.get(i).equals(in)) {
+					found=true;
+				}
+			}
+		}
+		return found;
+	}
 	public String getName() {
 		return name;
 	}
@@ -45,8 +56,8 @@ public class BaseProduct implements Serializable {
 		return ingredients;
 	}
 	
-	public void setIngredients(ArrayList<Ingredients> ingredients) {
-		this.ingredients = ingredients;
+	public void setIngredients(Ingredients ingredients) {
+		this.ingredients.add(ingredients);
 	}
 	
 	public String getIngredientsName() {

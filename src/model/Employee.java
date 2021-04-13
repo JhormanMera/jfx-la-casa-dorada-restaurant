@@ -7,12 +7,12 @@ public class Employee extends Person  {
 	private boolean state;
 	
 	public Employee(String name, String lastname, String ID, User creator, User lastEditor,boolean state) {
-		super(name, lastname);
+		super(name, lastname, lastEditor, creator);
 		this.ID=ID;
 		this.state=state;
 	}
-	public Employee(String ID) {
-		super(" ", " ");
+	public Employee(String ID,User lastEditor, User creator) {
+		super(" ", " ", lastEditor, creator);
 		this.ID=ID;
 	}
 	public String getID() {
