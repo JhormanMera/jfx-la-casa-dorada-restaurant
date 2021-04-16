@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Product implements Serializable, Comparable<Product>{ 
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 901563699945207386L;
 	private BaseProduct baseProduct;
 	private String code;
 	private boolean state;

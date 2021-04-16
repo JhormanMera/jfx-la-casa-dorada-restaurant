@@ -1,11 +1,12 @@
 package model;
 
 public class User extends Employee {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -3944287742052315339L;
 	String userName;
 	String password;
 	boolean state; 
-	
+
 	public User(String name, String lastName, String ID, String userName, String password, User creator, User lastEditor,boolean state) {
 		super(name, lastName, ID, creator,  lastEditor, state);
 		this.userName = userName;

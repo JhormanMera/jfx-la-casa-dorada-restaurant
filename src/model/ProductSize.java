@@ -1,6 +1,10 @@
 package model;
 
-public class ProductSize {
+import java.io.Serializable;
+
+public class ProductSize implements Serializable{
+
+	private static final long serialVersionUID = -5130183791830098820L;
 	private String name;
 	private String code;
 	private boolean state;

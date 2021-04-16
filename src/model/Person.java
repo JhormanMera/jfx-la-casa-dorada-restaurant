@@ -3,7 +3,8 @@ package model;
 import java.io.Serializable;
 
 public abstract class Person implements Serializable {
-	private static final long serialVersionUID=1L;
+
+	private static final long serialVersionUID = -7223714510283829008L;
 	private String name;
 	private String lastname;
 	private User lastEditor;

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Ingredients implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8523206494546355317L;
 	private String name;
 	private User creator;
 	private User lastEditor;

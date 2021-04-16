@@ -3,7 +3,7 @@ package model;
 
 public class Custome  extends Person {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7142664342706704634L;
 	private String ID;
 	private String address;
 	private String phone;

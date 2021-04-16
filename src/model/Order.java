@@ -7,9 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Order implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
+
+	private static final long serialVersionUID = -5753369537062016096L;
 	private String state;
 	private String code;
 	private ArrayList<Product> products;

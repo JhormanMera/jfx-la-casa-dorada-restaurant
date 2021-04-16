@@ -1,6 +1,7 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,14 +21,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class Restaurant {
-	private static final String BASE_PRODUCT_SAVE_PATH_FILE="data/baseProduct.jpmt";
-	private static final String CUSTOMES_SAVE_PATH_FILE="data/customes.jpmt";
-	private static final String EMPLOYEE_SAVE_PATH_FILE="data/employee.jpmt";
-	private static final String USER_SAVE_PATH_FILE="data/user.jpmt";
-	private static final String INGREDIENTS_SAVE_PATH_FILE="data/ingredients.jpmt";
-	private static final String PRODUCTS_SAVE_PATH_FILE="data/products.jpmt";
-	private static final String ORDERS_SAVE_PATH_FILE="data/orders.jpmt";
-	private static final String PRODUCT_TYPE_SAVE_PATH_FILE="data/productType.jpmt";
+	private static final String INFORMATION_PATH_FILE="+data/serializable/information.jpmt";
 	private static final String ORDER_CODE= String.format("P%04d", 100000);
 	private static String FILE_SEPARATOR;
 	private static String FILE_SEPARATOR_IMPORT=";";
@@ -71,120 +65,39 @@ public class Restaurant {
 	}
 
 	//-------------------------------------SERIALIZABLE-----------------------------------------------------
-	public void saveCustomes() throws FileNotFoundException, IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(CUSTOMES_SAVE_PATH_FILE));
-		oos.writeObject(customes);
-		oos.close();
-	}
+    public void saveData() throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(INFORMATION_PATH_FILE));
 
-	@SuppressWarnings("unchecked")
-	public void loadCustomes() throws FileNotFoundException, IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(CUSTOMES_SAVE_PATH_FILE));
-		customes = (List<Custome>) ois.readObject();
-		ois.close();
-	}
-	
-	public void saveEmployee() throws FileNotFoundException, IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(EMPLOYEE_SAVE_PATH_FILE));
-		oos.writeObject(employees);
-		oos.close();
-	}
+        oos.writeObject(employees);
+        oos.writeObject(users);
+        oos.writeObject(customes);
 
-	@SuppressWarnings("unchecked")
-	public void loadEmployee() throws FileNotFoundException, IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(EMPLOYEE_SAVE_PATH_FILE));
-		employees = (List<Employee>) ois.readObject();
-		ois.close();
-	}
-	
-	public void saveUser() throws FileNotFoundException, IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(USER_SAVE_PATH_FILE));
-		oos.writeObject(users);
-		oos.close();
-	}
+        oos.writeObject(ingredients);
+        oos.writeObject(products);
+        oos.writeObject(orders);
+        
+        oos.close();
+    }
 
-	@SuppressWarnings("unchecked")
-	public void loadUser() throws FileNotFoundException, IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(USER_SAVE_PATH_FILE));
-		users = (List<User>) ois.readObject();
-		ois.close();
-	}
-	public void saveOrders() throws FileNotFoundException, IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ORDERS_SAVE_PATH_FILE));
-		oos.writeObject(orders);
-		oos.close();
-	}
+    @SuppressWarnings("unchecked") // Supress the cast warning
+    public boolean loadData() throws IOException, ClassNotFoundException {
+        File f = new File(INFORMATION_PATH_FILE);
+        boolean loaded = false;
+        if (f.exists()) {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
 
-	@SuppressWarnings("unchecked")
-	public void loadOrders() throws FileNotFoundException, IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ORDERS_SAVE_PATH_FILE));
-		orders = (List<Order>) ois.readObject();
-		ois.close();
-	}
-	public void saveProducts() throws FileNotFoundException, IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PRODUCTS_SAVE_PATH_FILE));
-		oos.writeObject(products);
-		oos.close();
-	}
+            employees = (List<Employee>) ois.readObject();
+            users = (List<User>) ois.readObject();
+            customes = (List<Custome>) ois.readObject();
 
-	@SuppressWarnings("unchecked")
-	public void loadProducts() throws FileNotFoundException, IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(PRODUCTS_SAVE_PATH_FILE));
-		products = (List<Product>) ois.readObject();
-		ois.close();
-	}
-	
-	public void saveBaseProducts() throws FileNotFoundException, IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(BASE_PRODUCT_SAVE_PATH_FILE));
-		oos.writeObject(baseProducts);
-		oos.close();
-	}
-
-	@SuppressWarnings("unchecked")
-	public void loadBaseProducts() throws FileNotFoundException, IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(BASE_PRODUCT_SAVE_PATH_FILE));
-		baseProducts = (List<BaseProduct>) ois.readObject();
-		ois.close();
-	}
-	
-	public void saveProductType() throws FileNotFoundException, IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PRODUCT_TYPE_SAVE_PATH_FILE));
-		oos.writeObject(productType);
-		oos.close();
-	}
-
-	@SuppressWarnings("unchecked")
-	public void loadProductType() throws FileNotFoundException, IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(PRODUCT_TYPE_SAVE_PATH_FILE));
-		productType = (List<ProductType>) ois.readObject();
-		ois.close();
-	}
-
-	public void saveIngredients() throws FileNotFoundException, IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(INGREDIENTS_SAVE_PATH_FILE));
-		oos.writeObject(ingredients);
-		oos.close();
-	}
-
-	@SuppressWarnings("unchecked")
-	public void loadIngredients() throws FileNotFoundException, IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(INGREDIENTS_SAVE_PATH_FILE));
-		ingredients = (List<Ingredients>) ois.readObject();
-		ois.close();
-	}
-
-	public void saveProductSize() throws FileNotFoundException, IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(INGREDIENTS_SAVE_PATH_FILE));
-		oos.writeObject(productSize);
-		oos.close();
-	}
-
-	@SuppressWarnings("unchecked")
-	public void loadProductSize() throws FileNotFoundException, IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(INGREDIENTS_SAVE_PATH_FILE));
-		productSize = (List<ProductSize>) ois.readObject();
-		ois.close();
-	}
+            ingredients = (List<Ingredients>) ois.readObject();
+            products = (List<Product>) ois.readObject();
+            orders = (List<Order>) ois.readObject();
+            ois.close();
+            loaded = true;
+        }
+        return loaded;
+    }
 
 	//---------------------------------------------------ORDER--------------------------------------------------------	    
 
@@ -200,7 +113,7 @@ public class Restaurant {
 		Order newOrder =new Order(state,ORDER_CODE, products,amount, custome, employee, date, observation, creator, lastEditor);
 		orders.add(newOrder);
 		sortOrderByDate();
-		saveOrders();
+		saveData();
 	}
 
 	public int searchOrders(String code) {
@@ -226,7 +139,7 @@ public class Restaurant {
 		if (i>=0) {
 			orders.remove(i);
 			erased=true;
-			saveOrders();
+			saveData();
 		}   		
 
 		if(erased==true) {
@@ -264,7 +177,7 @@ public class Restaurant {
 			}
 			customes.add(i, newCustome);
 			added= true;
-			saveCustomes();
+			saveData();
 		}
 		return added;
 	}
@@ -313,7 +226,7 @@ public class Restaurant {
 			if(found==false) {
 				customes.remove(index);
 				erased=true;
-				saveCustomes();
+				saveData();
 			}    			
 		} 
 		long finish= System.nanoTime();
@@ -348,7 +261,7 @@ public class Restaurant {
 		boolean added=false;
 		if(searchEmployees(ID)<0) {
 			employees.add(new Employee(name, lastname, ID, creator, lastEditor,state));
-			saveEmployee();
+			saveData();
 			added=true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -378,7 +291,7 @@ public class Restaurant {
 		if (i>=0) {
 			employees.remove(i);
 			erased=true;
-			saveEmployee();
+			saveData();
 		}   		
 
 		if(erased==true) {
@@ -409,8 +322,7 @@ public class Restaurant {
 		if(searchUser(userName)<0&&searchEmployees(ID)<0) {
 			users.add(new User(name, lastName, ID, userName, password, creator, lastEditor, state));
 			employees.add(new User(name, lastName, ID, userName, password, creator, lastEditor, state));
-			saveEmployee();
-			saveUser();
+			saveData();
 			added = true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -440,8 +352,7 @@ public class Restaurant {
 		if (i>0) {
 			users.remove(i);
 			erased=true;
-			saveEmployee();
-			saveUser();
+			saveData();
 		} 	
 
 		if(erased==true) {
@@ -472,7 +383,7 @@ public class Restaurant {
 		if(searchIngredient(name)==null) {
 			ingredients.add(new Ingredients(name, creator, lastEditor));
 			sortByIngredients();
-			saveIngredients();
+			saveData();
 			added=true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -531,7 +442,7 @@ public class Restaurant {
 			if(ingredients.get(i).getName().equalsIgnoreCase(name)&&found==false) {
 				ingredients.remove(i);
 				erased=true;
-				saveIngredients();
+				saveData();
 			}    			
 		}
 		if(erased==true) {
@@ -562,7 +473,7 @@ public class Restaurant {
 		if(searchBaseProduct(name)<0) {
 			baseProducts.add(new BaseProduct( name, type, ingredients));
 			sortBaseProductByName();
-			saveBaseProducts();
+			saveData();
 			added=true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -612,7 +523,7 @@ public class Restaurant {
 			boolean found=searchBaseProductsInProducts(baseProducts.get(i));
 			if(found==false) {
 				baseProducts.remove(i);
-				saveBaseProducts();
+				saveData();;
 				erased=true;
 			}
 		}   		
@@ -645,7 +556,7 @@ public class Restaurant {
 		if(searchProduct(code)<0) {
 			products.add(new Product(code,baseProduct, state, price, size, creator, lastEditor));
 			sortProductsByPrice();
-			saveProducts();
+			saveData();
 			added=true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -693,7 +604,7 @@ public class Restaurant {
 			Product found=searchProductsInOrders(products.get(i));
 			if(found==null) {
 				products.remove(i);
-				saveProducts();
+				saveData();
 				erased=true;
 			}
 		}   		
@@ -725,7 +636,7 @@ public class Restaurant {
 		boolean added=false;
 		if(searchTypeProduct(name)==null) {
 			productType.add(new ProductType(name, code , creator, lastEditor));
-			saveProductType();
+			saveData();
 			added=true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -764,7 +675,7 @@ public class Restaurant {
 			boolean found=searchTypeInProducts(productType.get(i));
 			if(productType.get(i).getName().equalsIgnoreCase(name)&&found==false) {
 				productType.remove(i);
-				saveProductType();
+				saveData();
 				erased=true;
 			}    			
 		}
@@ -796,7 +707,7 @@ public class Restaurant {
 		boolean added=false;
 		if(searchProductSize(code)<0) {
 			productSize.add(new ProductSize( name, code,true,creator, lastEditor));
-			saveProductSize();
+			saveData();
 			added=true;
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -825,7 +736,7 @@ public class Restaurant {
 		if (i>=0) {
 			productSize.remove(i);
 			erased=true;
-			saveProductSize();
+			saveData();
 		}   		
 
 		if(erased==true) {
@@ -846,22 +757,22 @@ public class Restaurant {
 	
 	public void addBaseProduct(String name) throws FileNotFoundException, IOException {
 		baseProducts.add(new BaseProduct(name));
-		saveBaseProducts();
+		saveData();
 	}
 	
 	public void addProduct(String code) throws FileNotFoundException, IOException {
 		products.add(new Product(code));
-		saveProducts();
+		saveData();
 	}
 	
 	public void addProductType(String name) throws FileNotFoundException, IOException {
 		productType.add(new ProductType(name));
-		saveProductType();
+		saveData();
 	}
 	
 	public void addProductSize(String name) throws FileNotFoundException, IOException{
 		productSize.add(new ProductSize(name));
-		saveProductSize();
+		saveData();
 	}
 	
 	public void addCustomesSorted(String name, String lastname) throws FileNotFoundException, IOException {
@@ -874,20 +785,19 @@ public class Restaurant {
 				i++;
 			}
 			customes.add(i, newCustome);
-			saveCustomes();
+			saveData();
 		}
 	}
 	
 	public void addEmployee(String ID) throws FileNotFoundException, IOException {
 		employees.add(new Employee(ID,userLogged,userLogged));
-		saveEmployee();
+		saveData();
 	}
 	
 	public void addUser(String userName) throws FileNotFoundException, IOException {
 		users.add(new User(userName,userLogged,userLogged));
 		employees.add(new User(userName,userLogged,userLogged));
-		saveEmployee();
-		saveUser();
+		saveData();
 	}
 	public double[] employeesOrders(Employee employee, Order order) {
 		double[] orders=new double[2];

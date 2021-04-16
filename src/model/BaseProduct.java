@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class BaseProduct implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 3581140027854608222L;
 	private String name;
 	private ProductType type;
 	private ArrayList<Ingredients> ingredients;

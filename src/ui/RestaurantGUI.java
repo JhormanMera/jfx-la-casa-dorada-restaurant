@@ -2379,15 +2379,7 @@ public class RestaurantGUI implements Initializable {
 	public RestaurantGUI(Restaurant restaurant) {
 		this.restaurant=restaurant;
 		try {
-			restaurant.loadBaseProducts();
-			restaurant.loadCustomes();
-			restaurant.loadEmployee();
-			restaurant.loadIngredients();
-			restaurant.loadOrders();
-			restaurant.loadProducts();
-			restaurant.loadProductSize();
-			restaurant.loadProductType();
-			restaurant.loadUser();
+			restaurant.loadData();
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
