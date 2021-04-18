@@ -33,7 +33,7 @@ public class Main extends Application{
         primaryStage.setScene(scene);
         primaryStage.setTitle("La Casa Dorada Restaurant");
         primaryStage.show();
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         this.restaurantGUI.showLogin();
        
     }

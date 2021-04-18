@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="286.0" layoutY="175.0" prefHeight="406.0" prefWidth="427.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="286.0" AnchorPane.rightAnchor="203.0" AnchorPane.topAnchor="175.0">
          <children>
@@ -22,7 +22,7 @@
             <TextField fx:id="initialHourOrderReport" layoutX="95.0" layoutY="101.0" prefHeight="31.0" prefWidth="243.0" promptText="Initial Hour hh:mm:ss" text="00:00:00" AnchorPane.leftAnchor="95.0" AnchorPane.rightAnchor="91.0" AnchorPane.topAnchor="101.0" />
             <Label layoutX="114.0" layoutY="296.0" text="Hours must be in 24 hour format" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="296.0" />
             <Separator layoutX="7.0" layoutY="324.0" prefHeight="3.0" prefWidth="404.0" />
-            <Button layoutX="138.0" layoutY="340.0" mnemonicParsing="false" onAction="#generateOrderReport" prefHeight="39.0" prefWidth="151.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Generate Report" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="137.0" AnchorPane.topAnchor="340.0">
+            <Button layoutX="222.0" layoutY="342.0" mnemonicParsing="false" onAction="#generateOrderReport" prefHeight="39.0" prefWidth="165.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Generate Report" AnchorPane.leftAnchor="222.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="342.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -31,6 +31,11 @@
             <TextField fx:id="finalHourOrderReport" layoutX="98.0" layoutY="188.0" prefHeight="31.0" prefWidth="239.0" promptText="Final Hour hh:mm:ss" text="23:59:59" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="188.0" />
             <TextField fx:id="fileSeparatorReportOrder" layoutX="157.0" layoutY="240.0" prefHeight="31.0" prefWidth="239.0" promptText="File Separator" text=";" />
             <Label layoutX="60.0" layoutY="247.0" text="File Separator" />
+            <Button layoutX="37.0" layoutY="343.0" mnemonicParsing="false" onAction="#BackToMenu" prefHeight="39.0" prefWidth="127.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Back">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <ImageView fx:id="reportOrderImage" fitHeight="154.0" fitWidth="905.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="5.0" />

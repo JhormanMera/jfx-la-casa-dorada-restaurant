@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="929.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
@@ -75,6 +75,6 @@
             </AnchorPane>
          </children>
       </HBox>
-      <ImageView fx:id="mainImage" fitHeight="529.0" fitWidth="819.0" layoutX="50.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="35.0" />
+      <ImageView fx:id="mainImage" fitHeight="529.0" fitWidth="819.0" layoutX="55.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="44.0" />
    </children>
 </AnchorPane>

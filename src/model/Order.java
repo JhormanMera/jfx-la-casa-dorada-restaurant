@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,12 +22,12 @@ public class Order implements Serializable{
 	private String observation;
 	private User creator;
 	private User lastEditor;
-	private SimpleDateFormat objSDFHour;
-	private SimpleDateFormat objSDFDay;
+	private DateFormat objSDFHour;
+	private DateFormat objSDFDay;
 	
 		public Order(String state, String code, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor) throws ParseException {
 		objSDFHour= new SimpleDateFormat("HH:mm:ss");
-		objSDFDay= new SimpleDateFormat("dd/MM/YYYY");
+		objSDFDay= new SimpleDateFormat("dd-MM-YYYY");
 		setState(state);
 		this.code = code;
 		this.products = products;

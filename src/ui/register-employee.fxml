@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="342.0" layoutY="172.0" prefHeight="417.0" prefWidth="425.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="342.0" AnchorPane.rightAnchor="306.0" AnchorPane.topAnchor="172.0">
          <children>
@@ -16,22 +16,27 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txtRegisterEmployeeName" layoutX="85.0" layoutY="98.0" promptText="Name" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="98.0">
+            <TextField fx:id="txtRegisterEmployeeName" layoutX="87.0" layoutY="100.0" prefHeight="40.0" prefWidth="252.0" promptText="Name" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="99.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegisterEmployeeLastnames" layoutX="87.0" layoutY="163.0" promptText="Lastnames" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="163.0">
+            <TextField fx:id="txtRegisterEmployeeLastnames" layoutX="89.0" layoutY="165.0" prefHeight="40.0" prefWidth="248.0" promptText="Lastnames" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="164.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegisterEmployeeID" layoutX="87.0" layoutY="229.0" promptText="ID" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="229.0">
+            <TextField fx:id="txtRegisterEmployeeID" layoutX="89.0" layoutY="231.0" prefHeight="40.0" prefWidth="248.0" promptText="ID" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="230.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <Button layoutX="92.0" layoutY="306.0" mnemonicParsing="false" onAction="#CreateAnEmployee" style="-fx-background-color: gold; -fx-border-color: black;" text="Create an Employee" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="306.0">
+            <Button layoutX="92.0" layoutY="293.0" mnemonicParsing="false" onAction="#CreateAnEmployee" style="-fx-background-color: gold; -fx-border-color: black;" text="Create an Employee" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="92.0" AnchorPane.topAnchor="293.0">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Button>
+            <Button layoutX="151.0" layoutY="349.0" mnemonicParsing="false" onAction="#employeeBackToView" prefHeight="40.0" prefWidth="121.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Back">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>

@@ -27,7 +27,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </PasswordField>
-            <Button layoutX="108.0" layoutY="338.0" mnemonicParsing="false" onAction="#newUserReg" prefHeight="35.0" prefWidth="240.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Register" AnchorPane.leftAnchor="108.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="338.0">
+            <Button layoutX="110.0" layoutY="324.0" mnemonicParsing="false" onAction="#newUserReg" prefHeight="35.0" prefWidth="240.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Register" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="324.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -47,6 +47,11 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+            <Button layoutX="165.0" layoutY="375.0" mnemonicParsing="false" onAction="#userBackToView" prefHeight="40.0" prefWidth="121.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Back">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <ImageView fx:id="regNewUserImage" fitHeight="129.0" fitWidth="916.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="3.0" />

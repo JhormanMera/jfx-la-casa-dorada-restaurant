@@ -320,9 +320,10 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void mainPaneImportCustomes(ActionEvent event) throws IOException {
 		FileChooser fc = new FileChooser();		
-		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+		File selectedFile = fc.showOpenDialog(mainPane.getScene().getWindow());
 		if (selectedFile !=null) {			
 			restaurant.importCustomes(selectedFile.getAbsolutePath());
+
 		}
 	}
 
@@ -346,9 +347,9 @@ public class RestaurantGUI implements Initializable {
 
 	//---------------MAIN PANE GUI-----------------
 
-    @FXML
-    private AnchorPane mainAnchor; 
-    
+	@FXML
+	private AnchorPane mainAnchor; 
+
 	@FXML
 	private Pane mainPane;
 
@@ -502,22 +503,15 @@ public class RestaurantGUI implements Initializable {
 				txtRegNewUsername.getText()!=space&&txtRegNewUsername.getText()!=empty&&
 				txtRegNewPassword.getText()!=space&&txtRegNewPassword.getText()!=empty) {
 
-			if(restaurant.addUser(txtRegNewUsername.getText(), 
+			restaurant.addUser(txtRegNewUsername.getText(), 
 					txtRegNewLastName.getText(),
 					txtRegNewIdentification.getText(), 
 					txtRegNewUsername.getText(),
 					txtRegNewPassword.getText(),
 					restaurant.getUserLogged(),
-					restaurant.getUserLogged(),true)) {
-
-				txtRegLastName.setText(empty);
-				txtRegUsername.setText(empty);
-				txtRegPassword.setText(empty);
-				txtRegName.setText(empty);
-				txtRegIdentification.setText(empty);
+					restaurant.getUserLogged(),true);
+			
 				mainPaneGestionateUser(event);
-			}
-
 
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -526,6 +520,11 @@ public class RestaurantGUI implements Initializable {
 			alert.showAndWait();
 		}
 	}
+
+    @FXML
+    public void userBackToView(ActionEvent event) throws IOException {
+    	mainPaneGestionateUser(event);
+    }
 	// -------REGISTER BASEPRODUCT GUI------------
 
 	@FXML
@@ -550,6 +549,10 @@ public class RestaurantGUI implements Initializable {
 		if(txtRegisterBaseProductIngredients.getText()!=space&&txtRegisterBaseProductIngredients.getText()!=empty&&restaurant.searchIngredient(txtRegisterBaseProductIngredients.getText()).getState()==true) {
 			restaurant.getIngredientBP().add(restaurant.searchIngredient(txtRegisterBaseProductIngredients.getText()));
 			txtRegisterBaseProductIngredients.setText("");
+			txtRegBaseProductMessage.setText("Ingredient Added");
+			for(int i=0;i<1000;i++) {
+			}
+			txtRegBaseProductMessage.setText("");
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Register Base Product");
@@ -563,17 +566,15 @@ public class RestaurantGUI implements Initializable {
 		String space=" ";
 		String empty="";
 		if(txtRegisterBaseProductName.getText()!=space&&txtRegisterBaseProductName.getText()!=empty&&
-				txtRegLastName.getText()!=space&&txtRegLastName.getText()!=empty&&
 				txtRegisterBaseProductType.getText()!=space&&txtRegisterBaseProductType.getText()!=empty &&
 				restaurant.getIngredientBP().isEmpty()==false&&restaurant.searchTypeProduct(txtRegisterBaseProductType.getText()).getState()==true) {			
-			if(restaurant.addBaseProduct(txtRegisterBaseProductName.getText(),restaurant.searchTypeProduct(txtRegisterBaseProductType.getText()),
-					restaurant.getIngredientBP())) {
+			restaurant.addBaseProduct(txtRegisterBaseProductName.getText(),restaurant.searchTypeProduct(txtRegisterBaseProductType.getText()),
+					restaurant.getIngredientBP());
 				txtRegisterBaseProductName.setText(empty);
 				txtRegLastName.setText(empty);
 				txtRegisterBaseProductType.setText(empty);
 				restaurant.getIngredientBP().clear();
 				mainPaneGestionateBaseProduct(event);
-			}
 
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -585,9 +586,19 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void EraseLastIngredientBaseProduct(ActionEvent event) {
-		int lastIngredient=restaurant.getIngredientBP().size();
+		int lastIngredient=restaurant.getIngredientBP().size()-1;
 		restaurant.getIngredientBP().remove(lastIngredient);
+		txtRegBaseProductMessage.setText("Ingredient Erased");
+		for(int i=0;i<1000;i++) {
+		}
+		txtRegBaseProductMessage.setText("");
 	}
+
+    @FXML
+    public void baseProductBackToView(ActionEvent event) throws IOException {
+    	mainPaneGestionateBaseProduct(event);
+    }
+    
 	// ------------REGISTER PRODUCT TYPE GUI------------
 	@FXML
 	private TextField txtRegisterProductTypeName;
@@ -605,12 +616,10 @@ public class RestaurantGUI implements Initializable {
 		if(txtRegisterProductTypeName.getText()!=space&&txtRegisterProductTypeName.getText()!=empty&&
 				txtRegisterProductTypeCode.getText()!=space&&txtRegisterProductTypeCode.getText()!=empty) {	
 
-			if(restaurant.addProductType(txtRegisterProductTypeName.getText(),txtRegisterProductTypeCode.getText(), 
-					restaurant.getUserLogged(), restaurant.getUserLogged())) {
-				txtRegisterProductTypeName.setText(empty);
-				txtRegisterProductTypeCode.setText(empty);
+			restaurant.addProductType(txtRegisterProductTypeName.getText(),txtRegisterProductTypeCode.getText(), 
+					restaurant.getUserLogged(), restaurant.getUserLogged());
+
 				mainPaneGestionateProductType(event);
-			}
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Register Product Type");
@@ -618,6 +627,10 @@ public class RestaurantGUI implements Initializable {
 			alert.showAndWait();
 		}
 	}
+    @FXML
+    public void productTypeBackToView(ActionEvent event) throws IOException {
+    	mainPaneGestionateProductType(event);
+    }
 	//-----------REGISTER ORDER GUI---------
 
 	@FXML
@@ -659,6 +672,10 @@ public class RestaurantGUI implements Initializable {
 				restaurant.getAmountProductsOrder().add(amount);
 				txtRegisterOrderAmount.setText("");
 				txtRegisterOrderProduct.setText("");
+				txtRegisterOrderMessage.setText("Product Added");
+				for(int i=0;i<1000;i++) {
+				}
+				txtRegisterOrderMessage.setText("");
 			}else {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Register Order");
@@ -711,10 +728,19 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void EraseLastProductOrder(ActionEvent event) {
-		int lastProduct=restaurant.getProductsOrder().size();
+		int lastProduct=restaurant.getProductsOrder().size()-1;
 		restaurant.getProductsOrder().remove(lastProduct);
 		restaurant.getAmountProductsOrder().remove(lastProduct);
+		txtRegisterOrderMessage.setText("Product Erased");
+		for(int i=0;i<1000;i++) {
+		}
+		txtRegisterOrderMessage.setText("");
 	}
+	
+    @FXML
+    public void orderBackToView(ActionEvent event) throws IOException {
+    	mainPaneGestionateOrder(event);
+    }
 
 	// ----------------- REGISTER CUSTOME GUI----------------
 	@FXML
@@ -750,18 +776,16 @@ public class RestaurantGUI implements Initializable {
 				txtRegisterCustomeObservations.getText()!=space&&txtRegisterCustomeObservations.getText()!=empty) {	
 			if(restaurant.binarySearchCustomes(txtRegisterCustomeName.getText(),txtRegisterCustomeLas.getText())<0) {
 
-				if(restaurant.addCustomesListSorted(txtRegisterCustomeName.getText(),txtRegisterCustomeLas.getText(),
+				restaurant.addCustomesListSorted(txtRegisterCustomeName.getText(),txtRegisterCustomeLas.getText(),
 						txtRegisterCustomeID.getText(), txtRegisterCustomeAddress.getText(),txtRegisterCustomePhone.getText(),
-						txtRegisterCustomeObservations.getText())) {
-
-					txtRegisterCustomeName.setText(empty);
-					txtRegisterCustomeLas.setText(empty);
-					txtRegisterCustomeID.setText(empty);
-					txtRegisterCustomeAddress.setText(empty);
-					txtRegisterCustomePhone.setText(empty);
-					txtRegisterCustomeObservations.setText(empty);
-					mainPaneGestionateCustome(event);
-				}
+						txtRegisterCustomeObservations.getText());
+				txtRegisterCustomeName.setText(empty);
+				txtRegisterCustomeLas.setText(empty);
+				txtRegisterCustomeID.setText(empty);
+				txtRegisterCustomeAddress.setText(empty);
+				txtRegisterCustomePhone.setText(empty);
+				txtRegisterCustomeObservations.setText(empty);
+				mainPaneGestionateCustome(event);
 
 			}else {
 				Alert alert = new Alert(AlertType.ERROR);
@@ -776,6 +800,10 @@ public class RestaurantGUI implements Initializable {
 			alert.showAndWait();
 		}
 	}
+	   @FXML
+	    public void customeBackToView(ActionEvent event) throws IOException {
+		   mainPaneGestionateCustome(event);
+	    }
 	// ------------REGISTER EMPLOYEE GUI----------------
 	@FXML
 	private TextField txtRegisterEmployeeName;
@@ -797,14 +825,10 @@ public class RestaurantGUI implements Initializable {
 				txtRegisterEmployeeLastnames.getText()!=space&&txtRegisterEmployeeLastnames.getText()!=empty&&
 				txtRegisterEmployeeID.getText()!=space&&txtRegisterEmployeeID.getText()!=empty) {
 
-			if(restaurant.addEmployee(txtRegisterEmployeeName.getText(),txtRegisterEmployeeLastnames.getText(), 
-					txtRegisterEmployeeID.getText(),restaurant.getUserLogged(),restaurant.getUserLogged(),true)) {
-
-				txtRegisterEmployeeName.setText(empty);
-				txtRegisterEmployeeLastnames.setText(empty);
-				txtRegisterEmployeeID.setText(empty);
+			restaurant.addEmployee(txtRegisterEmployeeName.getText(),txtRegisterEmployeeLastnames.getText(), 
+					txtRegisterEmployeeID.getText(),restaurant.getUserLogged(),restaurant.getUserLogged(),true);
 				mainPaneGestionateEmployee(event);
-			}
+
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Register Employee");
@@ -813,6 +837,10 @@ public class RestaurantGUI implements Initializable {
 		}
 
 	}
+	@FXML
+    public void employeeBackToView(ActionEvent event) throws IOException {
+		mainPaneGestionateEmployee(event);
+    }
 	// --------------REGISTER PRODUCT SIZE GUI-----------
 	@FXML
 	private TextField txtRegisterProductSizeName;
@@ -830,13 +858,10 @@ public class RestaurantGUI implements Initializable {
 		if(txtRegisterProductSizeName.getText()!=space&&txtRegisterProductSizeName.getText()!=empty&&
 				txtRegisterProductSizeCode.getText()!=space&&txtRegisterProductSizeCode.getText()!=empty) {	
 
-			if(restaurant.addProductSize(txtRegisterProductSizeName.getText(),txtRegisterProductSizeCode.getText(),
-					restaurant.getUserLogged(), restaurant.getUserLogged())) {
-
-				txtRegisterProductSizeName.setText(empty);
-				txtRegisterProductSizeCode.setText(empty);
+			restaurant.addProductSize(txtRegisterProductSizeName.getText(),txtRegisterProductSizeCode.getText(),
+					restaurant.getUserLogged(), restaurant.getUserLogged());
 				mainPaneGestionateProductSize(event);
-			}
+
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Register Product Size");
@@ -844,6 +869,11 @@ public class RestaurantGUI implements Initializable {
 			alert.showAndWait();
 		}
 	}
+
+    @FXML
+    public void productSizeBackToView(ActionEvent event) throws IOException {
+    	mainPaneGestionateProductSize(event);
+    }
 	//---------------REGISTER PRODUCT GUI---------------
 
 	@FXML
@@ -871,14 +901,11 @@ public class RestaurantGUI implements Initializable {
 				txtRegisterProductCode.getText()!=space&&txtRegisterProductCode.getText()!=empty) {	
 
 			double price= Double.parseDouble(txtRegisterProductPrice.getText());
-			if(restaurant.addProduct(txtRegisterProductCode.getText(),restaurant.getBaseProducts().get(restaurant.searchBaseProduct(txtRegisterProductBaseProductName.getText())), 
-					true, price, restaurant.getProductSize().get(restaurant.searchProductSize(txtRegisterProductSize.getText())),restaurant.getUserLogged(), restaurant.getUserLogged())) {
-				txtRegisterProductBaseProductName.setText(empty);
-				txtRegisterProductSize.setText(empty);
-				txtRegisterProductPrice.setText(empty);
-				txtRegisterProductCode.setText(empty);
+			restaurant.addProduct(txtRegisterProductCode.getText(),restaurant.getBaseProducts().get(restaurant.searchBaseProduct(txtRegisterProductBaseProductName.getText())), 
+					true, price, restaurant.getProductSize().get(restaurant.searchProductSize(txtRegisterProductSize.getText())),restaurant.getUserLogged(), restaurant.getUserLogged());
+
 				mainPaneGestionateProduct(event);
-			}
+		
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Register Product");
@@ -886,7 +913,11 @@ public class RestaurantGUI implements Initializable {
 			alert.showAndWait();
 		}
 	}
-
+	
+    @FXML
+    public void productBackToView(ActionEvent event) throws IOException {
+    	mainPaneGestionateProduct(event);
+    }
 	//---------REGISTER INGREDIENTS GUI-------------------
 
 	@FXML
@@ -914,6 +945,11 @@ public class RestaurantGUI implements Initializable {
 		}
 
 	}
+
+    @FXML
+    public void ingredientBackToView(ActionEvent event) throws IOException {
+    	mainPaneGestionateIngredient(event);
+    }
 
 	//----------UPDATE CUSTOMES GUI--------------
 	@FXML
@@ -969,8 +1005,8 @@ public class RestaurantGUI implements Initializable {
 				selectedCustome.setState(false);
 
 			}
-			mainPaneGestionateCustome(event);
-
+			restaurant.saveData();
+			mainPaneGestionateCustome(event);			
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Update Custome");
@@ -1023,6 +1059,7 @@ public class RestaurantGUI implements Initializable {
 				selectedEmployee.setState(false);
 
 			}
+			restaurant.saveData();
 			mainPaneGestionateEmployee(event);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1132,8 +1169,8 @@ public class RestaurantGUI implements Initializable {
 		String empty="";
 		if(txtUpdateOrderCustomeName.getText()!=space&&txtUpdateOrderCustomeName.getText()!=empty&&
 				txtUpdateOrderCustomeLastName.getText()!=space&&txtUpdateOrderCustomeLastName.getText()!=empty&&
-						txtUpdateOrderEmployee.getText()!=space&&txtUpdateOrderEmployee.getText()!=empty&&
-								txtUpdateOrderObservations.getText()!=space&&txtUpdateOrderObservations.getText()!=empty) {
+				txtUpdateOrderEmployee.getText()!=space&&txtUpdateOrderEmployee.getText()!=empty&&
+				txtUpdateOrderObservations.getText()!=space&&txtUpdateOrderObservations.getText()!=empty) {
 
 			if(restaurant.binarySearchCustomes(txtUpdateOrderCustomeName.getText(), txtUpdateOrderCustomeLastName.getText())>=0&&
 					restaurant.getCustomes().get(restaurant.binarySearchCustomes(txtUpdateOrderCustomeName.getText(), txtUpdateOrderCustomeLastName.getText())).getState()) {
@@ -1168,7 +1205,7 @@ public class RestaurantGUI implements Initializable {
 				selectedOrder.setState("DELIVERED");
 
 			}
-			
+			restaurant.saveData();
 			mainPaneGestionateOrder(event);
 			updateOrdermsg.setText("");
 		}else {
@@ -1189,7 +1226,7 @@ public class RestaurantGUI implements Initializable {
 
 			txtUpdateOrderEmployeeName.setText(restaurant.getEmployees().get(restaurant.searchEmployees(txtUpdateOrderEmployee.getText())).getName()+" "+
 					restaurant.getEmployees().get(restaurant.searchEmployees(txtUpdateOrderEmployee.getText())).getLastname());
-			
+
 			selectedOrder.setEmployee(restaurant.getEmployees().get(restaurant.searchEmployees(txtUpdateOrderEmployee.getText())));  			
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1233,7 +1270,7 @@ public class RestaurantGUI implements Initializable {
 			selectedUser.setLastname(txtUpdateUserLastnames.getText());
 			selectedUser.setPassword(txtUpdateUserPassword.getText());
 			selectedUser.setLastEditor(restaurant.getUserLogged());
-			
+
 			if(userEnable.isSelected()) {
 
 				selectedUser.setState(true);
@@ -1243,6 +1280,7 @@ public class RestaurantGUI implements Initializable {
 				selectedUser.setState(false);
 
 			}
+			restaurant.saveData();
 			mainPaneGestionateUser(event);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1270,8 +1308,8 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	private TextField txtUpdateBPTypeVerification;		
 
-    @FXML
-    private Label bPMessage;
+	@FXML
+	private Label bPMessage;
 
 	@FXML
 	private RadioButton enableBaseProduct;
@@ -1296,7 +1334,7 @@ public class RestaurantGUI implements Initializable {
 					selectedBP.searchIngredientInto(restaurant.searchIngredient(txtUpdateBaseProductIngredients.getText()))) {
 				bPMessage.setText("Ingredient Added Successfully");
 				selectedBP.setIngredients(restaurant.searchIngredient(txtUpdateBaseProductIngredients.getText()));
-			
+				
 			}else {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Update Ingredient");
@@ -1337,6 +1375,7 @@ public class RestaurantGUI implements Initializable {
 				selectedBP.setState(false);
 
 			}
+			restaurant.saveData();
 			mainPaneGestionateBaseProduct(event);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1390,7 +1429,7 @@ public class RestaurantGUI implements Initializable {
 	private ImageView updateProductSizeImage;
 
 	@FXML
-	public void UpdateProductSize(ActionEvent event) {
+	public void UpdateProductSize(ActionEvent event) throws IOException {
 		String space=" ";
 		String empty="";
 		if(txtUpdateProductSizeName.getText()!=space&&txtUpdateProductSizeName.getText()!=empty&&
@@ -1412,6 +1451,8 @@ public class RestaurantGUI implements Initializable {
 				selectedPZ.setState(false);
 
 			}
+			restaurant.saveData();
+			mainPaneGestionateProductSize(event);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Update Product Size");
@@ -1450,7 +1491,7 @@ public class RestaurantGUI implements Initializable {
 	private TextField txtUpdateProductSizeVerification;
 
 	@FXML
-	public void updateProduct(ActionEvent event) {
+	public void updateProduct(ActionEvent event) throws IOException {
 		String space=" ";
 		String empty="";
 		if(txtUpdateProductName.getText()!=space&&txtUpdateProductName.getText()!=empty&&
@@ -1469,7 +1510,17 @@ public class RestaurantGUI implements Initializable {
 				selectedProduct.setSize(restaurant.getProductSize().get(restaurant.searchProductSize(txtUpdateProductSize.getText())));
 				selectedProduct.setPrice(Double.parseDouble(txtUploadProductPrice.getText()));
 				selectedProduct.setLastEditor(restaurant.getUserLogged());
+				if(enableProduct.isSelected()) {
 
+					selectedProduct.setState(true);
+
+				}else if(disableProduct.isSelected()) {
+
+					selectedProduct.setState(false);
+
+				}
+				restaurant.saveData();
+				mainPaneGestionateProduct(event);
 			}else {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Update Product ");
@@ -1477,19 +1528,7 @@ public class RestaurantGUI implements Initializable {
 						+ " or the Product Size wasn't found or is disable ");
 				alert.showAndWait();
 			}
-
-
-
-			if(enableProduct.isSelected()) {
-
-				selectedProduct.setState(true);
-
-			}else if(disableProduct.isSelected()) {
-
-				selectedProduct.setState(false);
-
-			}
-
+			
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Update Product ");
@@ -1523,7 +1562,7 @@ public class RestaurantGUI implements Initializable {
 	private ImageView updateProductTypeImage;
 
 	@FXML
-	public void UpdateProductType(ActionEvent event) {
+	public void UpdateProductType(ActionEvent event) throws IOException {
 		String space=" ";
 		String empty="";
 		if(txtUpdateProductTypeName.getText()!=space&&txtUpdateProductTypeName.getText()!=empty&&
@@ -1542,7 +1581,8 @@ public class RestaurantGUI implements Initializable {
 				selectedPT.setState(false);
 
 			}
-
+			restaurant.saveData();
+			mainPaneGestionateProductType(event);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Update Product Type");
@@ -1574,7 +1614,7 @@ public class RestaurantGUI implements Initializable {
 	private ImageView updateIngredientImage;
 
 	@FXML
-	public void UpdateIngredient(ActionEvent event) {
+	public void UpdateIngredient(ActionEvent event) throws IOException {
 		String space=" ";
 		String empty="";
 		if(txtUpdateIngredientName.getText()!=space&&txtUpdateIngredientName.getText()!=empty) {
@@ -1598,6 +1638,8 @@ public class RestaurantGUI implements Initializable {
 				selectedIngredient.setState(false);
 
 			}
+			restaurant.saveData();
+			mainPaneGestionateIngredient(event);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Update Ingredient");
@@ -1641,6 +1683,7 @@ public class RestaurantGUI implements Initializable {
 				alert.setContentText("An error has occurred when selecting the User, you can't update the same user you are logged into");
 				alert.showAndWait();
 			}else {
+				if(selectedUser!=null) {
 				FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("update-user.fxml"));
 				fxmlloader.setController(this);		
 				Parent root = fxmlloader.load();
@@ -1652,7 +1695,14 @@ public class RestaurantGUI implements Initializable {
 
 				txtUpdateUserName.setText(selectedUser.getName());
 				txtUpdateUserLastnames.setText(selectedUser.getLastname());
-				txtUpdateUserPassword.setText(selectedUser.getPassword());	
+				txtUpdateUserPassword.setText(selectedUser.getPassword());
+
+				if(selectedUser.getState()) {
+					userEnable.setSelected(true);
+				}else {
+					userDisable.setSelected(true);
+				}
+				}
 			}
 		}
 	}
@@ -1671,7 +1721,9 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void DeleteUser(ActionEvent event) throws FileNotFoundException, IOException {
-		restaurant.eraseUser(txtUserUsername.getText());
+		String id =restaurant.getUsers().get(restaurant.searchUser(txtUserUsername.getText())).getID();
+		restaurant.eraseUser(txtUserUsername.getText());		
+		restaurant.eraseEmployee(id);
 		mainPaneGestionateUser(event);
 	}
 
@@ -1719,6 +1771,7 @@ public class RestaurantGUI implements Initializable {
 	public void selectedOrder(MouseEvent event) throws IOException {
 		if (event.getClickCount()==2) {
 			selectedOrder = ordersTableView.getSelectionModel().getSelectedItem();
+			if(selectedOrder!=null) {
 			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("update-order.fxml"));
 			fxmlloader.setController(this);		
 			Parent root = fxmlloader.load();
@@ -1743,6 +1796,7 @@ public class RestaurantGUI implements Initializable {
 			} else if (selectedOrder.getState().equalsIgnoreCase("DELIVERED")){
 				orderDelivered.setSelected(true);
 			}
+			}
 		}
 	}
 
@@ -1761,6 +1815,7 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void DeleteOrder(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseOrder(txtOrdersCode.getText());
+		mainPaneGestionateOrder(event);
 	}
 
 	public void initializableTableOrderView() {
@@ -1802,6 +1857,7 @@ public class RestaurantGUI implements Initializable {
 	public void selectedProduct(MouseEvent event) throws IOException {
 		if (event.getClickCount()==2) {
 			selectedProduct = productsTableView.getSelectionModel().getSelectedItem();
+			if(selectedProduct!=null) {
 			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("update-product.fxml"));
 			fxmlloader.setController(this);		
 			Parent root = fxmlloader.load();
@@ -1819,6 +1875,7 @@ public class RestaurantGUI implements Initializable {
 				enableProduct.setSelected(true);
 			} else {
 				disableProduct.setSelected(true);
+			}
 			}
 		}
 	}
@@ -1839,6 +1896,7 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void DeleteProduct(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseProduct(txtProductCode.getText());
+		mainPaneGestionateProduct(event);
 	}
 
 	public void initializableTableProductView() {
@@ -1856,13 +1914,13 @@ public class RestaurantGUI implements Initializable {
 	private TableView<BaseProduct> baseProductTableView;
 
 	@FXML
-	private TableColumn<BaseProduct, String> baseProductName;
+	private TableColumn<BaseProduct,String> baseProductName;
 
 	@FXML
-	private TableColumn<BaseProduct, String> baseProductType;
+	private TableColumn<BaseProduct,String> baseProductType;
 
 	@FXML
-	private TableColumn<BaseProduct, String> baseProductIngredients;
+	private TableColumn<BaseProduct,String> baseProductIngredients;
 
 	@FXML
 	private TextField txtBaseProductName;
@@ -1871,6 +1929,7 @@ public class RestaurantGUI implements Initializable {
 	public void selectedBaseProduct(MouseEvent event) throws IOException {
 		if (event.getClickCount()==2) {
 			selectedBP = baseProductTableView.getSelectionModel().getSelectedItem();
+			if(selectedBP!=null) {
 			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("update-baseProduct.fxml"));
 			fxmlloader.setController(this);		
 			Parent root = fxmlloader.load();
@@ -1879,11 +1938,17 @@ public class RestaurantGUI implements Initializable {
 			File f = new File(UPDATE_BASE_PRODUCT_IMAGE_PATH);
 			Image img = new Image(f.toURI().toString());
 			this.updateBaseProductImage.setImage(img);
-			
+
 			txtUpdateBaseProductName.setText(selectedBP.getName());
 			txtUpdateBPTypeVerification.setText(selectedBP.getType().getName());
 			txtUpdateBPTypeCode.setText(selectedBP.getType().getCode());
 			restaurant.setIngredientBP(selectedBP.getIngredients());	
+			if (selectedBP.getState()) {
+				enableBaseProduct.setSelected(true);
+			} else {
+				disableBaseProduct.setSelected(true);
+			}
+			}
 		}
 	}
 
@@ -1903,6 +1968,7 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void DeleteBaseProduct(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseBaseProduct(txtBaseProductName.getText());
+		mainPaneGestionateBaseProduct(event);
 	}	
 
 	public void initializableTableBaseProductView() {
@@ -1931,6 +1997,7 @@ public class RestaurantGUI implements Initializable {
 	public void selectedIngredient(MouseEvent event) throws IOException {
 		if (event.getClickCount()==2) {
 			selectedIngredient = ingredientsTableView.getSelectionModel().getSelectedItem();
+			if(selectedIngredient!=null) {
 			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("update-ingredient.fxml"));
 			fxmlloader.setController(this);		
 			Parent root = fxmlloader.load();
@@ -1946,6 +2013,7 @@ public class RestaurantGUI implements Initializable {
 				enableIngredient.setSelected(true);
 			} else {
 				disableIngredient.setSelected(true);
+			}
 			}
 		}
 	}
@@ -1965,6 +2033,7 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void DeleteIngredients(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseIngredient(txtIngredientName.getText());
+		mainPaneGestionateIngredient(event);
 	}
 
 	public void initializableTableIngredientsView() {
@@ -1997,19 +2066,34 @@ public class RestaurantGUI implements Initializable {
 	public void selectedEmployee(MouseEvent event) throws IOException {
 		if (event.getClickCount()==2) {
 			selectedEmployee = employeeTableView.getSelectionModel().getSelectedItem();
-			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("update-employee.fxml"));
-			fxmlloader.setController(this);		
-			Parent root = fxmlloader.load();
-			mainPane.getChildren().clear();
-			mainPane.getChildren().setAll(root);
-			File f = new File(UPDATE_EMPLOYEE_IMAGE_PATH);
-			Image img = new Image(f.toURI().toString());
-			this.updateEmployeeImage.setImage(img);
+			if(selectedEmployee!=null) {
+			if(selectedEmployee.equals(restaurant.getUserLogged())==false) {
+				FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("update-employee.fxml"));
+				fxmlloader.setController(this);		
+				Parent root = fxmlloader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().setAll(root);
+				File f = new File(UPDATE_EMPLOYEE_IMAGE_PATH);
+				Image img = new Image(f.toURI().toString());
+				this.updateEmployeeImage.setImage(img);
 
-			txtUpdateEmployeeName.setText(selectedEmployee.getName());
-			txtUpdateEmployeeLastnames.setText(selectedEmployee.getLastname());				
-		}				
+				txtUpdateEmployeeName.setText(selectedEmployee.getName());
+				txtUpdateEmployeeLastnames.setText(selectedEmployee.getLastname());	
+				if (selectedEmployee.getState()) {
+					employeeEnable.setSelected(true);
+				} else {
+					employeeDisable.setSelected(true);
+				}
+			}else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Selected Employee");
+				alert.setContentText("An error has occurred when selecting the Employee, you can't update the same Employee's user you are logged into");
+				alert.showAndWait();
+			}
+			}
+		}
 	}
+
 
 	@FXML
 	public void AddNewEmployee(ActionEvent event) throws IOException {
@@ -2026,6 +2110,7 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void DeleteEmployee(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseEmployee(txtEmployeeID.getText());
+		mainPaneGestionateEmployee(event);
 	}
 
 	public void initializableTableEmployeeView() {
@@ -2033,7 +2118,7 @@ public class RestaurantGUI implements Initializable {
 		employeeTableView.setItems(employeesList); 
 		employeeName.setCellValueFactory(new PropertyValueFactory <Employee,String>("name"));
 		employeeLastName.setCellValueFactory(new PropertyValueFactory <Employee,String>("lastname"));
-		employeeID.setCellValueFactory(new PropertyValueFactory <Employee,String>("id"));		 
+		employeeID.setCellValueFactory(new PropertyValueFactory <Employee,String>("ID"));		 
 		employeeState.setCellValueFactory(new PropertyValueFactory <Employee,String>("stateEmployee"));		 
 	}
 	//------------CUSTOMES VIEW GUI-------------------
@@ -2072,6 +2157,7 @@ public class RestaurantGUI implements Initializable {
 	public void selectedCustome(MouseEvent event) throws IOException {
 		if (event.getClickCount()==2) {
 			selectedCustome = customeTableView.getSelectionModel().getSelectedItem();
+			if(selectedCustome!=null) {
 			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("update-customes.fxml"));
 			fxmlloader.setController(this);		
 			Parent root = fxmlloader.load();
@@ -2086,6 +2172,15 @@ public class RestaurantGUI implements Initializable {
 			txtUpdateCustomeAddress.setText(selectedCustome.getAddress());
 			txtUpdateCustomePhone.setText(selectedCustome.getPhone());
 			txtUpdateCustomeObservations.setText(selectedCustome.getObservations());
+			if(selectedCustome.getState()) {
+
+				customeEnable.setSelected(true);
+
+			}else {
+
+				customeDisable.setSelected(true);
+			}
+			}
 		}
 	}
 
@@ -2104,6 +2199,7 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void DeleteCustome(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseCustome(txtCustomeName.getText(),txtCustomeLastName.getText());
+		mainPaneGestionateCustome(event);
 	}
 
 	public void initializableTableCustomeView() {
@@ -2111,7 +2207,7 @@ public class RestaurantGUI implements Initializable {
 		customeTableView.setItems(customeList); 
 		customesLastName.setCellValueFactory(new PropertyValueFactory <Custome,String>("lastname"));
 		customesName.setCellValueFactory(new PropertyValueFactory <Custome,String>("name"));
-		customesID.setCellValueFactory(new PropertyValueFactory <Custome,String>("id"));		 
+		customesID.setCellValueFactory(new PropertyValueFactory <Custome,String>("ID"));		 
 		customesAddress.setCellValueFactory(new PropertyValueFactory <Custome,String>("address"));	
 		customesPhone.setCellValueFactory(new PropertyValueFactory <Custome,String>("phone"));		 
 		customesObservations.setCellValueFactory(new PropertyValueFactory <Custome,String>("observations"));
@@ -2134,6 +2230,7 @@ public class RestaurantGUI implements Initializable {
 	public void selectedProductType(MouseEvent event) throws IOException {
 		if (event.getClickCount()==2) {
 			selectedPT = productTypeTableView.getSelectionModel().getSelectedItem();
+			if(selectedPT!=null) {
 			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("update-productType.fxml"));
 			fxmlloader.setController(this);		
 			Parent root = fxmlloader.load();
@@ -2150,6 +2247,7 @@ public class RestaurantGUI implements Initializable {
 				enableProductType.setSelected(true);
 			} else {
 				disableProductType.setSelected(true);
+			}
 			}
 		}
 	}
@@ -2169,6 +2267,7 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void DeleteProductType(ActionEvent event) throws FileNotFoundException, IOException { 
 		restaurant.eraseProductType(txtProductTypeCode.getText());
+		mainPaneGestionateProductType(event);
 	}
 
 	public void initializableTableProductTypeView() {
@@ -2198,6 +2297,7 @@ public class RestaurantGUI implements Initializable {
 	public void selectedProductSize(MouseEvent event) throws IOException {
 		if (event.getClickCount()==2) {
 			selectedPZ = productSizeTableView.getSelectionModel().getSelectedItem();
+			if(selectedPZ!=null) {
 			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("update-productSize.fxml"));
 			fxmlloader.setController(this);		
 			Parent root = fxmlloader.load();
@@ -2214,6 +2314,7 @@ public class RestaurantGUI implements Initializable {
 				enableProductSize.setSelected(true);
 			} else {
 				disableProductSize.setSelected(true);
+			}
 			}
 		}
 	}
@@ -2233,6 +2334,7 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void DeleteProductSize(ActionEvent event) throws FileNotFoundException, IOException {
 		restaurant.eraseProductSize(txtProductSizeCode.getText());
+		mainPaneGestionateProductSize(event);
 	}
 
 	public void initializableTableProductSizeView() {
@@ -2384,7 +2486,7 @@ public class RestaurantGUI implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 
 	}
 

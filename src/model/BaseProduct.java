@@ -10,12 +10,15 @@ public class BaseProduct implements Serializable {
 	private ProductType type;
 	private ArrayList<Ingredients> ingredients;
 	private boolean state;
+	private String typeName;
+	private String ingredientsName;
 	
 	public BaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients) {
 		this.name = name;
 		this.type = type;
 		this.ingredients = ingredients;
 		this.state=true;
+		this.typeName=type.getName();
 		
 	}
 	public BaseProduct(String name) {
@@ -39,12 +42,7 @@ public class BaseProduct implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public String getTypeName() {
-		String name=type.getName();
-		return name;
-	}
-	
+		
 	public ProductType getType() {
 		return type;
 	}
@@ -62,11 +60,11 @@ public class BaseProduct implements Serializable {
 	}
 	
 	public String getIngredientsName() {
-		String names=ingredients.get(0).getName();
-		for(int i=1;i<ingredients.size();i++) {
-			names+=" , "+ingredients.get(i).getName();
+		ingredientsName=ingredients.get(0).getName();
+		for(int i=0;i<ingredients.size();i++) {
+			ingredientsName+=" , "+ingredients.get(i).getName();
 		}
-		return names;
+		return ingredientsName;
 	}
 
 	public boolean getState() {
@@ -75,6 +73,12 @@ public class BaseProduct implements Serializable {
 
 	public void setState(boolean state) {
 		this.state = state;
+	}
+	public String getTypeName() {
+		return typeName;
+	}
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 	
 	

@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="308.0" layoutY="155.0" prefHeight="436.0" prefWidth="366.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <AnchorPane layoutX="310.0" layoutY="157.0" prefHeight="436.0" prefWidth="366.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
             <TextField fx:id="txtRegisterProductSizeName" layoutX="79.0" layoutY="106.0" prefHeight="39.0" prefWidth="199.0" promptText="Name" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="106.0">
                <font>
@@ -21,12 +21,17 @@
                   <Font name="System Bold Italic" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txtRegisterProductSizeCode" layoutX="85.0" layoutY="179.0" prefHeight="39.0" prefWidth="198.0" promptText="Code" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="179.0">
+            <TextField fx:id="txtRegisterProductSizeCode" layoutX="82.0" layoutY="164.0" prefHeight="39.0" prefWidth="198.0" promptText="Code" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="164.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <Button layoutX="89.0" layoutY="275.0" mnemonicParsing="false" onAction="#CreateAProductSize" prefHeight="46.0" prefWidth="179.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Product Size" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="97.0" AnchorPane.topAnchor="275.0">
+            <Button layoutX="92.0" layoutY="242.0" mnemonicParsing="false" onAction="#CreateAProductSize" prefHeight="46.0" prefWidth="179.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Product Size" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="242.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button layoutX="90.0" layoutY="312.0" mnemonicParsing="false" onAction="#productSizeBackToView" prefHeight="46.0" prefWidth="179.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Back">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

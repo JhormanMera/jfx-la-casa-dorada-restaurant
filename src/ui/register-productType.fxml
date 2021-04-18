@@ -7,21 +7,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="324.0" layoutY="232.0" prefHeight="348.0" prefWidth="342.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
-            <TextField fx:id="txtRegisterProductTypeName" layoutX="67.0" layoutY="99.0" prefHeight="39.0" prefWidth="199.0" promptText="Name" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="99.0">
+            <TextField fx:id="txtRegisterProductTypeName" layoutX="68.0" layoutY="90.0" prefHeight="39.0" prefWidth="199.0" promptText="Name" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="90.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegisterProductTypeCode" layoutX="71.0" layoutY="169.0" prefHeight="39.0" prefWidth="199.0" promptText="Code" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="81.0" AnchorPane.topAnchor="169.0">
+            <TextField fx:id="txtRegisterProductTypeCode" layoutX="72.0" layoutY="155.0" prefHeight="39.0" prefWidth="199.0" promptText="Code" AnchorPane.leftAnchor="72.0" AnchorPane.rightAnchor="82.0" AnchorPane.topAnchor="155.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextField>
-            <Button layoutX="85.0" layoutY="259.0" mnemonicParsing="false" onAction="#CreateAProductType" prefHeight="46.0" prefWidth="188.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Product Type" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="259.0">
+            <Button layoutX="76.0" layoutY="217.0" mnemonicParsing="false" onAction="#CreateAProductType" prefHeight="46.0" prefWidth="188.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Create Product Type" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="217.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -31,6 +31,11 @@
                   <Font name="System Bold Italic" size="18.0" />
                </font>
             </Label>
+            <Button layoutX="122.0" layoutY="280.0" mnemonicParsing="false" onAction="#productTypeBackToView" prefHeight="39.0" prefWidth="98.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Back">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <ImageView fx:id="registerProductTypeImage" fitHeight="145.0" fitWidth="904.0" layoutX="5.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
