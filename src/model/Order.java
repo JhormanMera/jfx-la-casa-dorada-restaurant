@@ -28,40 +28,41 @@ public class Order implements Serializable{
 		public Order(String state, String code, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor) throws ParseException {
 		objSDFHour= new SimpleDateFormat("HH:mm:ss");
 		objSDFDay= new SimpleDateFormat("dd-MM-YYYY");
+		DateFormat d = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		setState(state);
 		this.code = code;
 		this.products = products;
 		this.amount = amount;
 		this.custome = custome;
 		this.employee = employee;
-		this.date=date;
 		this.day = 	objSDFDay.format(date);
 		this.hour= objSDFHour.format(date);
+		this.date=d.parse(day+" "+hour);
 		this.observation = observation;
 		this.creator = creator;
 		this.lastEditor = lastEditor;
 	}
+	
 	public String getProductsName() {
-		String names=products.get(0).getBaseProduct().getName()+" "+products.get(0).getSize().getName();
-		for(int i=1;i<products.size();i++) {
-			names+=" , "+products.get(i).getBaseProduct().getName()+" "+products.get(i).getSize().getName();
+		String names="";
+		if(products.isEmpty()) {
+		}else {
+		for(int i=0;i<products.size();i++) {
+			names+=" , "+products.get(i).toString()+" "+products.get(i).getSize().getName();
 		}
+	}
 		return names;
 	}
 	
 	public String getProductsAmount() {
-		String names=amount.get(0)+"";
-		for(int i=1;i<amount.size();i++) {
-			names+=" , "+amount.get(i);
-		}
-		return names;
+		return amount.toString();
 	}
 	public String getCustomeName() {
 		String names=custome.getName()+custome.getLastname();
 		return names;
 	}
 	public String getEmployeeName() {
-		String names=employee.getName()+employee.getLastname();
+		String names=employee.getName()+" "+employee.getLastname();
 		return names;
 	}
 	

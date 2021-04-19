@@ -22,7 +22,7 @@ import javafx.scene.control.Alert.AlertType;
 
 public class Restaurant {
 	private static final String INFORMATION_PATH_FILE="data/information.jpmt";
-	private static final String ORDER_CODE= String.format("P%04d", 100000);
+	private static final String ORDER_CODE= String.valueOf((int)Math.floor(Math.random()*(1000))+1);
 	private static String FILE_SEPARATOR;
 	private static String FILE_SEPARATOR_IMPORT=";";
 	private User userLogged;
@@ -36,8 +36,6 @@ public class Restaurant {
 	private List<BaseProduct> baseProducts;
 	private List<ProductSize> productSize;
 	private ArrayList<Ingredients> ingredientBP;
-	private ArrayList<Product> productsOrder;
-	private ArrayList<Integer> amountProductsOrder;
 	private OrdersComparator oc;
 
 	public Restaurant() {
@@ -51,8 +49,6 @@ public class Restaurant {
 		baseProducts=new ArrayList<>();
 		productSize=new ArrayList<>();
 		ingredientBP=new ArrayList<>();
-		productsOrder=new ArrayList<>();
-		amountProductsOrder=new ArrayList<>();
 	}
 
 	//-------------------------------------------------SEPARATOR---------------------------------------------------------------------
@@ -73,7 +69,6 @@ public class Restaurant {
 		oos.writeObject(employees);
 		oos.writeObject(users);
 		oos.writeObject(customes);
-
 		oos.writeObject(ingredients);
 		oos.writeObject(products);
 		oos.writeObject(orders);
@@ -94,14 +89,12 @@ public class Restaurant {
 			employees = (List<Employee>) ois.readObject();
 			users = (List<User>) ois.readObject();
 			customes = (List<Custome>) ois.readObject();
-
 			ingredients = (List<Ingredients>) ois.readObject();
 			products = (List<Product>) ois.readObject();
-			orders = (List<Order>) ois.readObject();
-			
-			baseProducts = (List<BaseProduct>) ois.readObject();
-			productSize= (List<ProductSize>) ois.readObject();
+			orders = (List<Order>) ois.readObject();			
 			productType =(List<ProductType>) ois.readObject();
+			productSize= (List<ProductSize>) ois.readObject();			
+			baseProducts = (List<BaseProduct>) ois.readObject();
 			ois.close();
 			loaded = true;
 		}
@@ -830,7 +823,7 @@ public class Restaurant {
 		employees.add(new User(userName,userLogged,userLogged));
 		saveData();
 	}
-	
+
 	public double[] employeesOrders(Employee employee, Order order) {
 		double[] orders=new double[2];
 		double ordernum=0;
@@ -858,7 +851,7 @@ public class Restaurant {
 		orders[1]=productprice;
 		return orders;
 	}
-	
+
 	public void importCustomes (String fileName) throws IOException{
 		BufferedReader br = new BufferedReader (new FileReader(fileName));
 		String line = br.readLine();
@@ -882,43 +875,35 @@ public class Restaurant {
 			boolean state=Boolean.parseBoolean(parts[2]);
 			double price=Double.parseDouble(parts[3]);
 			addProductSize(parts[4]);
-			ProductSize newProductSize=productSize.get(productSize.size());
-			User creator=users.get(searchUser(parts[5]));
-			User lastEditor=users.get(searchUser(parts[6]));
+			ProductSize newProductSize=productSize.get(productSize.size()-1);
+			User creator=userLogged;
+			User lastEditor=userLogged;
 			addProduct(parts[0],newBaseProduct,state,price,newProductSize,creator,lastEditor); 
 			line = br.readLine();
 		}
 		saveData();
 		br.close();
-
 	}    
 
 	public void importOrders (String fileName) throws IOException, ParseException{
+		//String state, String code, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor
 		BufferedReader br = new BufferedReader (new FileReader(fileName));
 		String line = br.readLine();
-		DateFormat objSDF=new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+		DateFormat objSDF=new SimpleDateFormat("dd/MM/YYYY");
 		ArrayList<Product> product = new ArrayList<>();
 		ArrayList<Integer> amount = new ArrayList<>();
 		while (line!=null) {
 			String [] parts = line.split(";");
-			String state=parts[0];
-			addCustomesSorted(parts[1],parts[2]);
-			Custome custome = customes.get(binarySearchCustomes(parts[1],parts[2]));
-			addEmployee(parts[3]);
-			Employee myEmployee = employees.get(employees.size());
-			Date date = objSDF.parse(parts[4]);
-			addUser(parts[6]);
-			User creator = users.get(users.size());
-			addUser(parts[7]);
-			User lastEditor = users.get(users.size());
-			for(int i=8;i<parts.length;i++) {
-				if(i<=((parts.length-7)/2)+8) {
-					product.add(products.get(searchProduct(parts[i]))); 
-				}else {
-					amount.add(Integer.parseInt(parts[i]));
-				}
-			}
-			addOrder(state,custome,myEmployee,date,parts[5],creator,lastEditor,product,amount);
+			String state="REQUESTED";
+			Custome custome = new Custome(parts[0],parts[1],userLogged,userLogged);
+			Employee myEmployee = new Employee(parts[2],userLogged,userLogged);
+			Date date = objSDF.parse(parts[3]);
+			User creator = userLogged;
+			User lastEditor = userLogged;
+			product.add(new Product(parts[5])); 
+			amount.add(Integer.parseInt(parts[6]));
+				
+			addOrder(state,custome,myEmployee,date,parts[4],creator,lastEditor,product,amount);
 			line = br.readLine();
 		}
 		saveData();
@@ -1003,22 +988,18 @@ public class Restaurant {
 		for (int i=0;i<products.size();i++) {
 			for(int j=0;j<orders.size();j++) {
 				Order myOrder=null;
-				if(orders.get(j).getDay().compareTo(initialDay)==0&&(orders.get(j).getHour().compareTo(initialHour)>=0)) {
-					myOrder = orders.get(j);    
-				}else if(orders.get(j).getDay().compareTo(initialDay)>0&&(orders.get(j).getDay().compareTo(finalDay)<0)) {
+				if((orders.get(j).getDay().compareTo(initialDay)>=0&&(orders.get(j).getHour().compareTo(initialHour)>=0))&&
+						(orders.get(j).getDay().compareTo(finalDay)==0&&(orders.get(j).getHour().compareTo(finalHour)>0))){
 					myOrder = orders.get(j);
-				}else if(orders.get(j).getDay().compareTo(finalDay)==0&&(orders.get(j).getHour().compareTo(finalHour)<=0)) {
-					myOrder = orders.get(j);
-				}
-
-				if(myOrder!=null) {
-					for(int k=0;k<myOrder.getProducts().size();k++) {
-						Product myProduct =products.get(i);
-						double[] productOrders= productsOrders(myProduct,myOrder.getProducts().get(k));
-						writer.println(myProduct.getBaseProduct().getName()+
-								FILE_SEPARATOR+myProduct.getSize().getName()+
-								FILE_SEPARATOR+productOrders[0]+
-								FILE_SEPARATOR+productOrders[1]);
+					if(myOrder!=null) {
+						for(int k=0;k<myOrder.getProducts().size();k++) {
+							Product myProduct =products.get(i);
+							double[] productOrders= productsOrders(myProduct,myOrder.getProducts().get(k));
+							writer.println(myProduct.getBaseProduct().getName()+
+									FILE_SEPARATOR+myProduct.getSize().getName()+
+									FILE_SEPARATOR+productOrders[0]+
+									FILE_SEPARATOR+productOrders[1]);
+						}
 					}
 				}
 			}
@@ -1042,22 +1023,6 @@ public class Restaurant {
 
 	public void setIngredientBP(ArrayList<Ingredients> ingredientBP) {
 		this.ingredientBP = ingredientBP;
-	}
-
-	public ArrayList<Product> getProductsOrder() {
-		return productsOrder;
-	}
-
-	public void setProductsOrder(ArrayList<Product> productsOrder) {
-		this.productsOrder = productsOrder;
-	}
-
-	public ArrayList<Integer> getAmountProductsOrder() {
-		return amountProductsOrder;
-	}
-
-	public void setAmountProductsOrder(ArrayList<Integer> amountProductsOrder) {
-		this.amountProductsOrder = amountProductsOrder;
 	}
 
 }

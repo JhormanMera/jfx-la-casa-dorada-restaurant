@@ -27,7 +27,7 @@ public class Product implements Serializable, Comparable<Product>{
 	}
 	
 	public String getName() {
-		String name=baseProduct.getName();
+		String name=baseProduct.toString();
 		return name;
 	}
 	
@@ -95,6 +95,11 @@ public class Product implements Serializable, Comparable<Product>{
 	@Override
 	public int compareTo(Product o) {
 		return (int)(price-o.getPrice());
+	}
+	
+	@Override
+	public String toString() {
+		return getName();
 	}
 	
 }
