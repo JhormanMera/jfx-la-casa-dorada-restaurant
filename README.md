@@ -9,11 +9,12 @@ The 'La casa Dorada Restaurant' program is a program adapted to the real need of
 -`data` the folder to hold application maintenance files.
 -`docs` the folder to contain the diagram class and functional requirements.
 
-## ChangedLog
-all notable changes to this project will be documented in this file.
+## ChangeLog
+All notable changes to this project will be documented in this file.
 ### Added
 - Class Diagram
 - The program exports the csv file with the characteristics specified in the statement.
+- README.md file
 ### Modified
 - The program allows the registration and updating of ingredients, types, products, employees, customers and users.
 - The program allows the registration of orders and subsequent updating of their status.
