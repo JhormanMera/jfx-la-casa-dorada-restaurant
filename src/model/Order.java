@@ -28,7 +28,7 @@ public class Order implements Serializable{
 		public Order(String state, String code, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor) throws ParseException {
 		objSDFHour= new SimpleDateFormat("HH:mm:ss");
 		objSDFDay= new SimpleDateFormat("dd-MM-YYYY");
-		DateFormat d = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY hh:mm:ss");
 		setState(state);
 		this.code = code;
 		this.products = products;
@@ -37,7 +37,7 @@ public class Order implements Serializable{
 		this.employee = employee;
 		this.day = 	objSDFDay.format(date);
 		this.hour= objSDFHour.format(date);
-		this.date=d.parse(day+" "+hour);
+		this.date=dateFormat.parse(day+" "+hour);
 		this.observation = observation;
 		this.creator = creator;
 		this.lastEditor = lastEditor;

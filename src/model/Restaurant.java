@@ -63,7 +63,7 @@ public class Restaurant {
 
 	//-------------------------------------SERIALIZABLE-----------------------------------------------------
 
-	public void saveData() throws IOException {
+	public void saveData() throws IOException, ClassNotFoundException {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(INFORMATION_PATH_FILE));
 
 		oos.writeObject(employees);
@@ -77,6 +77,7 @@ public class Restaurant {
 		oos.writeObject(baseProducts);
 
 		oos.close();
+		loadData();
 	}
 
 	@SuppressWarnings("unchecked") 
@@ -111,7 +112,7 @@ public class Restaurant {
 		this.orders = orders;
 	}
 
-	public void addOrder(String state, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor, ArrayList<Product> products, ArrayList<Integer> amount) throws ParseException, FileNotFoundException, IOException {
+	public void addOrder(String state, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor, ArrayList<Product> products, ArrayList<Integer> amount) throws ParseException, FileNotFoundException, IOException, ClassNotFoundException {
 		Order newOrder =new Order(state,ORDER_CODE, products,amount, custome, employee, date, observation, creator, lastEditor);
 		orders.add(newOrder);
 		sortOrderByDate();
@@ -135,7 +136,7 @@ public class Restaurant {
 		Collections.sort(orders,oc);
 	}
 
-	public void eraseOrder(String code) throws FileNotFoundException, IOException {    	
+	public void eraseOrder(String code) throws FileNotFoundException, IOException, ClassNotFoundException {    	
 		boolean erased=false;
 		int i=searchOrders(code);
 		if (i>=0) {
@@ -167,7 +168,7 @@ public class Restaurant {
 		this.customes = customes;
 	}
 
-	public boolean addCustomesListSorted(String name, String lastname, String ID, String address, String phone, String observations) throws FileNotFoundException, IOException {
+	public boolean addCustomesListSorted(String name, String lastname, String ID, String address, String phone, String observations) throws FileNotFoundException, IOException, ClassNotFoundException {
 		Custome newCustome=new Custome(name, lastname, ID, address, phone, observations,userLogged,userLogged);
 		boolean added= false;
 		if(customes.isEmpty()) {
@@ -220,7 +221,7 @@ public class Restaurant {
 		return b;
 	}  
 
-	public void eraseCustome(String name, String lastName) throws FileNotFoundException, IOException {
+	public void eraseCustome(String name, String lastName) throws FileNotFoundException, IOException, ClassNotFoundException {
 		long start = System.nanoTime();
 		boolean erased=false;    	
 		int index= binarySearchCustomes(name,lastName);
@@ -260,7 +261,7 @@ public class Restaurant {
 		this.employees = employees;
 	}
 
-	public boolean addEmployee(String name, String lastname, String ID, User creator, User lastEditor,boolean state) throws FileNotFoundException, IOException {
+	public boolean addEmployee(String name, String lastname, String ID, User creator, User lastEditor,boolean state) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean added=false;
 		if(searchEmployees(ID)<0) {
 			employees.add(new Employee(name, lastname, ID, creator, lastEditor,state));
@@ -288,7 +289,7 @@ public class Restaurant {
 	}
 
 
-	public void eraseEmployee(String ID) throws FileNotFoundException, IOException {    	
+	public void eraseEmployee(String ID) throws FileNotFoundException, IOException, ClassNotFoundException {    	
 		boolean erased=false;
 		int i=searchEmployees(ID);
 		boolean verf = employees.get(i).equals(userLogged);
@@ -326,7 +327,7 @@ public class Restaurant {
 		this.users = users;
 	}
 
-	public boolean addUser(String name, String lastName, String ID, String userName, String password, User creator, User lastEditor,boolean state) throws FileNotFoundException, IOException {
+	public boolean addUser(String name, String lastName, String ID, String userName, String password, User creator, User lastEditor,boolean state) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean added=false;
 		if(searchUser(userName)<0&&searchEmployees(ID)<0) {
 			users.add(new User(name, lastName, ID, userName, password, creator, lastEditor, state));
@@ -355,7 +356,7 @@ public class Restaurant {
 	}
 
 
-	public void eraseUser(String Username) throws FileNotFoundException, IOException {    	
+	public void eraseUser(String Username) throws FileNotFoundException, IOException, ClassNotFoundException {    	
 		boolean erased=false;		
 		int i=searchUser(Username);
 		boolean verf = users.get(i).equals(userLogged);
@@ -393,7 +394,7 @@ public class Restaurant {
 		this.ingredients = ingredients;
 	}
 
-	public boolean addIngredients(String name, User creator, User lastEditor) throws FileNotFoundException, IOException {
+	public boolean addIngredients(String name, User creator, User lastEditor) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean added=false;
 		if(ingredients.isEmpty()) {
 			ingredients.add(new Ingredients(name, creator, lastEditor));
@@ -455,7 +456,7 @@ public class Restaurant {
 		return found;
 	}
 
-	public void eraseIngredient(String name) throws FileNotFoundException, IOException {
+	public void eraseIngredient(String name) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean erased=false;    	
 		for(int i=0;i<ingredients.size()&&!erased;i++) {
 			boolean found=searchIngredientInProducts(ingredients.get(i));
@@ -488,7 +489,7 @@ public class Restaurant {
 
 	}
 
-	public boolean addBaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients) throws FileNotFoundException, IOException {
+	public boolean addBaseProduct(String name, ProductType type, ArrayList<Ingredients> ingredients) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean added= false;
 		if(searchBaseProduct(name)<0) {
 			baseProducts.add(new BaseProduct(name, type, ingredients));
@@ -536,7 +537,7 @@ public class Restaurant {
 		return found;
 	}
 
-	public void eraseBaseProduct(String name) throws FileNotFoundException, IOException {
+	public void eraseBaseProduct(String name) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean erased=false;
 		int i=searchBaseProduct(name);
 		if (i>=0) {
@@ -556,7 +557,7 @@ public class Restaurant {
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erase Product");
-			alert.setContentText("An error has occurred when removing the product, the product does not exist or is part of an order Requested / In process");
+			alert.setContentText("An error has occurred when removing the BaseProduct, the BaseProduct does not exist or is part of a product");
 			alert.showAndWait();
 		}
 	}
@@ -571,7 +572,7 @@ public class Restaurant {
 		this.products = products;
 	}
 
-	public boolean addProduct(String code,BaseProduct baseProduct, boolean state, double price, ProductSize size, User creator, User lastEditor) throws FileNotFoundException, IOException {
+	public boolean addProduct(String code,BaseProduct baseProduct, boolean state, double price, ProductSize size, User creator, User lastEditor) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean added=false;
 		if(searchProduct(code)<0) {
 			products.add(new Product(code,baseProduct, state, price, size, creator, lastEditor));
@@ -617,7 +618,7 @@ public class Restaurant {
 		return index;
 	}
 
-	public void eraseProduct(String code) throws FileNotFoundException, IOException {    	
+	public void eraseProduct(String code) throws FileNotFoundException, IOException, ClassNotFoundException {    	
 		boolean erased=false;
 		int i=searchProduct(code);
 		if (i>=0) {
@@ -652,7 +653,7 @@ public class Restaurant {
 		this.productType = productType;
 	} 
 
-	public boolean addProductType(String name,String code ,User creator, User lastEditor) throws FileNotFoundException, IOException {
+	public boolean addProductType(String name,String code ,User creator, User lastEditor) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean added=false;
 		if(productType.isEmpty()) {
 			productType.add(new ProductType(name, code , creator, lastEditor));
@@ -693,7 +694,7 @@ public class Restaurant {
 		return found;
 	}
 
-	public void eraseProductType(String name) throws FileNotFoundException, IOException {
+	public void eraseProductType(String name) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean erased=false;    	
 		for(int i=0;i<productType.size()&&!erased;i++) {
 			boolean found=searchTypeInProducts(productType.get(i));
@@ -727,7 +728,7 @@ public class Restaurant {
 		this.productSize = productSize;
 	}
 
-	public boolean addProductSize(String name,String code,User creator, User lastEditor) throws FileNotFoundException, IOException {
+	public boolean addProductSize(String name,String code,User creator, User lastEditor) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean added=false;
 		if(searchProductSize(code)<0) {
 			productSize.add(new ProductSize( name, code,true,creator, lastEditor));
@@ -754,7 +755,7 @@ public class Restaurant {
 		return size;
 	}
 
-	public void eraseProductSize(String Code) throws FileNotFoundException, IOException {    	
+	public void eraseProductSize(String Code) throws FileNotFoundException, IOException, ClassNotFoundException {    	
 		boolean erased=false;
 		int i=searchProductSize(Code);
 		if (i>=0) {
@@ -779,27 +780,27 @@ public class Restaurant {
 
 	//----------------------------------------------------REPORTS-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	public void addBaseProduct(String name) throws FileNotFoundException, IOException {
+	public void addBaseProduct(String name) throws FileNotFoundException, IOException, ClassNotFoundException {
 		baseProducts.add(new BaseProduct(name));
 		saveData();
 	}
 
-	public void addProduct(String code) throws FileNotFoundException, IOException {
+	public void addProduct(String code) throws FileNotFoundException, IOException, ClassNotFoundException {
 		products.add(new Product(code));
 		saveData();
 	}
 
-	public void addProductType(String name) throws FileNotFoundException, IOException {
+	public void addProductType(String name) throws FileNotFoundException, IOException, ClassNotFoundException {
 		productType.add(new ProductType(name));
 		saveData();
 	}
 
-	public void addProductSize(String name) throws FileNotFoundException, IOException{
+	public void addProductSize(String name) throws FileNotFoundException, IOException, ClassNotFoundException{
 		productSize.add(new ProductSize(name));
 		saveData();
 	}
 
-	public void addCustomesSorted(String name, String lastname) throws FileNotFoundException, IOException {
+	public void addCustomesSorted(String name, String lastname) throws FileNotFoundException, IOException, ClassNotFoundException {
 		Custome newCustome=new Custome(name, lastname,userLogged,userLogged);
 		if(customes.isEmpty()) {
 			customes.add(newCustome);
@@ -813,12 +814,12 @@ public class Restaurant {
 		}
 	}
 
-	public void addEmployee(String ID) throws FileNotFoundException, IOException {
+	public void addEmployee(String ID) throws FileNotFoundException, IOException, ClassNotFoundException {
 		employees.add(new Employee(ID,userLogged,userLogged));
 		saveData();
 	}
 
-	public void addUser(String userName) throws FileNotFoundException, IOException {
+	public void addUser(String userName) throws FileNotFoundException, IOException, ClassNotFoundException {
 		users.add(new User(userName,userLogged,userLogged));
 		employees.add(new User(userName,userLogged,userLogged));
 		saveData();
@@ -828,7 +829,7 @@ public class Restaurant {
 		double[] orders=new double[2];
 		double ordernum=0;
 		double orderprice=0.0;
-		if(employee==order.getEmployee()&&order.getState().equals("DELIVERED")) {
+		if(employee.getID().equals(order.getEmployee().getID())) {
 			ordernum++;
 			for(int i=0;i<order.getProducts().size();i++) {
 				orderprice+=order.getAmount().get(i)*order.getProducts().get(i).getPrice();
@@ -843,7 +844,7 @@ public class Restaurant {
 		double[] orders=new double[2];
 		double productnum=0;
 		double productprice=0.0;
-		if(products==order) {
+		if(products.equals(order)) {
 			productnum++;
 			productprice+=products.getPrice();
 		}
@@ -852,7 +853,7 @@ public class Restaurant {
 		return orders;
 	}
 
-	public void importCustomes (String fileName) throws IOException{
+	public void importCustomes (String fileName) throws IOException, ClassNotFoundException{
 		BufferedReader br = new BufferedReader (new FileReader(fileName));
 		String line = br.readLine();
 		while (line!=null) {
@@ -864,7 +865,7 @@ public class Restaurant {
 		br.close();
 	}
 
-	public void importProducts (String fileName) throws IOException{
+	public void importProducts (String fileName) throws IOException, ClassNotFoundException{
 		//String code,BaseProduct baseProduct, boolean state, double price, ProductSize size, User creator, User lastEditor
 		BufferedReader br = new BufferedReader (new FileReader(fileName));
 		String line = br.readLine();
@@ -885,7 +886,7 @@ public class Restaurant {
 		br.close();
 	}    
 
-	public void importOrders (String fileName) throws IOException, ParseException{
+	public void importOrders (String fileName) throws IOException, ParseException, ClassNotFoundException{
 		//String state, String code, ArrayList<Product> products, ArrayList<Integer> amount, Custome custome,Employee employee, Date date, String observation, User creator, User lastEditor
 		BufferedReader br = new BufferedReader (new FileReader(fileName));
 		String line = br.readLine();
@@ -902,7 +903,7 @@ public class Restaurant {
 			User lastEditor = userLogged;
 			product.add(new Product(parts[5])); 
 			amount.add(Integer.parseInt(parts[6]));
-				
+
 			addOrder(state,custome,myEmployee,date,parts[4],creator,lastEditor,product,amount);
 			line = br.readLine();
 		}
@@ -910,8 +911,12 @@ public class Restaurant {
 		br.close();
 	}
 
-	public void exportOrdersReport(String fileName, String initialDay, String finalDay, String initialHour, String finalHour) throws FileNotFoundException {
-		Order myOrder=null;
+	public void exportOrdersReport(String fileName, String initialDay, String finalDay, String initialHour, String finalHour) throws FileNotFoundException, ParseException {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY hh:mm:ss");
+		String startDateFinal = initialDay + " " + initialHour;
+		Date startDate = dateFormat.parse(startDateFinal);
+		String endDateFinal = finalDay + " " + finalHour;
+		Date endDate = dateFormat.parse(endDateFinal);
 		PrintWriter writer = new PrintWriter (fileName);
 		String products="";
 		writer.println("CUSTOME NAME"+FILE_SEPARATOR
@@ -924,15 +929,42 @@ public class Restaurant {
 				+"ORDER HOUR"+FILE_SEPARATOR
 				+"ORDER OBSERVATIONS"+FILE_SEPARATOR);
 		for (int i=0;i<orders.size();i++) {
-			if(orders.get(i).getDay().compareTo(initialDay)==0&&(orders.get(i).getHour().compareTo(initialHour)>=0)) {
-				myOrder = orders.get(i);    
-			}else if(orders.get(i).getDay().compareTo(initialDay)>0&&(orders.get(i).getDay().compareTo(finalDay)<0)) {
-				myOrder = orders.get(i);
-			}else if(orders.get(i).getDay().compareTo(finalDay)==0&&(orders.get(i).getHour().compareTo(finalHour)<=0)) {
-				myOrder = orders.get(i);
-
+			Order myOrder = orders.get(i); 
+			if(myOrder!=null&&myOrder.getDate().after(startDate)&&myOrder.getDate().before(endDate)) {
+				for(int j=0;j<myOrder.getProducts().size();j++) {
+					products+=FILE_SEPARATOR+myOrder.getProducts().get(j).getBaseProduct().getName()+FILE_SEPARATOR+myOrder.getAmount().get(j)+FILE_SEPARATOR+myOrder.getProducts().get(j).getPrice();
+				}
+				writer.println(myOrder.getCustome().getName()+
+						FILE_SEPARATOR+myOrder.getCustome().getLastname()+
+						FILE_SEPARATOR+myOrder.getCustome().getAddress()+
+						FILE_SEPARATOR+myOrder.getCustome().getPhone()+
+						FILE_SEPARATOR+myOrder.getEmployee().getName()+
+						FILE_SEPARATOR+myOrder.getEmployee().getLastname()+
+						FILE_SEPARATOR+myOrder.getDay()+
+						FILE_SEPARATOR+myOrder.getHour()+
+						FILE_SEPARATOR+myOrder.getObservation()+products);
 			}
-			for(int j=0;i<myOrder.getProducts().size();j++) {
+			
+		}
+
+		writer.close();
+	}
+	
+	public void exportOrdersReport(String fileName) throws FileNotFoundException {
+		PrintWriter writer = new PrintWriter (fileName);
+		String products="";
+		writer.println("CUSTOME NAME"+FILE_SEPARATOR
+				+"CUSTOME LASTNAME"+FILE_SEPARATOR
+				+"CUSTOME ADDRESS"+FILE_SEPARATOR
+				+"CUSTOME PHONE"+FILE_SEPARATOR
+				+"EMPLOYEE NAME"+FILE_SEPARATOR
+				+"EMPLOYEE LASTNAME"+FILE_SEPARATOR
+				+"ORDER DAY"+FILE_SEPARATOR
+				+"ORDER HOUR"+FILE_SEPARATOR
+				+"ORDER OBSERVATIONS"+FILE_SEPARATOR);
+		for (int i=0;i<orders.size();i++) {
+			Order myOrder = orders.get(i);    
+			for(int j=0;j<myOrder.getProducts().size();j++) {
 				products+=FILE_SEPARATOR+myOrder.getProducts().get(j).getBaseProduct().getName()+FILE_SEPARATOR+myOrder.getAmount().get(j)+FILE_SEPARATOR+myOrder.getProducts().get(j).getPrice();
 			}
 			writer.println(myOrder.getCustome().getName()+
@@ -945,10 +977,16 @@ public class Restaurant {
 					FILE_SEPARATOR+myOrder.getHour()+
 					FILE_SEPARATOR+myOrder.getObservation()+products);
 		}
+
 		writer.close();
 	}
 
-	public void employeesOrdersReport(String fileName, String initialDay, String finalDay, String initialHour, String finalHour) throws FileNotFoundException {
+	public void employeesOrdersReport(String fileName, String initialDay, String finalDay, String initialHour, String finalHour) throws FileNotFoundException, ParseException {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY hh:mm:ss");
+		String startDateFinal = initialDay + " " + initialHour;
+		Date startDate = dateFormat.parse(startDateFinal);
+		String endDateFinal = finalDay + " " + finalHour;
+		Date endDate = dateFormat.parse(endDateFinal);
 		PrintWriter writer = new PrintWriter (fileName);
 		writer.println("EMPLOYEE NAME"+FILE_SEPARATOR
 				+"EMPLOYEE LASTNAME"+FILE_SEPARATOR
@@ -957,15 +995,30 @@ public class Restaurant {
 				+"ORDERS PRICE"+FILE_SEPARATOR);
 		for (int i=0;i<employees.size();i++) {
 			for(int j=0;j<orders.size();j++) {
-				Order myOrder= null;
-				if(orders.get(i).getDay().compareTo(initialDay)==0&&(orders.get(i).getHour().compareTo(initialHour)>=0)) {
-					myOrder = orders.get(i);    
-				}else if(orders.get(i).getDay().compareTo(initialDay)>0&&(orders.get(i).getDay().compareTo(finalDay)<0)) {
-					myOrder = orders.get(i);
-				}else if(orders.get(i).getDay().compareTo(finalDay)==0&&(orders.get(i).getHour().compareTo(finalHour)<=0)) {
-					myOrder = orders.get(i);
-
+				Order myOrder= orders.get(i);
+				if(myOrder!=null&&myOrder.getDate().after(startDate)&&myOrder.getDate().before(endDate)) {
+					Employee myEmployee =employees.get(i);
+					double[] employeeOrder= employeesOrders(myEmployee,myOrder);
+					writer.println(myEmployee.getName()+
+							FILE_SEPARATOR+myEmployee.getLastname()+
+							FILE_SEPARATOR+myEmployee.getID()+
+							FILE_SEPARATOR+employeeOrder[0]+
+							FILE_SEPARATOR+employeeOrder[1]);
 				}
+			}
+		}
+		writer.close();
+	}
+	public void employeesOrdersReport(String fileName) throws FileNotFoundException {
+		PrintWriter writer = new PrintWriter (fileName);
+		writer.println("EMPLOYEE NAME"+FILE_SEPARATOR
+				+"EMPLOYEE LASTNAME"+FILE_SEPARATOR
+				+"EMPLOYEE ID"+FILE_SEPARATOR
+				+"ORDERS SOLD"+FILE_SEPARATOR
+				+"ORDERS PRICE"+FILE_SEPARATOR);
+		for (int i=0;i<employees.size();i++) {
+			for(int j=0;j<orders.size();j++) {
+				Order myOrder= orders.get(i);
 				if(myOrder!=null) {
 					Employee myEmployee =employees.get(i);
 					double[] employeeOrder= employeesOrders(myEmployee,myOrder);
@@ -980,26 +1033,49 @@ public class Restaurant {
 		writer.close();
 	}
 
-	public void productsOrderReport(String fileName, String initialDay, String finalDay, String initialHour, String finalHour) throws FileNotFoundException {
+	public void productsOrderReport(String fileName, String initialDay, String finalDay, String initialHour, String finalHour) throws FileNotFoundException, ParseException {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY hh:mm:ss");
+		String startDateFinal = initialDay + " " + initialHour;
+		Date startDate = dateFormat.parse(startDateFinal);
+		String endDateFinal = finalDay + " " + finalHour;
+		Date endDate = dateFormat.parse(endDateFinal);
 		PrintWriter writer = new PrintWriter (fileName);
 		writer.println("PRODUCT NAME"+FILE_SEPARATOR
 				+"PRODUCT SOLD"+FILE_SEPARATOR
 				+"PRODUCT TOTAL PRICE"+FILE_SEPARATOR);
 		for (int i=0;i<products.size();i++) {
 			for(int j=0;j<orders.size();j++) {
-				Order myOrder=null;
-				if((orders.get(j).getDay().compareTo(initialDay)>=0&&(orders.get(j).getHour().compareTo(initialHour)>=0))&&
-						(orders.get(j).getDay().compareTo(finalDay)==0&&(orders.get(j).getHour().compareTo(finalHour)>0))){
-					myOrder = orders.get(j);
-					if(myOrder!=null) {
-						for(int k=0;k<myOrder.getProducts().size();k++) {
-							Product myProduct =products.get(i);
-							double[] productOrders= productsOrders(myProduct,myOrder.getProducts().get(k));
-							writer.println(myProduct.getBaseProduct().getName()+
-									FILE_SEPARATOR+myProduct.getSize().getName()+
-									FILE_SEPARATOR+productOrders[0]+
-									FILE_SEPARATOR+productOrders[1]);
-						}
+				Order myOrder = orders.get(j);					
+				if(myOrder!=null&&myOrder.getDate().after(startDate)&&myOrder.getDate().before(endDate)) {
+					for(int k=0;k<myOrder.getProducts().size();k++) {
+						Product myProduct =products.get(i);
+						double[] productOrders= productsOrders(myProduct,myOrder.getProducts().get(k));
+						writer.println(myProduct.getBaseProduct().getName()+
+								FILE_SEPARATOR+myProduct.getSize().getName()+
+								FILE_SEPARATOR+productOrders[0]+
+								FILE_SEPARATOR+productOrders[1]);
+					}
+				}
+			}
+		}
+		writer.close();
+	}
+	public void productsOrderReport(String fileName) throws FileNotFoundException {
+		PrintWriter writer = new PrintWriter (fileName);
+		writer.println("PRODUCT NAME"+FILE_SEPARATOR
+				+"PRODUCT SOLD"+FILE_SEPARATOR
+				+"PRODUCT TOTAL PRICE"+FILE_SEPARATOR);
+		for (int i=0;i<products.size();i++) {
+			for(int j=0;j<orders.size();j++) {
+				Order myOrder = orders.get(j);					
+				if(myOrder!=null) {
+					for(int k=0;k<myOrder.getProducts().size();k++) {
+						Product myProduct =products.get(i);
+						double[] productOrders= productsOrders(myProduct,myOrder.getProducts().get(k));
+						writer.println(myProduct.getBaseProduct().getName()+
+								FILE_SEPARATOR+myProduct.getSize().getName()+
+								FILE_SEPARATOR+productOrders[0]+
+								FILE_SEPARATOR+productOrders[1]);
 					}
 				}
 			}
@@ -1007,7 +1083,80 @@ public class Restaurant {
 		writer.close();
 	}
 
+	/*
+	 *   @FXML
+    void exportEmployees(ActionEvent event) throws ParseException, FileNotFoundException {
 
+        if(restaurantSystem.getEmployees().isEmpty()) {
+
+            showAlert("ERROR", "Error", "Sin Datos", "No hay empleados para exportar.");
+
+        } else {
+
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Exportar Reporte");
+            fileChooser.setInitialFileName("reporte-empleados");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text File", "*.txt"));
+            File file = fileChooser.showSaveDialog(mainPane.getScene().getWindow());
+
+            if(file!=null) {
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+                String startDateString = startDateEmployee.getValue().toString();
+                String startTimeString = startTimeEmployee.getText()+":00";
+                String startDateFinal = startDateString + " " + startTimeString;
+                Date startDate = dateFormat.parse(startDateFinal);
+
+                String endDateString = endDateEmployee.getValue().toString();
+                String endTimeString = endTimeEmployee.getText()+":00";
+                String endDateFinal = endDateString + " " + endTimeString;
+                Date endDate = dateFormat.parse(endDateFinal);
+
+                restaurantSystem.exportEmployeesReports(file, txtOrderSeparatorExp.getText(), endDate, startDate);
+
+                showAlert("INFORMATION", "Información", "Reporte Generado", "El reporte de los empleados fue generado correctamente.");
+
+            }
+
+        }
+
+    }
+
+    public void exportEmployeesReports(File file, String separator, Date supLimit, Date infLimit)
+            throws FileNotFoundException {
+
+        List<String> line = new ArrayList<>();
+        List<Integer> countSells = new ArrayList<>();
+        List<Long> sellsList = new ArrayList<>();
+
+        Employee tEmployee = null;
+
+        for (int k = 0; k < employees.size(); k++) {
+            tEmployee = employees.get(k);
+            int count = 0;
+            long sellAmount = 0;
+
+            for (int i = 0; i < orders.size(); i++) {
+                Date temp = orders.get(i).getOrderDate();
+                if (temp.compareTo(infLimit) > 0 && temp.compareTo(supLimit) < 0
+                        && orders.get(i).getEmployee().equals(tEmployee)) {
+                    count += 1;
+                    sellAmount = orders.get(i).getAmount();
+                }
+            }
+            countSells.add(count);
+            sellsList.add(sellAmount);
+        }
+
+        for (int i = 0; i < employees.size(); i++) {
+            line.add(employees.get(i).getName() + " " + employees.get(i).getLastName() + separator + countSells.get(i)
+                    + separator + sellsList.get(i));
+        }
+
+        exports.exportEmployees(file, line, separator);
+    }
+	 */
 	//----------------------------------------------------OTHER METHODS----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	public User getUserLogged() {
 		return userLogged;

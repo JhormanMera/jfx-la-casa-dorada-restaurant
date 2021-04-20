@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -11,33 +10,38 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="286.0" layoutY="175.0" prefHeight="406.0" prefWidth="427.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="286.0" AnchorPane.rightAnchor="203.0" AnchorPane.topAnchor="175.0">
+      <AnchorPane layoutX="286.0" layoutY="148.0" prefHeight="433.0" prefWidth="427.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="286.0" AnchorPane.rightAnchor="203.0" AnchorPane.topAnchor="148.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="99.0" layoutY="15.0" text="Sales Report Order" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="15.0">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <DatePicker fx:id="initialDateOrderReport" layoutX="93.0" layoutY="58.0" prefHeight="31.0" prefWidth="232.0" promptText="Initial Date" AnchorPane.leftAnchor="93.0" AnchorPane.rightAnchor="89.0" AnchorPane.topAnchor="58.0" />
             <TextField fx:id="initialHourOrderReport" layoutX="95.0" layoutY="101.0" prefHeight="31.0" prefWidth="243.0" promptText="Initial Hour hh:mm:ss" text="00:00:00" AnchorPane.leftAnchor="95.0" AnchorPane.rightAnchor="91.0" AnchorPane.topAnchor="101.0" />
-            <Label layoutX="114.0" layoutY="296.0" text="Hours must be in 24 hour format" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="296.0" />
-            <Separator layoutX="7.0" layoutY="324.0" prefHeight="3.0" prefWidth="404.0" />
-            <Button layoutX="222.0" layoutY="342.0" mnemonicParsing="false" onAction="#generateOrderReport" prefHeight="39.0" prefWidth="165.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Generate Report" AnchorPane.leftAnchor="222.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="342.0">
+            <Label layoutX="109.0" layoutY="281.0" text="Hours must be in 24 hour format" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="105.0" AnchorPane.topAnchor="281.0" />
+            <Separator layoutX="12.0" layoutY="305.0" prefHeight="3.0" prefWidth="404.0" />
+            <Button layoutX="242.0" layoutY="324.0" mnemonicParsing="false" onAction="#generateOrderReport" prefHeight="39.0" prefWidth="165.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Generate Report" AnchorPane.leftAnchor="242.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="324.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <DatePicker fx:id="finalDateOrderReport" layoutX="98.0" layoutY="146.0" prefHeight="31.0" prefWidth="241.0" promptText="Final Date" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="146.0" />
             <TextField fx:id="finalHourOrderReport" layoutX="98.0" layoutY="188.0" prefHeight="31.0" prefWidth="239.0" promptText="Final Hour hh:mm:ss" text="23:59:59" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="188.0" />
             <TextField fx:id="fileSeparatorReportOrder" layoutX="157.0" layoutY="240.0" prefHeight="31.0" prefWidth="239.0" promptText="File Separator" text=";" />
             <Label layoutX="60.0" layoutY="247.0" text="File Separator" />
-            <Button layoutX="37.0" layoutY="343.0" mnemonicParsing="false" onAction="#BackToMenu" prefHeight="39.0" prefWidth="127.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Back">
+            <Button layoutX="47.0" layoutY="325.0" mnemonicParsing="false" onAction="#BackToMenu" prefHeight="39.0" prefWidth="127.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Back">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
+            <Button layoutX="139.0" layoutY="382.0" mnemonicParsing="false" onAction="#generateFullReportByOrder" prefHeight="31.0" prefWidth="166.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Full Report">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <TextField fx:id="initialDateOrderReport" layoutX="94.0" layoutY="57.0" prefHeight="31.0" prefWidth="243.0" promptText="Initial Day dd-mm-yyyy" />
+            <TextField fx:id="finalDateOrderReport" layoutX="94.0" layoutY="145.0" prefHeight="31.0" prefWidth="243.0" promptText="Final Day dd-mm-yyyy" />
          </children>
       </AnchorPane>
-      <ImageView fx:id="reportOrderImage" fitHeight="154.0" fitWidth="905.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="5.0" />
+      <ImageView fx:id="reportOrderImage" fitHeight="127.0" fitWidth="905.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="5.0" />
    </children>
 </AnchorPane>

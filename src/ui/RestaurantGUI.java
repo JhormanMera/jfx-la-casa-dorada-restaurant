@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,7 +21,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -178,9 +177,10 @@ public class RestaurantGUI implements Initializable {
 		File f = new File(REPORT_EMPLOYEE_IMAGE_PATH);
 		Image img = new Image(f.toURI().toString());
 		this.reportEmployeeImage.setImage(img);
-		LocalDate now = LocalDate.now();
-		initialDateEmployeeReport.setValue(now);
-		finalDateEmployeeReport.setValue(now);
+		Date now = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+		initialDateEmployeeReport.setText(dateFormat.format(now));
+		finalDateEmployeeReport.setText(dateFormat.format(now));
 
 		initialHourEmployeeReport.setText("00:00:00");
 		finalHourEmployeeReport.setText("23:59:59");
@@ -197,10 +197,10 @@ public class RestaurantGUI implements Initializable {
 		File f = new File(REPORT_ORDER_IMAGE_PATH);
 		Image img = new Image(f.toURI().toString());
 		this.reportOrderImage.setImage(img);
-		LocalDate now = LocalDate.now();
-		initialDateOrderReport.setValue(now);
-		finalDateOrderReport.setValue(now);
-
+		Date now = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+		initialDateOrderReport.setText(dateFormat.format(now));
+		finalDateOrderReport.setText(dateFormat.format(now));
 		initialHourOrderReport.setText("00:00:00");
 		finalHourOrderReport.setText("23:59:59");
 		fileSeparatorReportOrder.setText(";");
@@ -216,9 +216,10 @@ public class RestaurantGUI implements Initializable {
 		File f = new File(REPORT_PRODUCTS_IMAGE_PATH);
 		Image img = new Image(f.toURI().toString());
 		this.reportProductImage.setImage(img);
-		LocalDate now = LocalDate.now();
-		initialDateProductReport.setValue(now);
-		finalDateProductReport.setValue(now);
+		Date now = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+		initialDateProductReport.setText(dateFormat.format(now));
+		finalDateProductReport.setText(dateFormat.format(now));
 
 		initialHourProductReport.setText("00:00:00");
 		finalHourProductReport.setText("23:59:59");;
@@ -329,7 +330,15 @@ public class RestaurantGUI implements Initializable {
 		FileChooser fc = new FileChooser();		
 		File selectedFile = fc.showOpenDialog(mainPane.getScene().getWindow());
 		if (selectedFile !=null) {			
-			restaurant.importCustomes(selectedFile.getAbsolutePath());
+			try {
+				restaurant.importCustomes(selectedFile.getAbsolutePath());
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 	}
@@ -339,7 +348,18 @@ public class RestaurantGUI implements Initializable {
 		FileChooser fc = new FileChooser();		
 		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
 		if (selectedFile !=null) {			
-			restaurant.importOrders(selectedFile.getAbsolutePath());
+			try {
+				restaurant.importOrders(selectedFile.getAbsolutePath());
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -348,7 +368,15 @@ public class RestaurantGUI implements Initializable {
 		FileChooser fc = new FileChooser();		
 		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
 		if (selectedFile !=null) {			
-			restaurant.importProducts(selectedFile.getAbsolutePath());
+			try {
+				restaurant.importProducts(selectedFile.getAbsolutePath());
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -462,15 +490,26 @@ public class RestaurantGUI implements Initializable {
 				txtRegUsername.getText()!=space&&txtRegUsername.getText()!=empty&&
 				txtRegPassword.getText()!=space&&txtRegPassword.getText()!=empty) {
 
-			if(restaurant.addUser(txtRegName.getText(), txtRegLastName.getText(), txtRegIdentification.getText(), 
-					txtRegUsername.getText(),txtRegPassword.getText(),restaurant.getUserLogged(),restaurant.getUserLogged(),true)) {
-				restaurant.setUserLogged(restaurant.getUsers().get(restaurant.searchUser(txtRegUsername.getText())));	
-				txtRegLastName.setText(empty);
-				txtRegUsername.setText(empty);
-				txtRegPassword.setText(empty);
-				txtRegName.setText(empty);
-				txtRegIdentification.setText(empty);
-				showMainMenu();
+			try {
+				if(restaurant.addUser(txtRegName.getText(), txtRegLastName.getText(), txtRegIdentification.getText(), 
+						txtRegUsername.getText(),txtRegPassword.getText(),restaurant.getUserLogged(),restaurant.getUserLogged(),true)) {
+					restaurant.setUserLogged(restaurant.getUsers().get(restaurant.searchUser(txtRegUsername.getText())));	
+					txtRegLastName.setText(empty);
+					txtRegUsername.setText(empty);
+					txtRegPassword.setText(empty);
+					txtRegName.setText(empty);
+					txtRegIdentification.setText(empty);
+					showMainMenu();
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 
@@ -510,13 +549,24 @@ public class RestaurantGUI implements Initializable {
 				txtRegNewUsername.getText()!=space&&txtRegNewUsername.getText()!=empty&&
 				txtRegNewPassword.getText()!=space&&txtRegNewPassword.getText()!=empty) {
 
-			restaurant.addUser(txtRegNewUsername.getText(), 
-					txtRegNewLastName.getText(),
-					txtRegNewIdentification.getText(), 
-					txtRegNewUsername.getText(),
-					txtRegNewPassword.getText(),
-					restaurant.getUserLogged(),
-					restaurant.getUserLogged(),true);
+			try {
+				restaurant.addUser(txtRegNewUsername.getText(), 
+						txtRegNewLastName.getText(),
+						txtRegNewIdentification.getText(), 
+						txtRegNewUsername.getText(),
+						txtRegNewPassword.getText(),
+						restaurant.getUserLogged(),
+						restaurant.getUserLogged(),true);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 				mainPaneGestionateUser(event);
 
@@ -576,8 +626,19 @@ public class RestaurantGUI implements Initializable {
 				txtRegisterBaseProductType.getText()!=space&&txtRegisterBaseProductType.getText()!=empty &&
 				restaurant.getIngredientBP().isEmpty()==false&&restaurant.searchTypeProduct(txtRegisterBaseProductType.getText()).getState()==true) {	
 			
-			restaurant.addBaseProduct(txtRegisterBaseProductName.getText(),restaurant.searchTypeProduct(txtRegisterBaseProductType.getText()),
-					restaurant.getIngredientBP());
+			try {
+				restaurant.addBaseProduct(txtRegisterBaseProductName.getText(),restaurant.searchTypeProduct(txtRegisterBaseProductType.getText()),
+						restaurant.getIngredientBP());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 				restaurant.getIngredientBP().clear();
 				mainPaneGestionateBaseProduct(event);
@@ -602,6 +663,7 @@ public class RestaurantGUI implements Initializable {
 
     @FXML
     public void baseProductBackToView(ActionEvent event) throws IOException {
+    	restaurant.getIngredientBP().clear();
     	mainPaneGestionateBaseProduct(event);
     }
     
@@ -622,8 +684,19 @@ public class RestaurantGUI implements Initializable {
 		if(txtRegisterProductTypeName.getText()!=space&&txtRegisterProductTypeName.getText()!=empty&&
 				txtRegisterProductTypeCode.getText()!=space&&txtRegisterProductTypeCode.getText()!=empty) {	
 
-			restaurant.addProductType(txtRegisterProductTypeName.getText(),txtRegisterProductTypeCode.getText(), 
-					restaurant.getUserLogged(), restaurant.getUserLogged());
+			try {
+				restaurant.addProductType(txtRegisterProductTypeName.getText(),txtRegisterProductTypeCode.getText(), 
+						restaurant.getUserLogged(), restaurant.getUserLogged());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 				mainPaneGestionateProductType(event);
 		}else {
@@ -705,15 +778,29 @@ public class RestaurantGUI implements Initializable {
 					restaurant.getCustomes().get(restaurant.binarySearchCustomes(txtRegisterOrderCustomeName.getText(),txtRegisterOrderCustomeLastName.getText())).getState()==true) {	
 				
 					if(amountProducts.isEmpty()==false&&productsOrder.isEmpty()==false) {
-				restaurant.addOrder("REQUESTED", 
-						restaurant.getCustomes().get(restaurant.binarySearchCustomes(txtRegisterOrderCustomeName.getText(),txtRegisterOrderCustomeLastName.getText())),
-						restaurant.getEmployees().get(restaurant.searchEmployees(txtRegisterOrderEmployee.getText())), 
-						date,
-						txtRegisterOrderObservations.getText(), 
-						restaurant.getUserLogged(),
-						restaurant.getUserLogged(), 
-						productsOrder, 
-						amountProducts);
+				try {
+					restaurant.addOrder("REQUESTED", 
+							restaurant.getCustomes().get(restaurant.binarySearchCustomes(txtRegisterOrderCustomeName.getText(),txtRegisterOrderCustomeLastName.getText())),
+							restaurant.getEmployees().get(restaurant.searchEmployees(txtRegisterOrderEmployee.getText())), 
+							date,
+							txtRegisterOrderObservations.getText(), 
+							restaurant.getUserLogged(),
+							restaurant.getUserLogged(), 
+							productsOrder, 
+							amountProducts);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				productsOrder.clear();
 				amountProducts.clear();
@@ -751,6 +838,8 @@ public class RestaurantGUI implements Initializable {
 	
     @FXML
     public void orderBackToView(ActionEvent event) throws IOException {
+    	productsOrder.clear();
+		amountProducts.clear();
     	mainPaneGestionateOrder(event);
     }
 
@@ -788,9 +877,20 @@ public class RestaurantGUI implements Initializable {
 				txtRegisterCustomeObservations.getText()!=space&&txtRegisterCustomeObservations.getText()!=empty) {	
 			if(restaurant.binarySearchCustomes(txtRegisterCustomeName.getText(),txtRegisterCustomeLas.getText())<0) {
 
-				restaurant.addCustomesListSorted(txtRegisterCustomeName.getText(),txtRegisterCustomeLas.getText(),
-						txtRegisterCustomeID.getText(), txtRegisterCustomeAddress.getText(),txtRegisterCustomePhone.getText(),
-						txtRegisterCustomeObservations.getText());
+				try {
+					restaurant.addCustomesListSorted(txtRegisterCustomeName.getText(),txtRegisterCustomeLas.getText(),
+							txtRegisterCustomeID.getText(), txtRegisterCustomeAddress.getText(),txtRegisterCustomePhone.getText(),
+							txtRegisterCustomeObservations.getText());
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				txtRegisterCustomeName.setText(empty);
 				txtRegisterCustomeLas.setText(empty);
 				txtRegisterCustomeID.setText(empty);
@@ -837,8 +937,19 @@ public class RestaurantGUI implements Initializable {
 				txtRegisterEmployeeLastnames.getText()!=space&&txtRegisterEmployeeLastnames.getText()!=empty&&
 				txtRegisterEmployeeID.getText()!=space&&txtRegisterEmployeeID.getText()!=empty) {
 
-			restaurant.addEmployee(txtRegisterEmployeeName.getText(),txtRegisterEmployeeLastnames.getText(), 
-					txtRegisterEmployeeID.getText(),restaurant.getUserLogged(),restaurant.getUserLogged(),true);
+			try {
+				restaurant.addEmployee(txtRegisterEmployeeName.getText(),txtRegisterEmployeeLastnames.getText(), 
+						txtRegisterEmployeeID.getText(),restaurant.getUserLogged(),restaurant.getUserLogged(),true);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				mainPaneGestionateEmployee(event);
 
 		}else {
@@ -870,8 +981,19 @@ public class RestaurantGUI implements Initializable {
 		if(txtRegisterProductSizeName.getText()!=space&&txtRegisterProductSizeName.getText()!=empty&&
 				txtRegisterProductSizeCode.getText()!=space&&txtRegisterProductSizeCode.getText()!=empty) {	
 
-			restaurant.addProductSize(txtRegisterProductSizeName.getText(),txtRegisterProductSizeCode.getText(),
-					restaurant.getUserLogged(), restaurant.getUserLogged());
+			try {
+				restaurant.addProductSize(txtRegisterProductSizeName.getText(),txtRegisterProductSizeCode.getText(),
+						restaurant.getUserLogged(), restaurant.getUserLogged());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				mainPaneGestionateProductSize(event);
 
 		}else {
@@ -913,8 +1035,19 @@ public class RestaurantGUI implements Initializable {
 				txtRegisterProductCode.getText()!=space&&txtRegisterProductCode.getText()!=empty) {	
 			Boolean state=true;
 			double price= Double.parseDouble(txtRegisterProductPrice.getText());
-			restaurant.addProduct(txtRegisterProductCode.getText(),restaurant.getBaseProducts().get(restaurant.searchBaseProduct(txtRegisterProductBaseProductName.getText())), 
-					state, price, restaurant.getProductSize().get(restaurant.searchProductSize(txtRegisterProductSize.getText())),restaurant.getUserLogged(), restaurant.getUserLogged());
+			try {
+				restaurant.addProduct(txtRegisterProductCode.getText(),restaurant.getBaseProducts().get(restaurant.searchBaseProduct(txtRegisterProductBaseProductName.getText())), 
+						state, price, restaurant.getProductSize().get(restaurant.searchProductSize(txtRegisterProductSize.getText())),restaurant.getUserLogged(), restaurant.getUserLogged());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 				mainPaneGestionateProduct(event);
 		
@@ -944,10 +1077,20 @@ public class RestaurantGUI implements Initializable {
 		String empty="";
 		if(txtRegisterIngredientName.getText()!=space&&txtRegisterIngredientName.getText()!=empty) {	
 
-			if(restaurant.addIngredients(txtRegisterIngredientName.getText(),restaurant.getUserLogged(),restaurant.getUserLogged())) {
-				txtRegisterIngredientName.setText(empty);
-				mainPaneGestionateIngredient(event);
+			try {
+				restaurant.addIngredients(txtRegisterIngredientName.getText(),restaurant.getUserLogged(),restaurant.getUserLogged());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+				mainPaneGestionateIngredient(event);
+			
 
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1017,7 +1160,15 @@ public class RestaurantGUI implements Initializable {
 				selectedCustome.setState(false);
 
 			}
-			restaurant.saveData();
+			try {
+				restaurant.saveData();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			mainPaneGestionateCustome(event);			
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1071,7 +1222,15 @@ public class RestaurantGUI implements Initializable {
 				selectedEmployee.setState(false);
 
 			}
-			restaurant.saveData();
+			try {
+				restaurant.saveData();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			mainPaneGestionateEmployee(event);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1204,7 +1363,15 @@ public class RestaurantGUI implements Initializable {
 					selectedOrder.setState("DELIVERED");
 
 				}
-				restaurant.saveData();
+				try {
+					restaurant.saveData();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				mainPaneGestionateOrder(event);
 			}else {
 				Alert alert = new Alert(AlertType.ERROR);
@@ -1284,7 +1451,15 @@ public class RestaurantGUI implements Initializable {
 				selectedUser.setState(false);
 
 			}
-			restaurant.saveData();
+			try {
+				restaurant.saveData();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			mainPaneGestionateUser(event);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1383,7 +1558,15 @@ public class RestaurantGUI implements Initializable {
 				selectedBP.setState(false);
 
 			}
-			restaurant.saveData();
+			try {
+				restaurant.saveData();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			mainPaneGestionateBaseProduct(event);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1459,7 +1642,15 @@ public class RestaurantGUI implements Initializable {
 				selectedPZ.setState(false);
 
 			}
-			restaurant.saveData();
+			try {
+				restaurant.saveData();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			mainPaneGestionateProductSize(event);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1525,7 +1716,15 @@ public class RestaurantGUI implements Initializable {
 					selectedProduct.setState(false);
 
 				}
-				restaurant.saveData();
+				try {
+					restaurant.saveData();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				mainPaneGestionateProduct(event);
 			}else {
 				Alert alert = new Alert(AlertType.ERROR);
@@ -1589,7 +1788,15 @@ public class RestaurantGUI implements Initializable {
 				selectedPT.setState(false);
 
 			}
-			restaurant.saveData();
+			try {
+				restaurant.saveData();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			mainPaneGestionateProductType(event);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1646,7 +1853,15 @@ public class RestaurantGUI implements Initializable {
 				selectedIngredient.setState(false);
 
 			}
-			restaurant.saveData();
+			try {
+				restaurant.saveData();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			mainPaneGestionateIngredient(event);
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1730,8 +1945,19 @@ public class RestaurantGUI implements Initializable {
 	@FXML
 	public void DeleteUser(ActionEvent event) throws FileNotFoundException, IOException {
 		String id =restaurant.getUsers().get(restaurant.searchUser(txtUserUsername.getText())).getID();
-		restaurant.eraseUser(txtUserUsername.getText());		
-		restaurant.eraseEmployee(id);
+		try {
+			restaurant.eraseUser(txtUserUsername.getText());
+			restaurant.eraseEmployee(id);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mainPaneGestionateUser(event);
 	}
 
@@ -1820,7 +2046,18 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void DeleteOrder(ActionEvent event) throws FileNotFoundException, IOException {
-		restaurant.eraseOrder(txtOrdersCode.getText());
+		try {
+			restaurant.eraseOrder(txtOrdersCode.getText());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mainPaneGestionateOrder(event);
 	}
 
@@ -1900,7 +2137,18 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void DeleteProduct(ActionEvent event) throws FileNotFoundException, IOException {
-		restaurant.eraseProduct(txtProductCode.getText());
+		try {
+			restaurant.eraseProduct(txtProductCode.getText());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mainPaneGestionateProduct(event);
 	}
 
@@ -1972,7 +2220,18 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void DeleteBaseProduct(ActionEvent event) throws FileNotFoundException, IOException {
-		restaurant.eraseBaseProduct(txtBaseProductName.getText());
+		try {
+			restaurant.eraseBaseProduct(txtBaseProductName.getText());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mainPaneGestionateBaseProduct(event);
 	}	
 	
@@ -2038,7 +2297,18 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void DeleteIngredients(ActionEvent event) throws FileNotFoundException, IOException {
-		restaurant.eraseIngredient(txtIngredientName.getText());
+		try {
+			restaurant.eraseIngredient(txtIngredientName.getText());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mainPaneGestionateIngredient(event);
 	}
 
@@ -2115,7 +2385,18 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void DeleteEmployee(ActionEvent event) throws FileNotFoundException, IOException {
-		restaurant.eraseEmployee(txtEmployeeID.getText());
+		try {
+			restaurant.eraseEmployee(txtEmployeeID.getText());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mainPaneGestionateEmployee(event);
 	}
 
@@ -2204,7 +2485,18 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void DeleteCustome(ActionEvent event) throws FileNotFoundException, IOException {
-		restaurant.eraseCustome(txtCustomeName.getText(),txtCustomeLastName.getText());
+		try {
+			restaurant.eraseCustome(txtCustomeName.getText(),txtCustomeLastName.getText());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mainPaneGestionateCustome(event);
 	}
 
@@ -2272,7 +2564,18 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void DeleteProductType(ActionEvent event) throws FileNotFoundException, IOException { 
-		restaurant.eraseProductType(txtProductTypeCode.getText());
+		try {
+			restaurant.eraseProductType(txtProductTypeCode.getText());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mainPaneGestionateProductType(event);
 	}
 
@@ -2339,7 +2642,18 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void DeleteProductSize(ActionEvent event) throws FileNotFoundException, IOException {
-		restaurant.eraseProductSize(txtProductSizeCode.getText());
+		try {
+			restaurant.eraseProductSize(txtProductSizeCode.getText());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mainPaneGestionateProductSize(event);
 	}
 
@@ -2353,13 +2667,13 @@ public class RestaurantGUI implements Initializable {
 
 	//-------------GENERATE REPORT PRODUCTS GUI-----------
 	@FXML
-	private DatePicker initialDateProductReport;
+	private TextField initialDateProductReport;
 
 	@FXML
 	private TextField initialHourProductReport;
 
 	@FXML
-	private DatePicker finalDateProductReport;
+	private TextField finalDateProductReport;
 
 	@FXML
 	private TextField finalHourProductReport;
@@ -2372,34 +2686,77 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void generateReportByProduct(ActionEvent event)throws FileNotFoundException {
-		restaurant.setFILE_SEPARATOR(fileSeparatorReportProduct.getText());
-		String initialDay=initialDateProductReport.getValue().toString();
-		String finalDay=finalDateProductReport.getValue().toString();
-		String initialHour=initialHourProductReport.getText();
-		String finalHour=finalHourProductReport.getText();;
-		FileChooser fc = new FileChooser();		
-		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
-		if (selectedFile !=null) {			
-			try {
-				restaurant.productsOrderReport(selectedFile.getAbsolutePath(), initialDay, finalDay, initialHour, finalHour);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		String space =" ";
+		String empty="";
+		if(initialDateProductReport.getText()!=space&&initialDateProductReport.getText()!=empty&&
+				initialHourProductReport.getText()!=space&&initialHourProductReport.getText()!=empty&&
+						finalDateProductReport.getText()!=space&&finalDateProductReport.getText()!=empty&&
+								finalHourProductReport.getText()!=space&&finalHourProductReport.getText()!=empty&&
+										fileSeparatorReportProduct.getText()!=space&&fileSeparatorReportProduct.getText()!=empty) {
+			
+			restaurant.setFILE_SEPARATOR(fileSeparatorReportProduct.getText());
+			String initialDay=initialDateProductReport.getText();
+			String finalDay=finalDateProductReport.getText();
+			String initialHour=initialHourProductReport.getText();
+			String finalHour=finalHourProductReport.getText();;
+			FileChooser fc = new FileChooser();		
+			File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+			if (selectedFile !=null) {			
+				try {
+					restaurant.productsOrderReport(selectedFile.getAbsolutePath(), initialDay, finalDay, initialHour, finalHour);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Products Report");
+			alert.setContentText("Field's can't be empty");
+			alert.showAndWait();
 		}
+		
 
 	}
 
+    @FXML
+    public void generateFullReportByProduct(ActionEvent event) {
+    	String space =" ";
+		String empty="";
+		if(fileSeparatorReportProduct.getText()!=space&&fileSeparatorReportProduct.getText()!=empty) {
+			FileChooser fc = new FileChooser();		
+			File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+			if (selectedFile !=null) {			
+				try {
+					restaurant.setFILE_SEPARATOR(fileSeparatorReportProduct.getText());
+					restaurant.productsOrderReport(selectedFile.getAbsolutePath());
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Employees Report");
+			alert.setContentText("Field's can't be empty");
+			alert.showAndWait();
+		}
+    	
+    	
+    }
 	//---------------GENERATE REPORT EMPLOYEEE GUI---------------
 
 	@FXML
-	private DatePicker initialDateEmployeeReport;
+	private TextField initialDateEmployeeReport;
 
 	@FXML
 	private TextField initialHourEmployeeReport;
 
 	@FXML
-	private DatePicker finalDateEmployeeReport;
+	private TextField finalDateEmployeeReport;
 
 	@FXML
 	private TextField finalHourEmployeeReport;
@@ -2412,32 +2769,77 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void generateReportByEmployee(ActionEvent event) throws FileNotFoundException {
-		restaurant.setFILE_SEPARATOR(fileSeparatorReportEmployee.getText());
-		String initialDay=initialDateEmployeeReport.getValue().toString();
-		String finalDay=finalDateEmployeeReport.getValue().toString();
-		String initialHour=initialHourEmployeeReport.getText();
-		String finalHour=finalHourEmployeeReport.getText();;
-		FileChooser fc = new FileChooser();		
-		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
-		if (selectedFile !=null) {			
-			try {
-				restaurant.employeesOrdersReport(selectedFile.getAbsolutePath(), initialDay, finalDay, initialHour, finalHour);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		String space =" ";
+		String empty="";
+		if(initialDateEmployeeReport.getText()!=space&&initialDateEmployeeReport.getText()!=empty&&
+				finalDateEmployeeReport.getText()!=space&&finalDateEmployeeReport.getText()!=empty&&
+						initialHourEmployeeReport.getText()!=space&&initialHourEmployeeReport.getText()!=empty&&
+								finalHourEmployeeReport.getText()!=space&&finalHourEmployeeReport.getText()!=empty&&
+										fileSeparatorReportEmployee.getText()!=space&&fileSeparatorReportEmployee.getText()!=empty) {
+			
+			restaurant.setFILE_SEPARATOR(fileSeparatorReportEmployee.getText());
+			String initialDay=initialDateEmployeeReport.getText();
+			String finalDay=finalDateEmployeeReport.getText();
+			String initialHour=initialHourEmployeeReport.getText();
+			String finalHour=finalHourEmployeeReport.getText();
+			
+			FileChooser fc = new FileChooser();		
+			File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+			if (selectedFile !=null) {			
+				try {
+					restaurant.employeesOrdersReport(selectedFile.getAbsolutePath(), initialDay, finalDay, initialHour, finalHour);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Employees Report");
+			alert.setContentText("Field's can't be empty");
+			alert.showAndWait();
 		}
+		
 	}   
+
+    @FXML
+    void generateFullReportByEmployee(ActionEvent event) {   
+    	String space =" ";
+		String empty="";
+		if(fileSeparatorReportEmployee.getText()!=space&&fileSeparatorReportEmployee.getText()!=empty) {
+			FileChooser fc = new FileChooser();		
+			File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+			if (selectedFile !=null) {			
+				try {
+					restaurant.setFILE_SEPARATOR(fileSeparatorReportEmployee.getText());
+					restaurant.employeesOrdersReport(selectedFile.getAbsolutePath());
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Employees Report");
+			alert.setContentText("Field's can't be empty");
+			alert.showAndWait();
+		}    	
+    	
+    }
+    
 	//----------------GENERATE REPORT ORDER GUI------------
 
 	@FXML
-	private DatePicker initialDateOrderReport;
+	private TextField initialDateOrderReport;
 
 	@FXML
 	private TextField initialHourOrderReport;
 
 	@FXML
-	private DatePicker finalDateOrderReport;
+	private TextField finalDateOrderReport;
 
 	@FXML
 	private TextField finalHourOrderReport;
@@ -2450,22 +2852,63 @@ public class RestaurantGUI implements Initializable {
 
 	@FXML
 	public void generateOrderReport(ActionEvent event) throws FileNotFoundException {
-		restaurant.setFILE_SEPARATOR(fileSeparatorReportOrder.getText());
-		String initialDay=initialDateOrderReport.getValue().toString();
-		String finalDay=finalDateOrderReport.getValue().toString();
-		String initialHour=initialHourOrderReport.getText();
-		String finalHour=finalHourOrderReport.getText();;
-		FileChooser fc = new FileChooser();		
-		File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
-		if (selectedFile !=null) {			
-			try {
-				restaurant.exportOrdersReport(selectedFile.getAbsolutePath(), initialDay, finalDay, initialHour, finalHour);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		String space =" ";
+		String empty="";
+		if(initialDateOrderReport.getText()!=space&&initialDateOrderReport.getText()!=empty&&
+				initialHourOrderReport.getText()!=space&&initialHourOrderReport.getText()!=empty&&
+						finalDateOrderReport.getText()!=space&&finalDateOrderReport.getText()!=empty&&
+								finalHourOrderReport.getText()!=space&&finalHourOrderReport.getText()!=empty&&
+										fileSeparatorReportOrder.getText()!=space&&fileSeparatorReportOrder.getText()!=empty) {
+			restaurant.setFILE_SEPARATOR(fileSeparatorReportOrder.getText());
+			String initialDay=initialDateOrderReport.getText();
+			String finalDay=finalDateOrderReport.getText();
+			String initialHour=initialHourOrderReport.getText();
+			String finalHour=finalHourOrderReport.getText();;
+			FileChooser fc = new FileChooser();		
+			File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+			if (selectedFile !=null) {			
+				try {
+					restaurant.exportOrdersReport(selectedFile.getAbsolutePath(), initialDay, finalDay, initialHour, finalHour);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Orders Report");
+			alert.setContentText("Field's can't be empty");
+			alert.showAndWait();
 		}
+		
 	}
+
+    @FXML
+    public void generateFullReportByOrder(ActionEvent event) {
+    	String space =" ";
+		String empty="";
+		if(fileSeparatorReportOrder.getText()!=space&&fileSeparatorReportOrder.getText()!=empty) {
+			FileChooser fc = new FileChooser();		
+			File selectedFile = fc.showSaveDialog(mainPane.getScene().getWindow());
+			if (selectedFile !=null) {			
+				try {
+					restaurant.setFILE_SEPARATOR(fileSeparatorReportOrder.getText());
+					restaurant.exportOrdersReport(selectedFile.getAbsolutePath());
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Orders Report");
+			alert.setContentText("Field's can't be empty");
+			alert.showAndWait();
+		}
+    }
 
 	//----------------OTHER METHODS--------------
 
@@ -2540,7 +2983,7 @@ public class RestaurantGUI implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		SimpleDateFormat objSDFDay= new SimpleDateFormat("dd/MM/YYYY");
+		SimpleDateFormat objSDFDay= new SimpleDateFormat("dd-MM-YYYY");
 		Date newDate = new Date();
 		mainPaneDate.setText(objSDFDay.format(newDate));	
 
