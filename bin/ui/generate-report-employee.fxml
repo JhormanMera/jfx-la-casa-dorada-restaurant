@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="291.0" layoutY="146.0" prefHeight="435.0" prefWidth="413.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="291.0" AnchorPane.rightAnchor="212.0" AnchorPane.topAnchor="146.0">
+         <children>
+            <Label alignment="CENTER" layoutX="85.0" layoutY="16.0" prefHeight="28.0" prefWidth="245.0" text="Sales Report By Employee" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="15.0">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <TextField fx:id="initialHourEmployeeReport" layoutX="89.0" layoutY="103.0" prefHeight="31.0" prefWidth="232.0" promptText="Initial Hour hh:mm:ss" text="00:00:00" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="93.0" AnchorPane.topAnchor="103.0" />
+            <Label layoutX="122.0" layoutY="291.0" text="Hours must be in 24 hour format" />
+            <Separator layoutX="-2.0" layoutY="318.0" prefHeight="9.0" prefWidth="413.0" />
+            <Button layoutX="215.0" layoutY="335.0" mnemonicParsing="false" onAction="#generateReportByEmployee" prefHeight="39.0" prefWidth="166.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Generate Report" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="335.0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <TextField fx:id="finalHourEmployeeReport" layoutX="92.0" layoutY="193.0" prefHeight="31.0" prefWidth="232.0" promptText="Final Hour hh:mm:ss" text="23:59:59" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="193.0" />
+            <TextField fx:id="fileSeparatorReportEmployee" layoutX="150.0" layoutY="246.0" prefHeight="31.0" prefWidth="232.0" promptText="File Separator" text=";" />
+            <Label layoutX="58.0" layoutY="253.0" text="File Separator" />
+            <Button layoutX="59.0" layoutY="336.0" mnemonicParsing="false" onAction="#BackToMenu" prefHeight="39.0" prefWidth="127.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Back">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="124.0" layoutY="384.0" mnemonicParsing="false" onAction="#generateFullReportByEmployee" prefHeight="31.0" prefWidth="166.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Full Report">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <TextField fx:id="initialDateEmployeeReport" layoutX="93.0" layoutY="60.0" prefHeight="31.0" prefWidth="232.0" promptText="Initial Date dd-mm-yyyy" />
+            <TextField fx:id="finalDateEmployeeReport" layoutX="89.0" layoutY="146.0" prefHeight="31.0" prefWidth="232.0" promptText="Final Date dd-mm-yyyy" />
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="reportEmployeeImage" fitHeight="130.0" fitWidth="905.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="5.0" />
+   </children>
+</AnchorPane>

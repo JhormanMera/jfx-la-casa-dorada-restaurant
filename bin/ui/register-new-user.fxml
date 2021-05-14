@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="280.0" layoutY="138.0" prefHeight="429.0" prefWidth="449.0" style="-fx-background-color: white; -fx-border-color: black;">
+         <children>
+            <TextField fx:id="txtRegNewLastName" layoutX="89.0" layoutY="107.0" prefHeight="39.0" prefWidth="277.0" promptText="Last Name(s)" style="-fx-border-color: black;" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="89.0" AnchorPane.topAnchor="107.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtRegNewUsername" layoutX="88.0" layoutY="215.0" prefHeight="39.0" prefWidth="277.0" promptText="Username" style="-fx-border-color: black;" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="215.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="txtRegNewPassword" layoutX="88.0" layoutY="266.0" prefHeight="39.0" prefWidth="275.0" promptText="Password" style="-fx-border-color: black;" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="266.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </PasswordField>
+            <Button layoutX="110.0" layoutY="324.0" mnemonicParsing="false" onAction="#newUserReg" prefHeight="35.0" prefWidth="240.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Register" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="324.0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <TextField fx:id="txtRegNewName" layoutX="88.0" layoutY="56.0" prefHeight="39.0" prefWidth="275.0" promptText="Name" style="-fx-border-color: black;" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="56.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtRegNewIdentification" layoutX="88.0" layoutY="161.0" prefHeight="39.0" prefWidth="277.0" promptText="Identification (ID)" style="-fx-border-color: black;" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="161.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TextField>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="135.0" layoutY="14.0" prefHeight="27.0" prefWidth="181.0" text="Register User" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="14.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Button layoutX="165.0" layoutY="375.0" mnemonicParsing="false" onAction="#userBackToView" prefHeight="40.0" prefWidth="121.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Back">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="regNewUserImage" fitHeight="129.0" fitWidth="916.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="3.0" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <HBox prefHeight="648.0" prefWidth="684.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="customeTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="645.0" minWidth="718.0" onMouseClicked="#selectedCustome" prefHeight="645.0" prefWidth="769.0" style="-fx-background-color: white; -fx-border-color: black;">
+               <columns>
+                  <TableColumn fx:id="customesLastName" minWidth="84.0" prefWidth="101.0" style="-fx-border-color: black; -fx-background-color: white;" text="Last Name" />
+                  <TableColumn fx:id="customesName" minWidth="40.0" prefWidth="91.0" style="-fx-border-color: black; -fx-background-color: white;" text="Name" />
+                  <TableColumn fx:id="customesID" minWidth="37.0" prefWidth="95.0" style="-fx-border-color: black; -fx-background-color: white;" text="ID" />
+                  <TableColumn fx:id="customesAddress" minWidth="46.0" prefWidth="107.0" style="-fx-border-color: black; -fx-background-color: white;" text="Address" />
+                  <TableColumn fx:id="customesPhone" minWidth="0.0" prefWidth="141.0" style="-fx-border-color: black; -fx-background-color: white;" text="Phone" />
+                  <TableColumn fx:id="customesObservations" minWidth="80.0" prefWidth="118.0" style="-fx-border-color: black; -fx-background-color: white;" text="Observations" />
+                  <TableColumn fx:id="customesState" minWidth="0.0" prefWidth="113.0" style="-fx-border-color: black; -fx-background-color: white;" text="State" />
+               </columns>
+            </TableView>
+            <VBox prefHeight="645.0" prefWidth="161.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#AddNewCustome" prefHeight="44.0" prefWidth="72.0" style="-fx-background-color: white; -fx-border-color: black;" text="Add">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="txtCustomeLastName" promptText="Custome LastName" />
+                     </children></HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="txtCustomeName" promptText="Custome Name" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#DeleteCustome" prefHeight="53.0" prefWidth="89.0" style="-fx-background-color: white; -fx-border-color: black;" text="Delete">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                     </children></HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#BackToMenu" prefHeight="45.0" prefWidth="81.0" style="-fx-background-color: white; -fx-border-color: black;" text="Back">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                     </children></HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <top>
+      <Label alignment="CENTER" contentDisplay="CENTER" minHeight="67.0" minWidth="224.0" prefHeight="67.0" prefWidth="224.0" text="Customes" textAlignment="CENTER" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="35.0" />
+         </font>
+      </Label>
+   </top>
+</BorderPane>

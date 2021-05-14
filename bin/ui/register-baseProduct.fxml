@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="293.0" layoutY="172.0" prefHeight="409.0" prefWidth="353.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="269.0" AnchorPane.topAnchor="172.0">
+         <children>
+            <TextField fx:id="txtRegisterBaseProductName" layoutX="74.0" layoutY="68.0" promptText="Base Product Name" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="68.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtRegisterBaseProductType" layoutX="77.0" layoutY="118.0" prefHeight="31.0" prefWidth="199.0" promptText="Product Type" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="118.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtRegisterBaseProductIngredients" layoutX="78.0" layoutY="174.0" prefHeight="31.0" prefWidth="199.0" promptText="Ingredient" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="174.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Button defaultButton="true" layoutX="94.0" layoutY="315.0" mnemonicParsing="false" onAction="#CreateABaseProduct" style="-fx-background-color: gold; -fx-border-color: black;" text="Create a Base Product">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button defaultButton="true" layoutX="208.0" layoutY="231.0" mnemonicParsing="false" onAction="#AddIngredientBaseProduct" prefHeight="33.0" prefWidth="132.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Add Ingredient" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="231.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button defaultButton="true" layoutX="27.0" layoutY="232.0" mnemonicParsing="false" onAction="#EraseLastIngredientBaseProduct" prefHeight="33.0" prefWidth="177.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Erase Last Ingredient" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="162.0" AnchorPane.topAnchor="232.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Label alignment="CENTER" layoutX="77.0" layoutY="14.0" prefHeight="31.0" prefWidth="199.0" text="Create A Base Product" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="14.0">
+               <font>
+                  <Font name="System Bold Italic" size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="txtRegBaseProductMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="277.0" prefHeight="21.0" prefWidth="153.0" />
+            <Separator layoutX="1.0" layoutY="305.0" prefHeight="2.0" prefWidth="360.0" />
+            <Button defaultButton="true" layoutX="131.0" layoutY="355.0" mnemonicParsing="false" onAction="#baseProductBackToView" prefHeight="33.0" prefWidth="103.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Back">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="regBaseProductImage" fitHeight="148.0" fitWidth="910.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

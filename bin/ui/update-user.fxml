@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="916.0" style="-fx-background-color: gold; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="313.0" layoutY="177.0" prefHeight="404.0" prefWidth="360.0" style="-fx-background-color: white; -fx-border-color: black;">
+         <children>
+            <Label layoutX="128.0" layoutY="44.0" text="Update User">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtUpdateUserName" layoutX="85.0" layoutY="101.0" promptText="Name">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtUpdateUserLastnames" layoutX="85.0" layoutY="147.0" promptText="Lastnames">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Button layoutX="212.0" layoutY="337.0" mnemonicParsing="false" onAction="#UpdateUser" prefHeight="37.0" prefWidth="113.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Update" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="37.0" AnchorPane.topAnchor="337.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <TextField fx:id="txtUpdateUserPassword" layoutX="85.0" layoutY="202.0" promptText="Password">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </TextField>
+            <Button layoutX="58.0" layoutY="340.0" mnemonicParsing="false" onAction="#BacktoUserView" prefHeight="33.0" prefWidth="81.0" style="-fx-background-color: gold; -fx-border-color: black;" text="Back">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <RadioButton fx:id="userEnable" layoutX="63.0" layoutY="293.0" mnemonicParsing="false" text="Enable">
+               <toggleGroup>
+                  <ToggleGroup fx:id="userStateGroup" />
+               </toggleGroup>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="userDisable" layoutX="230.0" layoutY="293.0" mnemonicParsing="false" text="Disable" toggleGroup="$userStateGroup">
+               <font>
+                  <Font size="15.0" />
+               </font></RadioButton>
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="updateUserImage" fitHeight="132.0" fitWidth="900.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>
